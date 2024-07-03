@@ -2,7 +2,7 @@ const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
-// Signup
+// Signup - Zohar - its your part i kinda built you a base for it
 exports.signup = async (req, res) => {
   const { userName, password } = req.body;
   try {
@@ -18,7 +18,6 @@ exports.signup = async (req, res) => {
 // Login
 exports.login = async (req, res) => {
   const { userName, password } = req.body;
-  console.log("Login request received:", req.body); // Log request body
   try {
     const user = await User.findOne({ userName });
     if (!user || user.password !== password) {
@@ -32,11 +31,47 @@ exports.login = async (req, res) => {
 };
 
 // Middleware to verify token
+exports.validateToken = (req, res) => {
+  const authHeader = req.headers["authorization"];
+
+  if (!authHeader) {
+    return res.status(403).json({ valid: false, message: "No token provided" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  if (!token) {
+    return res.status(403).json({ valid: false, message: "No token provided" });
+  }
+
+  jwt.verify(token, config.jwtSecret, async (err, decoded) => {
+    if (err) {
+      return res.status(500).json({ valid: false, message: "Failed to authenticate token" });
+    }
+    try {
+      const user = await User.findById(decoded.id).select("userId userName email fullName profilePhoto videosIds");
+      if (!user) {
+        return res.status(404).json({ valid: false, message: "User not found" });
+      }
+      res.status(200).json({ valid: true, user });
+    } catch (error) {
+      res.status(500).json({ valid: false, message: error.message });
+    }
+  });
+};
+
+// Middleware to verify token for routes
 exports.verifyToken = (req, res, next) => {
-  const token = req.headers["authorization"];
+  const authHeader = req.headers["authorization"];
+  if (!authHeader) {
+    return res.status(403).json({ error: "No token provided" });
+  }
+
+  const token = authHeader.split(" ")[1];
   if (!token) {
     return res.status(403).json({ error: "No token provided" });
   }
+
   jwt.verify(token, config.jwtSecret, (err, decoded) => {
     if (err) {
       return res.status(500).json({ error: "Failed to authenticate token" });
@@ -45,7 +80,6 @@ exports.verifyToken = (req, res, next) => {
     next();
   });
 };
-
 // Follow user
 exports.followUser = async (req, res) => {
   const { userIdToFollow } = req.body;
