@@ -13,7 +13,7 @@ const videoSchema = new mongoose.Schema({
   thumbnail: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: String, required: true },
   views: { type: Number, required: true },
   likes: { type: Number, required: true },
   dislikes: { type: Number, required: true },
@@ -21,8 +21,8 @@ const videoSchema = new mongoose.Schema({
   category: { type: String, required: true },
   uploadDate: { type: Date, required: true },
   comments: [commentSchema],
-  likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  dislikedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  likedBy: [{ type: String, required: true }],
+  dislikedBy: [{ type: String, required: true }],
 });
 
 const Video = mongoose.model("Video", videoSchema);

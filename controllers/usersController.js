@@ -80,7 +80,7 @@ exports.verifyToken = (req, res, next) => {
     next();
   });
 };
-// Follow user
+// Follow user - modify
 exports.followUser = async (req, res) => {
   const { userIdToFollow } = req.body;
   try {
@@ -97,7 +97,7 @@ exports.followUser = async (req, res) => {
   }
 };
 
-// Unfollow user
+// Unfollow user - modify
 exports.unfollowUser = async (req, res) => {
   const { userIdToUnfollow } = req.body;
   try {
@@ -129,12 +129,16 @@ exports.isUsernameAvailable = async (req, res) => {
 exports.getUserDetails = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findById(id).select("userId userName email fullName profilePhoto videosIds");
+    const user = await User.findOne({ userId: id }).select("userId userName email fullName profilePhoto videosIds");
+    console.log(user);
     if (!user) {
+      console.log("been here notfound");
       return res.status(404).json({ error: "User not found" });
     }
     res.status(200).json(user);
   } catch (error) {
+    console.log("error");
+
     res.status(500).json({ error: error.message });
   }
 };

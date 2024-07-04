@@ -10,11 +10,11 @@ const userSchema = new mongoose.Schema({
   birthday: { type: Date, required: true },
   country: { type: String, required: true },
   profilePhoto: { type: String, required: true },
-  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-  videosIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
-  likedVideoIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
-  dislikedVideoIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
+  followers: [{ type: String, required: true }],
+  following: [{ type: String, required: true }],
+  videosIds: [{ type: String, required: true }],
+  likedVideoIds: [{ type: String, required: true }],
+  dislikedVideoIds: [{ type: String, required: true }],
 });
 
 const User = mongoose.model("User", userSchema);
