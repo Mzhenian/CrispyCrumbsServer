@@ -129,7 +129,7 @@ exports.isUsernameAvailable = async (req, res) => {
 exports.getUserDetails = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findOne({ userId: id }).select("userId userName email fullName profilePhoto videosIds");
+    const user = await User.findOne({ userId: id });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }

@@ -5,7 +5,6 @@ exports.getVideoById = async (req, res) => {
   const { id } = req.params;
   try {
     const video = await Video.findOne({ videoId: id });
-    console.log(video);
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
@@ -45,9 +44,7 @@ exports.incrementViews = async (req, res) => {};
 // Get all videos
 exports.getAllVideos = async (req, res) => {
   try {
-    const videos = await Video.find()
-      .populate("userId", "userName profilePhoto")
-      .populate("comments.userId", "userName profilePhoto");
+    const videos = await Video.find();
     res.status(200).json(videos);
   } catch (error) {
     console.error("Error fetching videos:", error); // Log any errors
