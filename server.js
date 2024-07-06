@@ -1,19 +1,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const multer = require("multer");
+const path = require("path");
+
 const userRoutes = require("./routes/userRoutes");
 const videoRoutes = require("./routes/videoRoutes");
 
 const config = require("./config/config");
 const cors = require("cors");
 
-const app = express();
+const server = express();
 const port = 1324;
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use("/api/users", userRoutes);
-app.use("/api/videos", videoRoutes);
+server.use(cors());
+server.use(bodyParser.json());
+server.use("/api/users", userRoutes);
+server.use("/api/videos", videoRoutes);
 
 mongoose.set("strictQuery", true);
 
@@ -22,6 +25,17 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-app.listen(port, () => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "DB/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+server.use("/api/db", express.static(path.join(__dirname, "DB")));
+
+server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
