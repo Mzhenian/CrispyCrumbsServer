@@ -6,6 +6,7 @@ const { verifyToken } = userController;
 router.get("/user/:id", userController.getUserDetails);
 router.post("/validateToken", userController.validateToken);
 router.post("/signup", userController.signup);
+router.post("/api/users", userController.signup);
 router.post("/login", userController.login);
 router.post("/follow", verifyToken, userController.followUser);
 router.post("/unfollow", verifyToken, userController.unfollowUser);
