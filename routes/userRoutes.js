@@ -9,8 +9,16 @@ router.get("/:id", userController.getUserDetails);
 router.put("/:id", verifyToken, userController.updateUser);
 router.patch("/:id", verifyToken, userController.updateUser);
 router.delete("/:id", verifyToken, userController.deleteUser);
+router.get("/:id/videos", videoController.getUserVideos);
+router.post("/:id/videos", videoController.createUserVideo);
+router.get("/:id/videos/:pid", videoController.getVideoById);
+// router.put("/:id/videos/:pid", videoController.editVideoById); //todo implement edit function before connecting 
+// router.patch("/:id/videos/:pid", videoController.editVideoById); //todo implement edit function before connecting
+router.delete("/:id/videos/:pid", videoController.deleteUserVideo);
+//todo add comments API routes
+router.post("/", userController.signup);
 router.post("/validateToken", userController.validateToken);
-router.post("/signup", userController.signup);
+router.post("/signup", userController.signup); //todo migrate to /api/users
 router.post("/api/users", userController.signup);
 router.post("/login", userController.login);
 router.post("/follow", verifyToken, userController.followUser);
