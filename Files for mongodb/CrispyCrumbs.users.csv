@@ -1,0 +1,11 @@
+_id,userId,userName,email,password,fullName,phoneNumber,birthday,country,profilePhoto,followers[0],following[0],following[1],videosIds[0],videosIds[1],likedVideoIds[0],likedVideoIds[1],likedVideoIds[2],__v
+6679d4ed94c2dcb530d27ab1,1,IsraelIsraeli,israel.israeli@example.com,password1,Israel Israeli,555-555-5551,1990-01-01,Israel,/users/1.png,2,1,5,1,,1,6,,8
+6679d55394c2dcb530d27ab4,2,MosheCohen,moshe.cohen@example.com,password2,Moshe Cohen,555-555-5552,1985-05-15,Israel,/users/2.png,1,3,,2,,2,6,,
+6679d56294c2dcb530d27ab6,3,MeniMamthera,meni.mamthera@example.com,password3,Meni Mamthera,555-555-5553,1980-09-20,Israel,/users/3.png,2,4,,3,,8,,,
+6679d63794c2dcb530d27abd,5,OriLevi,ori.levi@example.com,password5,Ori Levi,555-555-5555,1988-12-25,Israel,/users/5.jpg,4,6,,5,,1,2,10,
+6679d64194c2dcb530d27abf,6,Tuna,tuna@example.com,password6,Tuna,555-555-5556,1995-07-08,Israel,/users/6.png,5,7,,6,10,,,,
+6679d65094c2dcb530d27ac1,7,JonSmith,jon.smith@example.com,password7,Jon Smith,555-555-5557,1983-04-12,Israel,/users/7.jpg,6,8,,7,,,,,
+6679d65e94c2dcb530d27ac3,8,ArnoldSchwarzenegger,arnold.schwarzenegger@example.com,password8,Arnold Schwarzenegger,555-555-5558,1947-07-30,United States,/users/8.png,7,9,,8,,,,,
+6679d66f94c2dcb530d27ac5,9,DemitriMartin,demitri.martin@example.com,password9,Demitri Martin,555-555-5559,1973-05-25,Israel,/users/9.jpg,,6,,9,,10,8,6,
+6679d68e94c2dcb530d27ac8,4,BeriTzakala,beri.tzakala@example.com,password4,Beri Tzakala,555-555-5554,1992-03-10,Israel,/users/4.png,3,5,,4,,1,,,
+668290b8143f444c633b31d1,,IsraelIsraelirg,,gvsdgsdg,,,,,,,,,,,,,,0

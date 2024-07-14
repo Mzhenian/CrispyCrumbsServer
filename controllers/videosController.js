@@ -22,7 +22,6 @@ exports.getAllVideos = async (req, res) => {
     const videos = await Video.find();
     res.status(200).json(videos);
   } catch (error) {
-    console.error("Error fetching videos:", error); // Log any errors
     res.status(500).json({ error: error.message });
   }
 };

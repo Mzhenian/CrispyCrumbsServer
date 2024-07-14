@@ -108,7 +108,7 @@ exports.unfollowUser = async (req, res) => {
     currentUser.following = currentUser.following.filter((id) => id !== userIdToUnfollow);
     await currentUser.save();
     await User.findByIdAndUpdate(userIdToUnfollow, { $pull: { followers: req.userId } });
-    res.status(200).json({ message: "User unfollowed" });
+    res.status(200).json({ message: "User unfollow" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -138,7 +138,6 @@ exports.getUserDetails = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 // Update user
 exports.updateUser = async (req, res) => {
