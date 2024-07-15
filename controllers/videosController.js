@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 exports.getVideoById = async (req, res) => {
   const { id } = req.params;
   try {
-    const video = await Video.findOne({ videoId: id });
+    const video = await Video.findOne({ _id: id });
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
@@ -84,13 +84,13 @@ exports.createUserVideo = async (req, res) => {
 
 // Delete a specific video for a user
 exports.deleteUserVideo = async (req, res) => {
-  const { id, videoId } = req.params;
+  const { uid, videoId } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(uid);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const video = await Video.findOneAndDelete({ videoId, userId: id });
+    const video = await Video.findOneAndDelete({ _id: videoId, userId: uid });
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }

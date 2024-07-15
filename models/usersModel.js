@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  userId: { type: Number, required: true, unique: true },
+  // _id: { type: mongoose.Types.ObjectId() },
   userName: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -10,11 +10,11 @@ const userSchema = new mongoose.Schema({
   birthday: { type: Date, required: true },
   country: { type: String, required: true },
   profilePhoto: { type: String, required: true },
-  followers: [{ type: Number, required: true }],
-  following: [{ type: Number, required: true }],
-  videosIds: [{ type: Number, required: true }],
-  likedVideoIds: [{ type: String, required: true }],
-  dislikedVideoIds: [{ type: String, required: true }],
+  followers: [{ type: String, required: true, default: [] }],
+  following: [{ type: String, required: true, default: [] }],
+  videosIds: [{ type: String, required: true, default: [] }],
+  likedVideoIds: [{ type: String, required: true, default: [] }],
+  dislikedVideoIds: [{ type: String, required: true, default: [] }],
 });
 
 const User = mongoose.model("User", userSchema);
