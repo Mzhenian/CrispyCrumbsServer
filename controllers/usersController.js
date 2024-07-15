@@ -5,11 +5,8 @@ const config = require("../config/config");
 // Signup - Zohar - its your part i kinda built you a base for it
 exports.signup = async (req, res) => {
   const { userName, email, password, fullName, phoneNumber, birthday, country, profilePhoto } = req.body;
-  tempUserId = "tempUserId";
   try {
     const newUser = new User({
-      userId: Date.now(), //todo migrate from userId to _id
-      tempUserId,
       userName,
       email,
       password,
@@ -21,7 +18,8 @@ exports.signup = async (req, res) => {
     });
     await newUser.save()
     //todo decouple jwt.sign to /api/tokens
-    const token = jwt.sign({ id: newUser._id }, config.jwtSecret, {
+    console.log("newUser", newUser);
+    const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, {
       expiresIn: "1h",
     });
     res.status(201).json({ token, user: newUser });
@@ -38,7 +36,9 @@ exports.login = async (req, res) => {
     if (!user || user.password !== password) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
-    const token = jwt.sign({ id: user._id }, config.jwtSecret, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user._id.toString() }, config.jwtSecret, {
+      expiresIn: "1h",
+    });
     res.status(200).json({ token, user });
   } catch (error) {
     res.status(500).json({ error: error.message });
