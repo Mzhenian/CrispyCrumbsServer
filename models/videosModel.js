@@ -8,9 +8,9 @@ const commentSchema = new mongoose.Schema({
 });
 
 const videoSchema = new mongoose.Schema({
-  videoId: { type: Number, required: true, unique: true },
+  videoId: { type: mongoose.Schema.Types.ObjectId, required: true, unique: true },
   videoFile: { type: String, required: true },
-  thumbnail: { type: String, required: true },
+  thumbnail: { type: String },
   title: { type: String, required: true },
   description: { type: String, required: true },
   userId: { type: Number, required: true },

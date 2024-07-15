@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require("../controllers/usersController");
 const videoController = require("../controllers/videosController");
 const multer = require("multer");
+const path = require("path");
 const { verifyToken } = userController;
 
 router.get("/:id", userController.getUserDetails);
@@ -18,7 +19,7 @@ router.post("/isUsernameAvailable", userController.isUsernameAvailable);
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "DB/");
+    cb(null, "DB/videos/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -27,8 +28,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // video routes
-router.get("/:id/videos", verifyToken, videoController.getUserVideos);
-router.post("/:id/videos", verifyToken, upload.single("videoFile"), videoController.createUserVideo);
+router.get("/:id/videos", videoController.getUserVideos);
+router.post(
+  "/:id/videos",
+  verifyToken,
+  upload.single("videoFile"),
+  (req, res, next) => {
+    console.log("Received file:", req.file);
+    console.log("Received body:", req.body);
+    next();
+  },
+  videoController.createUserVideo
+);
 router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteUserVideo);
 
 module.exports = router;
