@@ -52,7 +52,7 @@ exports.createUserVideo = async (req, res) => {
     const userId = parseInt(id, 10);
 
     const user = await User.findOne({ userId: userId });
-    if (!user) {
+      if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
