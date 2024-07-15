@@ -8,7 +8,6 @@ const commentSchema = new mongoose.Schema({
 });
 
 const videoSchema = new mongoose.Schema({
-  videoId: { type: Number, required: true, unique: true },
   videoFile: { type: String, required: true },
   thumbnail: { type: String, required: true },
   title: { type: String, required: true },
@@ -21,8 +20,8 @@ const videoSchema = new mongoose.Schema({
   category: { type: String, required: true },
   uploadDate: { type: Date, required: true },
   comments: [commentSchema],
-  likedBy: [{ type: Number, required: true }],
-  dislikedBy: [{ type: Number, required: true }],
+  likedBy: [{ type: String, required: true }],
+  dislikedBy: [{ type: String, required: true }],
 });
 
 const Video = mongoose.model("Video", videoSchema);
