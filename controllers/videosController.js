@@ -45,21 +45,21 @@ exports.getUserVideos = async (req, res) => {
 exports.createUserVideo = async (req, res) => {
   const { id } = req.params;
   const { title, description, category, tags } = req.body;
-  const videoFile = req.file.path;
+  const videoFile = req.files.videoFile[0].path;
+  const thumbnail = req.files.thumbnail ? req.files.thumbnail[0].path : null;
 
   try {
-    // Convert the user id to integer if necessary
-    const userId = parseInt(id); // Ensure the id is treated as an integer
+    const userId = parseInt(id, 10);
 
-    const user = await User.findOne({ userId: userId }); // Find by userId instead of _id
+    const user = await User.findOne({ userId: userId });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Create a new video document
     const newVideo = new Video({
       videoId: mongoose.Types.ObjectId(),
-      videoFile,
+      videoFile: `/${videoFile.split("\\").slice(1).join("/")}`,
+      thumbnail: thumbnail ? `/${thumbnail.split("\\").slice(1).join("/")}` : "",
       title,
       description,
       userId: userId,
@@ -74,7 +74,6 @@ exports.createUserVideo = async (req, res) => {
       dislikedBy: [],
     });
 
-    // Save the new video document
     await newVideo.save();
     res.status(201).json(newVideo);
   } catch (error) {

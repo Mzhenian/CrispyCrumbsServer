@@ -19,27 +19,37 @@ router.post("/isUsernameAvailable", userController.isUsernameAvailable);
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "DB/videos/");
+    if (file.mimetype.startsWith("video/")) {
+      cb(null, "DB/videos/");
+    } else if (file.mimetype.startsWith("image/")) {
+      cb(null, "DB/videos/");
+    } else {
+      cb(new Error("Invalid file type"), false);
+    }
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
+
 const upload = multer({ storage });
 
-// video routes
 router.get("/:id/videos", videoController.getUserVideos);
 router.post(
   "/:id/videos",
   verifyToken,
-  upload.single("videoFile"),
+  upload.fields([
+    { name: "videoFile", maxCount: 1 },
+    { name: "thumbnail", maxCount: 1 },
+  ]),
   (req, res, next) => {
-    console.log("Received file:", req.file);
+    console.log("Received files:", req.files);
     console.log("Received body:", req.body);
     next();
   },
   videoController.createUserVideo
 );
+
 router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteUserVideo);
 
 module.exports = router;
