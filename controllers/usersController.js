@@ -2,7 +2,6 @@ const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
-// Signup - Zohar - its your part i kinda built you a base for it
 exports.signup = async (req, res) => {
   const { userName, email, password, fullName, phoneNumber, birthday, country, profilePhoto } = req.body;
   try {
@@ -91,7 +90,7 @@ exports.verifyToken = (req, res, next) => {
     if (err) {
       return res.status(500).json({ error: "Failed to authenticate token" });
     }
-    req.userId = decoded.id;
+    req.userId = decoded.id.toString();
     next();
   });
 };
@@ -105,7 +104,9 @@ exports.followUser = async (req, res) => {
     }
     currentUser.following.push(userIdToFollow);
     await currentUser.save();
-    await User.findByIdAndUpdate(userIdToFollow, { $push: { followers: req.userId } });
+    await User.findByIdAndUpdate(userIdToFollow, {
+      $push: { followers: req.userId.toString() },
+    });
     res.status(200).json({ message: "User followed" });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -122,7 +123,9 @@ exports.unfollowUser = async (req, res) => {
     }
     currentUser.following = currentUser.following.filter((id) => id !== userIdToUnfollow);
     await currentUser.save();
-    await User.findByIdAndUpdate(userIdToUnfollow, { $pull: { followers: req.userId } });
+    await User.findByIdAndUpdate(userIdToUnfollow, {
+      $pull: { followers: req.userId.toString() },
+    });
     res.status(200).json({ message: "User unfollow" });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -144,7 +147,7 @@ exports.isUsernameAvailable = async (req, res) => {
 exports.getUserDetails = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findOne({ userId: id });
+    const user = await User.findOne({ _id: id });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema({
   commentId: { type: Number, required: true, unique: true },
-  userId: { type: Number, required: true },
+  userId: { type: String, required: true },
   comment: { type: String, required: true },
   date: { type: Date, required: true },
 });
@@ -13,7 +13,7 @@ const videoSchema = new mongoose.Schema({
   thumbnail: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
-  userId: { type: Number, required: true },
+  userId: { type: String, required: true },
   views: { type: Number, required: true },
   likes: { type: Number, required: true },
   dislikes: { type: Number, required: true },
