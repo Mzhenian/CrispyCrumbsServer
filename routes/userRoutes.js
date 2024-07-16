@@ -2,21 +2,17 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/usersController");
 const videoController = require("../controllers/videosController");
-const multer = require("multer");
 const path = require("path");
+const multer = require("multer");
 const { verifyToken } = userController;
 
-router.get("/:id", userController.getUserDetails);
-router.put("/:id", verifyToken, userController.updateUser);
-router.patch("/:id", verifyToken, userController.updateUser);
-router.delete("/:id", verifyToken, userController.deleteUser);
-
+// Multer storage configuration for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.mimetype.startsWith("video/")) {
       cb(null, "DB/videos/");
     } else if (file.mimetype.startsWith("image/")) {
-      cb(null, "DB/videos/");
+      cb(null, "DB/thumbnails/");
     } else {
       cb(new Error("Invalid file type"), false);
     }
@@ -28,7 +24,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// video routes
+// User routes
+router.get("/:id", userController.getUserDetails);
+router.put("/:id", verifyToken, userController.updateUser);
+router.patch("/:id", verifyToken, userController.updateUser);
+router.delete("/:id", verifyToken, userController.deleteUser);
+
+// Video routes
 router.get("/:id/videos", verifyToken, videoController.getUserVideos);
 router.post(
   "/:id/videos",
@@ -47,9 +49,10 @@ router.post(
 
 router.get("/:id/videos/:pid", videoController.getVideoById);
 router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteUserVideo);
-router.delete("/:id/videos/:pid", videoController.deleteUserVideo);
+router.delete("/:id/videos/:pid", verifyToken, videoController.deleteUserVideo);
+router.post("/", userController.signup);
 
-// Other routes
+// Authentication and validation routes
 router.post("/validateToken", userController.validateToken);
 router.post("/signup", userController.signup);
 router.post("/login", userController.login);

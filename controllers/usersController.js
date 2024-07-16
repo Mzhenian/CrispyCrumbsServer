@@ -15,7 +15,7 @@ exports.signup = async (req, res) => {
       country,
       profilePhoto,
     });
-    await newUser.save()
+    await newUser.save();
     //todo decouple jwt.sign to /api/tokens
     console.log("newUser", newUser);
     const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, {
@@ -26,6 +26,7 @@ exports.signup = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 // Login
 exports.login = async (req, res) => {
