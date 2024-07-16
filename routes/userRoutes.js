@@ -10,9 +10,9 @@ const { verifyToken } = userController;
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.mimetype.startsWith("video/")) {
-      cb(null, "DB/videos/");
+      cb(null, "DB/videos/"); // Correct path for video files
     } else if (file.mimetype.startsWith("image/")) {
-      cb(null, "DB/thumbnails/");
+      cb(null, "DB/thumbnails/"); // Correct path for image files (thumbnails)
     } else {
       cb(new Error("Invalid file type"), false);
     }

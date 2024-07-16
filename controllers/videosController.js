@@ -44,8 +44,18 @@ exports.getUserVideos = async (req, res) => {
 // Create a new video for a user
 exports.createUserVideo = async (req, res) => {
   const { userId, title, description, category, tags } = req.body;
-  const videoFile = req.files.videoFile[0].path;
+  const videoFile = req.files.videoFile ? req.files.videoFile[0].path : null;
   const thumbnail = req.files.thumbnail ? req.files.thumbnail[0].path : null;
+
+  // Validate that all required fields have values
+  if (!userId || !title || !description || !category || !videoFile) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  // Check if the user ID from the token matches the user ID in the request body
+  if (userId !== req.decodedUserId) {
+    return res.status(403).json({ error: "User ID does not match token" });
+  }
 
   try {
     const user = await User.findById(userId);
@@ -61,7 +71,7 @@ exports.createUserVideo = async (req, res) => {
       description,
       userId: userId.toString(), // Ensure userId is stored as a string
       category,
-      tags,
+      tags: tags.split(",").map((tag) => tag.trim()), // Split and trim tags
       uploadDate: new Date(),
       views: 0,
       likes: 0,

@@ -27,7 +27,6 @@ exports.signup = async (req, res) => {
   }
 };
 
-
 // Login
 exports.login = async (req, res) => {
   const { userName, password } = req.body;
@@ -45,7 +44,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// Middleware to verify token
+// Verify token
 exports.validateToken = (req, res) => {
   const authHeader = req.headers["authorization"];
 
@@ -75,7 +74,7 @@ exports.validateToken = (req, res) => {
   });
 };
 
-// Middleware to verify token for routes
+// Verify token for routes
 exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader) {
@@ -91,10 +90,11 @@ exports.verifyToken = (req, res, next) => {
     if (err) {
       return res.status(500).json({ error: "Failed to authenticate token" });
     }
-    req.userId = decoded.id.toString();
+    req.decodedUserId = decoded.id.toString(); // Attach the decoded user ID to the request
     next();
   });
 };
+
 // Follow user - modify
 exports.followUser = async (req, res) => {
   const { userIdToFollow } = req.body;
