@@ -1,1 +1,7 @@
 node_modules
+todo_remove
+/config/config.js
+.idea/CrispyCrumbsServer.code-workspace
+config/config.js
+/.idea
+/.vscode

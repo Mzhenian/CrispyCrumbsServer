@@ -5,7 +5,7 @@ const videoController = require("../controllers/videosController");
 
 // General video routes
 router.get("/", videoController.getAllVideos);
-router.get("/:id", videoController.getVideoById);
+router.get("/:id", videoController.getVideoById);//todo migrate to /api/users/:id/videos/:pid
 router.post("/like", videoController.likeVideo);
 router.post("/dislike", videoController.dislikeVideo);
 
