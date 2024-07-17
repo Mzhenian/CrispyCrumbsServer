@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  // _id: { type: mongoose.Types.ObjectId() },
   userName: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   fullName: { type: String, required: true },
-  phoneNumber: { type: Number, required: true },
+  phoneNumber: { type: String, required: true }, // Ensure phoneNumber is a string
   birthday: { type: Date, required: true },
   country: { type: String, required: true },
   profilePhoto: { type: String, required: true },
@@ -20,3 +19,4 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
+

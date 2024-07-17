@@ -30,7 +30,7 @@ exports.getAllVideos = async (req, res) => {
 exports.getUserVideos = async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findOne({ userId: id });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -43,21 +43,35 @@ exports.getUserVideos = async (req, res) => {
 
 // Create a new video for a user
 exports.createUserVideo = async (req, res) => {
-  const { id } = req.params;
-  const { title, description, category, tags } = req.body;
-  const videoFile = req.file.path;
+  const { userId, title, description, category, tags } = req.body;
+  const videoFile = req.files.videoFile ? req.files.videoFile[0].path : null;
+  const thumbnail = req.files.thumbnail ? req.files.thumbnail[0].path : null;
+
+  // Validate that all required fields have values
+  if (!userId || !title || !description || !category || !videoFile) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  // Check if the user ID from the token matches the user ID in the request body
+  if (userId !== req.decodedUserId) {
+    return res.status(403).json({ error: "User ID does not match token" });
+  }
+
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
     const newVideo = new Video({
-      videoFile,
+      videoId: new mongoose.Types.ObjectId(),
+      videoFile: `/${videoFile.split("\\").slice(1).join("/")}`,
+      thumbnail: thumbnail ? `/${thumbnail.split("\\").slice(1).join("/")}` : "",
       title,
       description,
-      userId: id,
+      userId: userId.toString(), // Ensure userId is stored as a string
       category,
-      tags,
+      tags: tags.split(",").map((tag) => tag.trim()), // Split and trim tags
       uploadDate: new Date(),
       views: 0,
       likes: 0,
@@ -66,9 +80,16 @@ exports.createUserVideo = async (req, res) => {
       likedBy: [],
       dislikedBy: [],
     });
+
     await newVideo.save();
+
+    // Add the new video's ID to the user's videosIds array
+    user.videosIds.push(newVideo._id);
+    await user.save();
+
     res.status(201).json(newVideo);
   } catch (error) {
+    console.error("Error creating new video:", error);
     res.status(500).json({ error: error.message });
   }
 };
