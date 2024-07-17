@@ -177,22 +177,24 @@ exports.dislikeVideo = async (req, res) => {
 };
 
 exports.addComment = async (req, res) => {
-  const { videoId, userId, commentText } = req.body;
+  const { videoId, userId, commentText, date } = req.body;
+  
   try {
     const video = await Video.findById(videoId);
+    
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
-
     const newComment = {
       commentId: Date.now().toString(),
       userId,
       comment: commentText,
-      date: new Date(), // Ensure the date is provided
+      date: new Date(date), // Ensure the date is correctly parsed
     };
-
+    
     video.comments.push(newComment);
     await video.save();
+    
     res.status(200).json(video);
   } catch (error) {
     console.error("Error in addComment:", error);
@@ -200,6 +202,69 @@ exports.addComment = async (req, res) => {
   }
 };
 
+
+exports.editComment = async (req, res) => {
+  const { videoId, commentId, userId, commentText } = req.body;
+
+  // Log the received request body for debugging
+  console.log("Received request body:", req.body);
+
+  try {
+    const video = await Video.findById(videoId);
+
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    const comment = video.comments.find(comment => comment.commentId === commentId && comment.userId === userId);
+
+    // Log the comment to be edited
+    console.log("Comment found:", comment);
+
+    if (!comment) {
+      return res.status(404).json({ error: "Comment not found or user not authorized" });
+    }
+
+    comment.comment = req.body.comment;
+    comment.date = new Date(); // Update the date to the current date
+
+    // Log the updated comment
+    console.log("Updated comment object:", comment);
+
+    await video.save();
+
+    // Log the video object after updating the comment
+    console.log("Updated video object:", video);
+
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error in editComment:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+exports.deleteComment = async (req, res) => {
+  const { videoId, commentId, userId } = req.body;
+  try {
+    const video = await Video.findById(videoId);
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    const commentIndex = video.comments.findIndex(comment => comment.commentId === commentId && comment.userId === userId);
+    if (commentIndex === -1) {
+      return res.status(404).json({ error: "Comment not found or user not authorized" });
+    }
+
+    video.comments.splice(commentIndex, 1);
+    await video.save();
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error in deleteComment:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
 
 // Increment video views
 exports.incrementViews = async (req, res) => {
