@@ -98,7 +98,7 @@ exports.createUserVideo = async (req, res) => {
 exports.editVideo = async (req, res) => {
   const { id } = req.params;
   const { title, description, category, tags, thumbnail, videoFile } = req.body;
-
+  console.log("Called edit in controller");
   try {
     const video = await Video.findById(id);
 
