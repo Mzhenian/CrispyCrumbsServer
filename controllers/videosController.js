@@ -94,20 +94,48 @@ exports.createUserVideo = async (req, res) => {
   }
 };
 
-// Delete a specific video for a user
-exports.deleteUserVideo = async (req, res) => {
-  const { uid, videoId } = req.params;
+// Edit a specific video
+exports.editVideo = async (req, res) => {
+  const { id } = req.params;
+  const { title, description, category, tags, thumbnail, videoFile } = req.body;
+
   try {
-    const user = await User.findById(uid);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    const video = await Video.findOneAndDelete({ _id: videoId, userId: uid });
+    const video = await Video.findById(id);
+
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
+
+    video.title = title;
+    video.description = description;
+    video.category = category;
+    video.tags = tags;
+    video.thumbnail = thumbnail;
+    video.videoFile = videoFile;
+
+    await video.save();
+
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error editing video:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Delete a specific video
+exports.deleteVideo = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const video = await Video.findByIdAndDelete(id);
+
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
     res.status(200).json({ message: "Video deleted successfully" });
   } catch (error) {
+    console.error("Error deleting video:", error);
     res.status(500).json({ error: error.message });
   }
 };

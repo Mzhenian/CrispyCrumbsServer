@@ -48,8 +48,7 @@ router.post(
 );
 
 router.get("/:id/videos/:pid", videoController.getVideoById);
-router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteUserVideo);
-router.delete("/:id/videos/:pid", verifyToken, videoController.deleteUserVideo);
+router.delete("/:id/videos/:videoId", userController.verifyToken, videoController.deleteVideo);
 router.post("/", userController.signup);
 
 // Authentication and validation routes
