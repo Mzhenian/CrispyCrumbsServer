@@ -16,35 +16,30 @@ exports.signup = async (req, res) => {
       profilePhoto,
     });
     await newUser.save();
-    //todo decouple jwt.sign to /api/tokens
-    console.log("newUser", newUser);
-    const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, { expiresIn: "1h" });
     res.status(201).json({ token, user: newUser });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// Login
 exports.login = async (req, res) => {
-  const { userName, password } = req.body;
+  const { userName, password, rememberMe } = req.body;
   try {
     const user = await User.findOne({ userName });
     if (!user || user.password !== password) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
-    const token = jwt.sign({ id: user._id.toString() }, config.jwtSecret, {
-      expiresIn: "1h",
-    });
+
+    const tokenOptions = rememberMe ? { expiresIn: "30d" } : { expiresIn: "1h" };
+    const token = jwt.sign({ id: user._id.toString() }, config.jwtSecret, tokenOptions);
+
     res.status(200).json({ token, user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Verify token
 exports.validateToken = (req, res) => {
   const authHeader = req.headers["authorization"];
 
