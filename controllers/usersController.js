@@ -1,4 +1,5 @@
 const User = require("../models/usersModel");
+const Video = require("../models/videosModel");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
@@ -140,7 +141,7 @@ exports.isUsernameAvailable = async (req, res) => {
 };
 
 // Get user details
-exports.getUserDetails = async (req, res) => {
+exports.getUserBasicDetails = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findOne({ _id: id });
@@ -148,6 +149,28 @@ exports.getUserDetails = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
     res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get all videos for a user with detailed information
+exports.getUserVideos = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const videoIds = user.videosIds;
+
+    const videoDetailsPromises = videoIds.map(async (videoId) => {
+      const video = await Video.findById(videoId);
+      return video;
+    });
+
+    const videoDetails = await Promise.all(videoDetailsPromises);
+    res.status(200).json(videoDetails);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -25,13 +25,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // User routes
-router.get("/:id", userController.getUserDetails);
+router.get("/:id", userController.getUserBasicDetails);
 router.put("/:id", verifyToken, userController.updateUser);
 router.patch("/:id", verifyToken, userController.updateUser);
 router.delete("/:id", verifyToken, userController.deleteUser);
 
 // Video routes
-router.get("/:id/videos", verifyToken, videoController.getUserVideos);
 router.post(
   "/:id/videos",
   verifyToken,
@@ -47,7 +46,7 @@ router.post(
   videoController.createUserVideo
 );
 
-router.get("/:id/videos/:pid", videoController.getVideoById);
+router.get("/:id/videos/", userController.getUserVideos);
 router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteUserVideo);
 router.delete("/:id/videos/:pid", verifyToken, videoController.deleteUserVideo);
 router.post("/", userController.signup);
