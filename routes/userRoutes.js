@@ -12,7 +12,9 @@ const storage = multer.diskStorage({
     if (file.mimetype.startsWith("video/")) {
       cb(null, "DB/videos/"); // Correct path for video files
     } else if (file.mimetype.startsWith("image/")) {
-      cb(null, "DB/thumbnails/"); // Correct path for image files (thumbnails)
+      // Check if the field name is 'profilePhoto' to determine the correct directory
+      const dest = file.fieldname === "profilePhoto" ? "DB/users/" : "DB/thumbnails/";
+      cb(null, dest); // Correct path for image files
     } else {
       cb(new Error("Invalid file type"), false);
     }
@@ -49,12 +51,12 @@ router.post(
 router.get("/:id/videos/", userController.getUserVideos);
 router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteUserVideo);
 router.delete("/:id/videos/:pid", verifyToken, videoController.deleteUserVideo);
-router.post("/", userController.signup);
 
 // Authentication and validation routes
 router.post("/validateToken", userController.validateToken);
-router.post("/signup", userController.signup);
 router.post("/login", userController.login);
+router.post("/", upload.single("profilePhoto"), userController.signup);
+
 router.post("/follow", verifyToken, userController.followUser);
 router.post("/unfollow", verifyToken, userController.unfollowUser);
 router.post("/isUsernameAvailable", userController.isUsernameAvailable);

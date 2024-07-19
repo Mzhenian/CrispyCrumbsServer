@@ -4,7 +4,9 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
 exports.signup = async (req, res) => {
-  const { userName, email, password, fullName, phoneNumber, birthday, country, profilePhoto } = req.body;
+  const { userName, email, password, fullName, phoneNumber, birthday, country } = req.body;
+  const profilePhoto = req.file ? req.file.path : null;
+
   try {
     const newUser = new User({
       userName,
@@ -14,10 +16,10 @@ exports.signup = async (req, res) => {
       phoneNumber,
       birthday,
       country,
-      profilePhoto,
+      profilePhoto: profilePhoto ? `/${profilePhoto.split("\\").slice(1).join("/")}` : "",
     });
     await newUser.save();
-    const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, { expiresIn: "1h" });
+    const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, { expiresIn: "30d" });
     res.status(201).json({ token, user: newUser });
   } catch (error) {
     res.status(400).json({ error: error.message });
