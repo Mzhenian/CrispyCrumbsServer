@@ -28,8 +28,8 @@ const upload = multer({ storage });
 
 // User routes
 router.get("/:id", userController.getUserBasicDetails);
-router.put("/:id", verifyToken, userController.updateUser);
-router.patch("/:id", verifyToken, userController.updateUser);
+router.put("/:id", verifyToken, upload.single("profilePhoto"), userController.updateUser);
+router.patch("/:id", verifyToken, upload.single("profilePhoto"), userController.updateUser);
 router.delete("/:id", verifyToken, userController.deleteUser);
 
 // Video routes
