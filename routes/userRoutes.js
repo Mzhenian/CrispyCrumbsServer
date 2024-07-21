@@ -12,7 +12,9 @@ const storage = multer.diskStorage({
     if (file.mimetype.startsWith("video/")) {
       cb(null, "DB/videos/"); // Correct path for video files
     } else if (file.mimetype.startsWith("image/")) {
-      cb(null, "DB/thumbnails/"); // Correct path for image files (thumbnails)
+      // Check if the field name is 'profilePhoto' to determine the correct directory
+      const dest = file.fieldname === "profilePhoto" ? "DB/users/" : "DB/thumbnails/";
+      cb(null, dest); // Correct path for image files
     } else {
       cb(new Error("Invalid file type"), false);
     }
@@ -25,13 +27,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // User routes
-router.get("/:id", userController.getUserDetails);
-router.put("/:id", verifyToken, userController.updateUser);
-router.patch("/:id", verifyToken, userController.updateUser);
+router.get("/:id", userController.getUserBasicDetails);
+router.put("/:id", verifyToken, upload.single("profilePhoto"), userController.updateUser);
+router.patch("/:id", verifyToken, upload.single("profilePhoto"), userController.updateUser);
 router.delete("/:id", verifyToken, userController.deleteUser);
 
 // Video routes
-router.get("/:id/videos", verifyToken, videoController.getUserVideos);
 router.post(
   "/:id/videos",
   verifyToken,
@@ -47,17 +48,18 @@ router.post(
   videoController.createUserVideo
 );
 
-router.get("/:id/videos/:pid", videoController.getVideoById);
+router.get("/:id/videos/", userController.getUserVideos);
 router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteUserVideo);
 router.delete("/:id/videos/:pid", verifyToken, videoController.deleteUserVideo);
-router.post("/", userController.signup);
 
 // Authentication and validation routes
 router.post("/validateToken", userController.validateToken);
-router.post("/signup", userController.signup);
 router.post("/login", userController.login);
+router.post("/", upload.single("profilePhoto"), userController.signup);
+
 router.post("/follow", verifyToken, userController.followUser);
 router.post("/unfollow", verifyToken, userController.unfollowUser);
 router.post("/isUsernameAvailable", userController.isUsernameAvailable);
+router.post("/isEmailAvailable", userController.isEmailAvailable);
 
 module.exports = router;
