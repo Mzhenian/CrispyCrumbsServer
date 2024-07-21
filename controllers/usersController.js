@@ -1,5 +1,6 @@
 const User = require("../models/usersModel");
 const Video = require("../models/videosModel");
+const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
@@ -18,8 +19,11 @@ exports.signup = async (req, res) => {
       country,
       profilePhoto: profilePhoto ? `/${profilePhoto.split("\\").slice(1).join("/")}` : "",
     });
+
     await newUser.save();
+
     const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, { expiresIn: "30d" });
+
     res.status(201).json({ token, user: newUser });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -61,7 +65,9 @@ exports.validateToken = (req, res) => {
       return res.status(500).json({ valid: false, message: "Failed to authenticate token" });
     }
     try {
-      const user = await User.findById(decoded.id).select("userId userName email fullName profilePhoto videosIds");
+      const user = await User.findById(decoded.id).select(
+        "userId userName email fullName profilePhoto phoneNumber videosIds birthday country"
+      );
       if (!user) {
         return res.status(404).json({ valid: false, message: "User not found" });
       }
@@ -159,6 +165,17 @@ exports.isUsernameAvailable = async (req, res) => {
   }
 };
 
+// Check if email is available
+exports.isEmailAvailable = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email: email });
+    res.status(200).json({ available: !user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Get user details
 exports.getUserBasicDetails = async (req, res) => {
   const { id } = req.params;
@@ -216,15 +233,29 @@ exports.updateUser = async (req, res) => {
 };
 
 // Delete user
+
 exports.deleteUser = async (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
+
   try {
-    const deletedUser = await User.findByIdAndDelete(id);
-    if (!deletedUser) {
+    // Find the user
+    const user = await User.findById(id);
+    if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    res.status(200).json({ message: "User deleted successfully" });
+
+    // Delete all videos by the user
+    await Video.deleteMany({ userId: id });
+
+    // Delete all comments made by the user in other videos
+    await Video.updateMany({ "comments.userId": id }, { $pull: { comments: { userId: id } } });
+
+    // Delete the user
+    await User.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "User, videos, and comments deleted successfully" });
   } catch (error) {
+    console.error("Error deleting user:", error);
     res.status(500).json({ error: error.message });
   }
 };

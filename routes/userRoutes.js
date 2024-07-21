@@ -60,5 +60,6 @@ router.post("/", upload.single("profilePhoto"), userController.signup);
 router.post("/follow", verifyToken, userController.followUser);
 router.post("/unfollow", verifyToken, userController.unfollowUser);
 router.post("/isUsernameAvailable", userController.isUsernameAvailable);
+router.post("/isEmailAvailable", userController.isEmailAvailable);
 
 module.exports = router;

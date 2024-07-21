@@ -5,10 +5,10 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   fullName: { type: String, required: true },
-  phoneNumber: { type: String, required: true }, // Ensure phoneNumber is a string
+  phoneNumber: { type: String, required: true }, 
   birthday: { type: Date, required: true },
   country: { type: String, required: true },
-  profilePhoto: { type: String, required: true },
+  profilePhoto: { type: String, default: null },
   followers: [{ type: String, required: true, default: [] }],
   following: [{ type: String, required: true, default: [] }],
   videosIds: [{ type: String, required: true, default: [] }],
@@ -19,4 +19,3 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
-
