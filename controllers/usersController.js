@@ -1,9 +1,13 @@
 const User = require("../models/usersModel");
+const Video = require("../models/videosModel");
+const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
 exports.signup = async (req, res) => {
-  const { userName, email, password, fullName, phoneNumber, birthday, country, profilePhoto } = req.body;
+  const { userName, email, password, fullName, phoneNumber, birthday, country } = req.body;
+  const profilePhoto = req.file ? req.file.path : null;
+
   try {
     const newUser = new User({
       userName,
@@ -13,10 +17,13 @@ exports.signup = async (req, res) => {
       phoneNumber,
       birthday,
       country,
-      profilePhoto,
+      profilePhoto: profilePhoto ? `/${profilePhoto.split("\\").slice(1).join("/")}` : "",
     });
+
     await newUser.save();
-    const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, { expiresIn: "1h" });
+
+    const token = jwt.sign({ id: newUser._id.toString() }, config.jwtSecret, { expiresIn: "30d" });
+
     res.status(201).json({ token, user: newUser });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -58,7 +65,9 @@ exports.validateToken = (req, res) => {
       return res.status(500).json({ valid: false, message: "Failed to authenticate token" });
     }
     try {
-      const user = await User.findById(decoded.id).select("userId userName email fullName profilePhoto videosIds");
+      const user = await User.findById(decoded.id).select(
+        "userId userName email fullName profilePhoto phoneNumber videosIds birthday country"
+      );
       if (!user) {
         return res.status(404).json({ valid: false, message: "User not found" });
       }
@@ -67,6 +76,23 @@ exports.validateToken = (req, res) => {
       res.status(500).json({ valid: false, message: error.message });
     }
   });
+};
+
+exports.updateUser = async (req, res) => {
+  const { id } = req.params;
+  const updateData = req.body;
+  if (req.file) {
+    updateData.profilePhoto = `/${req.file.path.split("\\").slice(1).join("/")}`;
+  }
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 // Verify token for routes
@@ -90,39 +116,56 @@ exports.verifyToken = (req, res, next) => {
   });
 };
 
-// Follow user - modify
+// Follow user
 exports.followUser = async (req, res) => {
   const { userIdToFollow } = req.body;
+  const userId = req.decodedUserId;
+  console.log("Subscribed : ", userIdToFollow);
+  console.log("Subscriber : ", userId);
+
   try {
-    const currentUser = await User.findById(req.userId);
-    if (currentUser.following.includes(userIdToFollow)) {
-      return res.status(400).json({ error: "Already following this user" });
+    const userToFollow = await User.findById(userIdToFollow);
+    const currentUser = await User.findById(userId);
+
+    if (!userToFollow || !currentUser) {
+      return res.status(404).json({ message: "User not found" });
     }
-    currentUser.following.push(userIdToFollow);
-    await currentUser.save();
-    await User.findByIdAndUpdate(userIdToFollow, {
-      $push: { followers: req.userId.toString() },
-    });
-    res.status(200).json({ message: "User followed" });
+
+    if (!currentUser.following.includes(userIdToFollow)) {
+      currentUser.following.push(userIdToFollow);
+      userToFollow.followers.push(userId);
+      await currentUser.save();
+      await userToFollow.save();
+    }
+
+    res.status(200).json({ message: "User followed successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Unfollow user - modify
 exports.unfollowUser = async (req, res) => {
   const { userIdToUnfollow } = req.body;
+  const userId = req.decodedUserId;
+  console.log("UnSubscribed : ", userIdToUnfollow);
+  console.log("Subscriber : ", userId);
+
   try {
-    const currentUser = await User.findById(req.userId);
-    if (!currentUser.following.includes(userIdToUnfollow)) {
-      return res.status(400).json({ error: "Not following this user" });
+    const userToUnfollow = await User.findById(userIdToUnfollow);
+    const currentUser = await User.findById(userId);
+
+    if (!userToUnfollow || !currentUser) {
+      return res.status(404).json({ message: "User not found" });
     }
-    currentUser.following = currentUser.following.filter((id) => id !== userIdToUnfollow);
-    await currentUser.save();
-    await User.findByIdAndUpdate(userIdToUnfollow, {
-      $pull: { followers: req.userId.toString() },
-    });
-    res.status(200).json({ message: "User unfollow" });
+
+    if (currentUser.following.includes(userIdToUnfollow)) {
+      currentUser.following.pull(userIdToUnfollow);
+      userToUnfollow.followers.pull(userId);
+      await currentUser.save();
+      await userToUnfollow.save();
+    }
+
+    res.status(200).json({ message: "User unfollowed successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -139,8 +182,19 @@ exports.isUsernameAvailable = async (req, res) => {
   }
 };
 
+// Check if email is available
+exports.isEmailAvailable = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email: email });
+    res.status(200).json({ available: !user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Get user details
-exports.getUserDetails = async (req, res) => {
+exports.getUserBasicDetails = async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findOne({ _id: id });
@@ -153,10 +207,37 @@ exports.getUserDetails = async (req, res) => {
   }
 };
 
+// Get all videos for a user with detailed information
+exports.getUserVideos = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const videoIds = user.videosIds;
+
+    const videoDetailsPromises = videoIds.map(async (videoId) => {
+      const video = await Video.findById(videoId);
+      return video;
+    });
+
+    const videoDetails = await Promise.all(videoDetailsPromises);
+    res.status(200).json(videoDetails);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Update user
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
-  const updateData = req.body;
+  const updateData = { ...req.body };
+
+  if (req.file) {
+    updateData.profilePhoto = `/${req.file.path.split("\\").slice(1).join("/")}`;
+  }
+
   try {
     const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
     if (!updatedUser) {
@@ -169,15 +250,29 @@ exports.updateUser = async (req, res) => {
 };
 
 // Delete user
+
 exports.deleteUser = async (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
+
   try {
-    const deletedUser = await User.findByIdAndDelete(id);
-    if (!deletedUser) {
+    // Find the user
+    const user = await User.findById(id);
+    if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    res.status(200).json({ message: "User deleted successfully" });
+
+    // Delete all videos by the user
+    await Video.deleteMany({ userId: id });
+
+    // Delete all comments made by the user in other videos
+    await Video.updateMany({ "comments.userId": id }, { $pull: { comments: { userId: id } } });
+
+    // Delete the user
+    await User.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "User, videos, and comments deleted successfully" });
   } catch (error) {
+    console.error("Error deleting user:", error);
     res.status(500).json({ error: error.message });
   }
 };
