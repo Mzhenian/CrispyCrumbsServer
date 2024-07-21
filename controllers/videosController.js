@@ -94,14 +94,14 @@ exports.createUserVideo = async (req, res) => {
   }
 };
 
-// Edit a specific video
 exports.editVideo = async (req, res) => {
   const { id } = req.params;
-  const { title, description, category, tags, thumbnail, videoFile } = req.body;
-  console.log("Called edit in controller");
+  const { title, description, category, tags } = req.body;
+  const thumbnail = req.files && req.files.thumbnail ? req.files.thumbnail[0].path : null;
+  const videoFile = req.files && req.files.videoFile ? req.files.videoFile[0].path : null;
+
   try {
     const video = await Video.findById(id);
-
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
@@ -110,8 +110,8 @@ exports.editVideo = async (req, res) => {
     video.description = description;
     video.category = category;
     video.tags = tags;
-    video.thumbnail = thumbnail;
-    video.videoFile = videoFile;
+    if (thumbnail) video.thumbnail = `/${thumbnail.split("\\").slice(1).join("/")}`;
+    if (videoFile) video.videoFile = `/${videoFile.split("\\").slice(1).join("/")}`;
 
     await video.save();
 
@@ -121,6 +121,7 @@ exports.editVideo = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Delete a specific video
 exports.deleteVideo = async (req, res) => {
@@ -230,7 +231,6 @@ exports.addComment = async (req, res) => {
   }
 };
 
-
 exports.editComment = async (req, res) => {
   const { videoId, commentId, userId, commentText } = req.body;
 
@@ -270,7 +270,6 @@ exports.editComment = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 exports.deleteComment = async (req, res) => {
   const { videoId, commentId, userId } = req.body;
