@@ -116,12 +116,9 @@ exports.verifyToken = (req, res, next) => {
   });
 };
 
-// Follow user
 exports.followUser = async (req, res) => {
   const { userIdToFollow } = req.body;
   const userId = req.decodedUserId;
-  console.log("Subscribed : ", userIdToFollow);
-  console.log("Subscriber : ", userId);
 
   try {
     const userToFollow = await User.findById(userIdToFollow);
@@ -147,8 +144,6 @@ exports.followUser = async (req, res) => {
 exports.unfollowUser = async (req, res) => {
   const { userIdToUnfollow } = req.body;
   const userId = req.decodedUserId;
-  console.log("UnSubscribed : ", userIdToUnfollow);
-  console.log("Subscriber : ", userId);
 
   try {
     const userToUnfollow = await User.findById(userIdToUnfollow);
@@ -170,6 +165,7 @@ exports.unfollowUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Check if username is available
 exports.isUsernameAvailable = async (req, res) => {
