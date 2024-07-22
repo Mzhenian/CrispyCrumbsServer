@@ -78,23 +78,6 @@ exports.validateToken = (req, res) => {
   });
 };
 
-exports.updateUser = async (req, res) => {
-  const { id } = req.params;
-  const updateData = req.body;
-  if (req.file) {
-    updateData.profilePhoto = `/${req.file.path.split("\\").slice(1).join("/")}`;
-  }
-  try {
-    const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
-    if (!updatedUser) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
 // Verify token for routes
 exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
