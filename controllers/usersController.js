@@ -119,12 +119,15 @@ exports.verifyToken = (req, res, next) => {
 exports.followUser = async (req, res) => {
   const { userIdToFollow } = req.body;
   const userId = req.decodedUserId;
+  console.log("Attempting to follow user:", userIdToFollow);
+  console.log("Current user:", userId);
 
   try {
     const userToFollow = await User.findById(userIdToFollow);
     const currentUser = await User.findById(userId);
 
     if (!userToFollow || !currentUser) {
+      console.error("User not found");
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -133,10 +136,12 @@ exports.followUser = async (req, res) => {
       userToFollow.followers.push(userId);
       await currentUser.save();
       await userToFollow.save();
+      console.log("Successfully followed user:", userIdToFollow);
     }
 
     res.status(200).json({ message: "User followed successfully" });
   } catch (error) {
+    console.error("Error following user:", error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -144,12 +149,15 @@ exports.followUser = async (req, res) => {
 exports.unfollowUser = async (req, res) => {
   const { userIdToUnfollow } = req.body;
   const userId = req.decodedUserId;
+  console.log("Attempting to unfollow user:", userIdToUnfollow);
+  console.log("Current user:", userId);
 
   try {
     const userToUnfollow = await User.findById(userIdToUnfollow);
     const currentUser = await User.findById(userId);
 
     if (!userToUnfollow || !currentUser) {
+      console.error("User not found");
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -158,14 +166,15 @@ exports.unfollowUser = async (req, res) => {
       userToUnfollow.followers.pull(userId);
       await currentUser.save();
       await userToUnfollow.save();
+      console.log("Successfully unfollowed user:", userIdToUnfollow);
     }
 
     res.status(200).json({ message: "User unfollowed successfully" });
   } catch (error) {
+    console.error("Error unfollowing user:", error);
     res.status(500).json({ error: error.message });
   }
 };
-
 
 // Check if username is available
 exports.isUsernameAvailable = async (req, res) => {
