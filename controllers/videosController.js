@@ -214,22 +214,24 @@ exports.addComment = async (req, res) => {
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
+
     const newComment = {
-      commentId: Date.now().toString(),
+      commentId: new mongoose.Types.ObjectId().toString(), // Unique commentId
       userId,
       comment: commentText,
       date: new Date(date), // Ensure the date is correctly parsed
     };
-    
+
     video.comments.push(newComment);
     await video.save();
-    
-    res.status(200).json(video);
+
+    res.status(200).json(newComment); // Return the new comment
   } catch (error) {
     console.error("Error in addComment:", error);
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.editComment = async (req, res) => {
   const { videoId, commentId, userId, commentText } = req.body;
@@ -260,9 +262,6 @@ exports.editComment = async (req, res) => {
     console.log("Updated comment object:", comment);
 
     await video.save();
-
-    // Log the video object after updating the comment
-    console.log("Updated video object:", video);
 
     res.status(200).json(video);
   } catch (error) {
