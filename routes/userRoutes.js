@@ -64,6 +64,8 @@ router.post("/", upload.single("profilePhoto"), userController.signup);
 
 router.post("/follow", verifyToken, userController.followUnfollowUser);
 router.post("/unfollow", verifyToken, userController.followUnfollowUser);
+router.post("/isFollowing", verifyToken, userController.isFollowing);
+
 router.post("/isUsernameAvailable", userController.isUsernameAvailable);
 router.post("/isEmailAvailable", userController.isEmailAvailable);
 

@@ -227,3 +227,18 @@ exports.followUnfollowUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Check if a user follows another user
+exports.isFollowing = async (req, res) => {
+  const { userId, userIdToCheck } = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const isFollowing = user.following.includes(userIdToCheck);
+    res.status(200).json({ isFollowing });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
