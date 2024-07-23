@@ -17,7 +17,6 @@ router.put("/comment", videoController.editComment);
 router.delete("/comment", videoController.deleteComment);
 
 // Edit and delete video routes
-router.put("/:id", userController.verifyToken, videoController.editVideo);
 router.delete("/:id", userController.verifyToken, videoController.deleteVideo);
 
 module.exports = router;
