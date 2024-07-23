@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
 
+// Signup
 exports.signup = async (req, res) => {
   const { userName, email, password, fullName, phoneNumber, birthday, country } = req.body;
   const profilePhoto = req.file ? req.file.path : null;
@@ -30,6 +31,7 @@ exports.signup = async (req, res) => {
   }
 };
 
+//Login
 exports.login = async (req, res) => {
   const { userName, password, rememberMe } = req.body;
   try {
@@ -47,6 +49,7 @@ exports.login = async (req, res) => {
   }
 };
 
+// ValidateToken
 exports.validateToken = (req, res) => {
   const authHeader = req.headers["authorization"];
 
@@ -78,6 +81,7 @@ exports.validateToken = (req, res) => {
   });
 };
 
+// Update user
 exports.updateUser = async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
@@ -111,69 +115,9 @@ exports.verifyToken = (req, res, next) => {
     if (err) {
       return res.status(500).json({ error: "Failed to authenticate token" });
     }
-    req.decodedUserId = decoded.id.toString(); // Attach the decoded user ID to the request
+    req.decodedUserId = decoded.id.toString();
     next();
   });
-};
-
-exports.followUser = async (req, res) => {
-  const { userIdToFollow } = req.body;
-  const userId = req.decodedUserId;
-  console.log("Attempting to follow user:", userIdToFollow);
-  console.log("Current user:", userId);
-
-  try {
-    const userToFollow = await User.findById(userIdToFollow);
-    const currentUser = await User.findById(userId);
-
-    if (!userToFollow || !currentUser) {
-      console.error("User not found");
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    if (!currentUser.following.includes(userIdToFollow)) {
-      currentUser.following.push(userIdToFollow);
-      userToFollow.followers.push(userId);
-      await currentUser.save();
-      await userToFollow.save();
-      console.log("Successfully followed user:", userIdToFollow);
-    }
-
-    res.status(200).json({ message: "User followed successfully" });
-  } catch (error) {
-    console.error("Error following user:", error);
-    res.status(500).json({ error: error.message });
-  }
-};
-
-exports.unfollowUser = async (req, res) => {
-  const { userIdToUnfollow } = req.body;
-  const userId = req.decodedUserId;
-  console.log("Attempting to unfollow user:", userIdToUnfollow);
-  console.log("Current user:", userId);
-
-  try {
-    const userToUnfollow = await User.findById(userIdToUnfollow);
-    const currentUser = await User.findById(userId);
-
-    if (!userToUnfollow || !currentUser) {
-      console.error("User not found");
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    if (currentUser.following.includes(userIdToUnfollow)) {
-      currentUser.following.pull(userIdToUnfollow);
-      userToUnfollow.followers.pull(userId);
-      await currentUser.save();
-      await userToUnfollow.save();
-      console.log("Successfully unfollowed user:", userIdToUnfollow);
-    }
-
-    res.status(200).json({ message: "User unfollowed successfully" });
-  } catch (error) {
-    console.error("Error unfollowing user:", error);
-    res.status(500).json({ error: error.message });
-  }
 };
 
 // Check if username is available
@@ -255,29 +199,46 @@ exports.updateUser = async (req, res) => {
 };
 
 // Delete user
-
 exports.deleteUser = async (req, res) => {
   const id = req.params.id;
 
   try {
-    // Find the user
     const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Delete all videos by the user
     await Video.deleteMany({ userId: id });
 
-    // Delete all comments made by the user in other videos
     await Video.updateMany({ "comments.userId": id }, { $pull: { comments: { userId: id } } });
 
-    // Delete the user
     await User.findByIdAndDelete(id);
 
     res.status(200).json({ message: "User, videos, and comments deleted successfully" });
   } catch (error) {
     console.error("Error deleting user:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.followUnfollowUser = async (req, res) => {
+  const { userId } = req.body;
+  const userIdToModify = req.decodedUserId;
+  const isCurrentlyFollowing = await User.exists({ _id: userId, followers: userIdToModify });
+
+  try {
+    const updateOperation = isCurrentlyFollowing ? "$pull" : "$push";
+
+    await User.findByIdAndUpdate(userId, {
+      [updateOperation]: { followers: userIdToModify },
+    });
+
+    await User.findByIdAndUpdate(userIdToModify, {
+      [updateOperation]: { following: userId },
+    });
+
+    res.status(200).json({ message: `Successfully ${isCurrentlyFollowing ? "unfollowed" : "followed"} user` });
+  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
