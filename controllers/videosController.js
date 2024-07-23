@@ -95,21 +95,21 @@ exports.createUserVideo = async (req, res) => {
 };
 
 exports.editVideo = async (req, res) => {
-  const { id } = req.params;
+  const { videoId } = req.params;
   const { title, description, category, tags } = req.body;
   const thumbnail = req.files && req.files.thumbnail ? req.files.thumbnail[0].path : null;
   const videoFile = req.files && req.files.videoFile ? req.files.videoFile[0].path : null;
 
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById(videoId);
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
 
-    video.title = title;
-    video.description = description;
-    video.category = category;
-    video.tags = tags;
+    video.title = title || video.title;
+    video.description = description || video.description;
+    video.category = category || video.category;
+    video.tags = tags ? tags.split(",").map((tag) => tag.trim()) : video.tags;
     if (thumbnail) video.thumbnail = `/${thumbnail.split("\\").slice(1).join("/")}`;
     if (videoFile) video.videoFile = `/${videoFile.split("\\").slice(1).join("/")}`;
 
@@ -121,7 +121,6 @@ exports.editVideo = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 // Delete a specific video
 exports.deleteVideo = async (req, res) => {
@@ -207,10 +206,10 @@ exports.dislikeVideo = async (req, res) => {
 
 exports.addComment = async (req, res) => {
   const { videoId, userId, commentText, date } = req.body;
-  
+
   try {
     const video = await Video.findById(videoId);
-    
+
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
@@ -232,7 +231,6 @@ exports.addComment = async (req, res) => {
   }
 };
 
-
 exports.editComment = async (req, res) => {
   const { videoId, commentId, userId, commentText } = req.body;
 
@@ -246,7 +244,7 @@ exports.editComment = async (req, res) => {
       return res.status(404).json({ error: "Video not found" });
     }
 
-    const comment = video.comments.find(comment => comment.commentId === commentId && comment.userId === userId);
+    const comment = video.comments.find((comment) => comment.commentId === commentId && comment.userId === userId);
 
     // Log the comment to be edited
     console.log("Comment found:", comment);
@@ -278,7 +276,9 @@ exports.deleteComment = async (req, res) => {
       return res.status(404).json({ error: "Video not found" });
     }
 
-    const commentIndex = video.comments.findIndex(comment => comment.commentId === commentId && comment.userId === userId);
+    const commentIndex = video.comments.findIndex(
+      (comment) => comment.commentId === commentId && comment.userId === userId
+    );
     if (commentIndex === -1) {
       return res.status(404).json({ error: "Comment not found or user not authorized" });
     }
@@ -309,5 +309,3 @@ exports.incrementViews = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-

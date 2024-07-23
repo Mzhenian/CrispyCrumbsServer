@@ -50,7 +50,14 @@ router.post(
 
 router.get("/:id/videos/", userController.getUserVideos);
 router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteVideo);
-router.put("/:id/videos/:videoId", userController.verifyToken, videoController.editVideo);
+router.put(
+  "/:id/videos/:videoId",
+  upload.fields([
+    { name: "videoFile", maxCount: 1 },
+    { name: "thumbnail", maxCount: 1 },
+  ]),
+  videoController.editVideo
+);
 
 // Authentication and validation routes
 router.post("/validateToken", userController.validateToken);
