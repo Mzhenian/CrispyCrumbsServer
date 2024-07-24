@@ -11,7 +11,7 @@ router.get("/:id", videoController.getVideoById); //todo migrate to /api/users/:
 // Video features routes
 router.post("/like", verifyToken, verifyUserId, videoController.likeVideo);
 router.post("/dislike", verifyToken, verifyUserId, videoController.dislikeVideo);
-router.post("/incrementViews", verifyToken, verifyUserId, videoController.incrementViews);
+router.post("/incrementViews", videoController.incrementViews);
 
 // Comment related routes
 router.post("/comment", verifyToken, verifyUserId, videoController.addComment);
