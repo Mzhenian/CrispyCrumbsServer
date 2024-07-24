@@ -4,7 +4,7 @@ const userController = require("../controllers/usersController");
 const videoController = require("../controllers/videosController");
 const path = require("path");
 const multer = require("multer");
-const { verifyToken } = userController;
+const { verifyToken, verifyUserId } = userController;
 
 // setup storage
 const storage = multer.diskStorage({
@@ -27,14 +27,15 @@ const upload = multer({ storage });
 
 // User routes
 router.get("/:id", userController.getUserBasicDetails);
-router.put("/:id", verifyToken, upload.single("profilePhoto"), userController.updateUser);
-router.patch("/:id", verifyToken, upload.single("profilePhoto"), userController.updateUser);
-router.delete("/:id", verifyToken, userController.deleteUser);
+router.put("/:id", verifyToken, verifyUserId, upload.single("profilePhoto"), userController.updateUser);
+router.patch("/:id", verifyToken, verifyUserId, upload.single("profilePhoto"), userController.updateUser);
+router.delete("/:id", verifyToken, verifyUserId, userController.deleteUser);
 
 // Video routes
 router.post(
   "/:id/videos",
   verifyToken,
+  verifyUserId,
   upload.fields([
     { name: "videoFile", maxCount: 1 },
     { name: "thumbnail", maxCount: 1 },
@@ -47,13 +48,15 @@ router.post(
   videoController.createUserVideo
 );
 router.get("/:id/videos/", userController.getUserVideos);
-router.delete("/:id/videos/:videoId", verifyToken, videoController.deleteVideo);
+router.delete("/:id/videos/:videoId", verifyToken, verifyUserId, videoController.deleteVideo);
 router.put(
   "/:id/videos/:videoId",
   upload.fields([
     { name: "videoFile", maxCount: 1 },
     { name: "thumbnail", maxCount: 1 },
   ]),
+  verifyToken,
+  verifyUserId,
   videoController.editVideo
 );
 
@@ -62,9 +65,9 @@ router.post("/validateToken", userController.validateToken);
 router.post("/login", userController.login);
 router.post("/", upload.single("profilePhoto"), userController.signup);
 
-router.post("/follow", verifyToken, userController.followUnfollowUser);
-router.post("/unfollow", verifyToken, userController.followUnfollowUser);
-router.post("/isFollowing", verifyToken, userController.isFollowing);
+router.post("/follow", verifyToken, verifyUserId, userController.followUnfollowUser);
+router.post("/unfollow", verifyToken, verifyUserId, userController.followUnfollowUser);
+router.post("/isFollowing", verifyToken, verifyUserId, userController.isFollowing);
 
 router.post("/isUsernameAvailable", userController.isUsernameAvailable);
 router.post("/isEmailAvailable", userController.isEmailAvailable);

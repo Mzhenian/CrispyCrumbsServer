@@ -205,7 +205,8 @@ exports.dislikeVideo = async (req, res) => {
 };
 
 exports.addComment = async (req, res) => {
-  const { videoId, userId, commentText, date } = req.body;
+  const { videoId, commentText, date } = req.body;
+  const userId = req.decodedUserId; 
 
   try {
     const video = await Video.findById(videoId);
@@ -215,16 +216,16 @@ exports.addComment = async (req, res) => {
     }
 
     const newComment = {
-      commentId: new mongoose.Types.ObjectId().toString(), // Unique commentId
-      userId,
+      commentId: new mongoose.Types.ObjectId().toString(), 
+      userId: userId,
       comment: commentText,
-      date: new Date(date), // Ensure the date is correctly parsed
+      date: new Date(date),
     };
 
     video.comments.push(newComment);
     await video.save();
 
-    res.status(200).json(newComment); // Return the new comment
+    res.status(200).json(newComment);
   } catch (error) {
     console.error("Error in addComment:", error);
     res.status(500).json({ error: error.message });

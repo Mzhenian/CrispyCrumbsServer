@@ -81,27 +81,6 @@ exports.validateToken = (req, res) => {
   });
 };
 
-// Verify token for routes
-exports.verifyToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  if (!authHeader) {
-    return res.status(403).json({ error: "No token provided" });
-  }
-
-  const token = authHeader.split(" ")[1];
-  if (!token) {
-    return res.status(403).json({ error: "No token provided" });
-  }
-
-  jwt.verify(token, config.jwtSecret, (err, decoded) => {
-    if (err) {
-      return res.status(500).json({ error: "Failed to authenticate token" });
-    }
-    req.decodedUserId = decoded.id.toString();
-    next();
-  });
-};
-
 // Check if username is available
 exports.isUsernameAvailable = async (req, res) => {
   const { username } = req.body;
@@ -223,14 +202,15 @@ exports.followUnfollowUser = async (req, res) => {
 
     res.status(200).json({ message: `Successfully ${isCurrentlyFollowing ? "unfollowed" : "followed"} user` });
   } catch (error) {
-    console.error("Error deleting user:", error);
+    console.error("Error updating follow status:", error);
     res.status(500).json({ error: error.message });
   }
 };
 
 // Check if a user follows another user
 exports.isFollowing = async (req, res) => {
-  const { userId, userIdToCheck } = req.body;
+  const { userIdToCheck } = req.body;
+  const userId = req.decodedUserId;
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -241,4 +221,33 @@ exports.isFollowing = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+// Verify token for routes
+exports.verifyToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  if (!authHeader) {
+    return res.status(403).json({ error: "No token provided" });
+  }
+
+  const token = authHeader.split(" ")[1];
+  if (!token) {
+    return res.status(403).json({ error: "No token provided" });
+  }
+
+  jwt.verify(token, config.jwtSecret, (err, decoded) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to authenticate token" });
+    }
+    req.decodedUserId = decoded.id.toString();
+    next();
+  });
+};
+
+// Check if the userId in the request matches the userId from the token
+exports.verifyUserId = (req, res, next) => {
+  if (req.params.id && req.params.id !== req.decodedUserId) {
+    return res.status(403).json({ error: "User ID does not match the token" });
+  }
+  next();
 };
