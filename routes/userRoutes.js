@@ -32,6 +32,7 @@ router.patch("/:id", verifyToken, verifyUserId, upload.single("profilePhoto"), u
 router.delete("/:id", verifyToken, verifyUserId, userController.deleteUser);
 
 // Video routes
+router.get("/:id/videos/", userController.getUserVideos);
 router.post(
   "/:id/videos",
   verifyToken,
@@ -47,9 +48,18 @@ router.post(
   },
   videoController.createUserVideo
 );
-router.get("/:id/videos/", userController.getUserVideos);
 router.delete("/:id/videos/:videoId", verifyToken, verifyUserId, videoController.deleteVideo);
 router.put(
+  "/:id/videos/:videoId",
+  upload.fields([
+    { name: "videoFile", maxCount: 1 },
+    { name: "thumbnail", maxCount: 1 },
+  ]),
+  verifyToken,
+  verifyUserId,
+  videoController.editVideo
+);
+router.patch(
   "/:id/videos/:videoId",
   upload.fields([
     { name: "videoFile", maxCount: 1 },
@@ -62,7 +72,7 @@ router.put(
 
 // Authentication and validation routes
 router.post("/validateToken", userController.validateToken);
-router.post("/login", userController.login);
+router.post("/tokens", userController.login);
 router.post("/", upload.single("profilePhoto"), userController.signup);
 
 router.post("/follow", verifyToken, verifyUserId, userController.followUnfollowUser);
