@@ -6,7 +6,9 @@ const { verifyToken, verifyUserId } = userController;
 
 // General video routes
 router.get("/", videoController.getAllVideos);
-router.get("/:id", videoController.getVideoById); //todo migrate to /api/users/:id/videos/:pid
+router.get("/followers", verifyToken, videoController.getFollowingVideos);
+
+router.get("/:id", videoController.getVideoById);
 
 // Video features routes
 router.post("/like", verifyToken, verifyUserId, videoController.likeVideo);

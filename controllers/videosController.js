@@ -19,8 +19,54 @@ exports.getVideoById = async (req, res) => {
 // Get all videos
 exports.getAllVideos = async (req, res) => {
   try {
-    const videos = await Video.find();
-    res.status(200).json(videos);
+    const allVideos = await Video.find();
+
+    // Sort videos by views and get top 10
+    const mostViewedVideos = allVideos.sort((a, b) => b.views - a.views).slice(0, 10);
+
+    // Sort videos by upload date and get top 10
+    const mostRecentVideos = allVideos.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)).slice(0, 10);
+
+    // Check if user is authenticated and get their following videos
+    let followingVideos = [];
+    if (req.decodedUserId) {
+      const user = await User.findById(req.decodedUserId);
+      if (user && user.following.length > 0) {
+        followingVideos = await Video.find({ userId: { $in: user.following } });
+      }
+    }
+
+    // Randomly select 10 videos from the list of all videos
+    const randomVideos = allVideos.sort(() => 0.5 - Math.random()).slice(0, 10);
+
+    // Combine the lists into an object
+    const combinedVideos = {
+      mostViewedVideos,
+      mostRecentVideos,
+      followingVideos,
+      randomVideos,
+    };
+
+    // Send response
+    res.status(200).json(combinedVideos);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get following videos
+exports.getFollowingVideos = async (req, res) => {
+  try {
+    // Check if user is authenticated and get their following videos
+    let followingVideos = [];
+    if (req.decodedUserId) {
+      const user = await User.findById(req.decodedUserId);
+      if (user && user.following.length > 0) {
+        followingVideos = await Video.find({ userId: { $in: user.following } });
+      }
+    }
+    // Send response
+    res.status(200).json(followingVideos);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -206,7 +252,7 @@ exports.dislikeVideo = async (req, res) => {
 
 exports.addComment = async (req, res) => {
   const { videoId, commentText, date } = req.body;
-  const userId = req.decodedUserId; 
+  const userId = req.decodedUserId;
 
   try {
     const video = await Video.findById(videoId);
@@ -216,7 +262,7 @@ exports.addComment = async (req, res) => {
     }
 
     const newComment = {
-      commentId: new mongoose.Types.ObjectId().toString(), 
+      commentId: new mongoose.Types.ObjectId().toString(),
       userId: userId,
       comment: commentText,
       date: new Date(date),
