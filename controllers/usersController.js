@@ -165,6 +165,10 @@ exports.updateUser = async (req, res) => {
   }
 
   try {
+    if (!updateData.password) {
+      delete updateData.password;
+    }
+
     const updatedUser = await User.findByIdAndUpdate(id, updateData, { new: true });
     if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
@@ -174,6 +178,8 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 
 // Delete user
 
