@@ -184,5 +184,4 @@ The server uses Express for handling routes and middleware. Multer is used for h
 
 Multer is used to handle file uploads, including profile photos, videos, and thumbnails. The file storage is configured to store files in the DB folder based on their type.
 
----
 
