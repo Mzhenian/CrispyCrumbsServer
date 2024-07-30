@@ -1,0 +1,255 @@
+[{
+  "_id": {
+    "$oid": "6679d56294c2dcb530d27ab6"
+  },
+  "userName": "MeniMamthera",
+  "email": "meni.mamthera@example.com",
+  "password": "password3",
+  "fullName": "Meni Mamthera",
+  "phoneNumber": "555-555-5553",
+  "birthday": "20/09/1980",
+  "country": "Israel",
+  "profilePhoto": "/users/3.png",
+  "followers": [
+    "6679d55394c2dcb530d27ab4",
+    "6679d4ed94c2dcb530d27ab1",
+    "66a0078e5d4476858b221d61"
+  ],
+  "following": [
+    "6679d68e94c2dcb530d27ac8"
+  ],
+  "videosIds": [
+    "6679d73b94c2dcb530d27acd"
+  ],
+  "likedVideoIds": [
+    "6679d77794c2dcb530d27ad7"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6679d63794c2dcb530d27abd"
+  },
+  "userName": "OriLevi",
+  "email": "ori.levi@example.com",
+  "password": "password5",
+  "fullName": "Ori Levi",
+  "phoneNumber": "555-555-5555",
+  "birthday": "25/12/1988",
+  "country": "Israel",
+  "profilePhoto": "/users/5.jpg",
+  "followers": [
+    "6679d68e94c2dcb530d27ac8",
+    "66a0078e5d4476858b221d61"
+  ],
+  "following": [
+    "6679d64194c2dcb530d27abf"
+  ],
+  "videosIds": [
+    "6679d74f94c2dcb530d27ad1"
+  ],
+  "likedVideoIds": [
+    "6679d72d94c2dcb530d27acb",
+    "66950f2c35110487cdaf6229",
+    "6679d78c94c2dcb530d27adb"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6679d64194c2dcb530d27abf"
+  },
+  "userName": "Tuna",
+  "email": "tuna@example.com",
+  "password": "password6",
+  "fullName": "Tuna",
+  "phoneNumber": "555-555-5556",
+  "birthday": "08/07/1995",
+  "country": "Israel",
+  "profilePhoto": "/users/6.png",
+  "followers": [
+    "6679d63794c2dcb530d27abd"
+  ],
+  "following": [
+    "6679d65094c2dcb530d27ac1"
+  ],
+  "videosIds": [
+    "6679d76094c2dcb530d27ad3",
+    "6679d78c94c2dcb530d27adb"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6679d65094c2dcb530d27ac1"
+  },
+  "userName": "JonSmith",
+  "email": "jon.smith@example.com",
+  "password": "password7",
+  "fullName": "Jon Smith",
+  "phoneNumber": "555-555-5557",
+  "birthday": "12/04/1983",
+  "country": "Israel",
+  "profilePhoto": "/users/7.jpg",
+  "followers": [
+    "6679d64194c2dcb530d27abf",
+    "66a0078e5d4476858b221d61"
+  ],
+  "following": [
+    "6679d65e94c2dcb530d27ac3"
+  ],
+  "videosIds": [
+    "6679d76c94c2dcb530d27ad5"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6679d65e94c2dcb530d27ac3"
+  },
+  "userName": "ArnoldSchwarzenegger",
+  "email": "arnold.schwarzenegger@example.com",
+  "password": "password8",
+  "fullName": "Arnold Schwarzenegger",
+  "phoneNumber": "555-555-5558",
+  "birthday": {
+    "$date": "1990-01-03T22:00:00.000Z"
+  },
+  "country": "United States",
+  "profilePhoto": "/users/8.png",
+  "followers": [
+    "6679d65094c2dcb530d27ac1",
+    "66a00fe25eb41cdf1ee924b2",
+    "66a0078e5d4476858b221d61"
+  ],
+  "following": [
+    "6679d66f94c2dcb530d27ac5"
+  ],
+  "videosIds": [
+    "6679d77794c2dcb530d27ad7"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6679d66f94c2dcb530d27ac5"
+  },
+  "userName": "DemitriMartin",
+  "email": "demitri.martin@example.com",
+  "password": "password9",
+  "fullName": "Demitri Martin",
+  "phoneNumber": "555-555-5559",
+  "birthday": "25/05/1973",
+  "country": "Israel",
+  "profilePhoto": "/users/9.jpg",
+  "following": [
+    "6679d64194c2dcb530d27abf"
+  ],
+  "videosIds": [
+    "6679d78194c2dcb530d27ad9"
+  ],
+  "likedVideoIds": [
+    "6679d78c94c2dcb530d27adb",
+    "6679d77794c2dcb530d27ad7",
+    "6679d76094c2dcb530d27ad3"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6679d68e94c2dcb530d27ac8"
+  },
+  "userName": "BeriTzakala",
+  "email": "beri.tzakala@example.com",
+  "password": "password4",
+  "fullName": "Beri Tzakala",
+  "phoneNumber": "555-555-5554",
+  "birthday": "10/03/1992",
+  "country": "Israel",
+  "profilePhoto": "/users/4.png",
+  "followers": [
+    "6679d56294c2dcb530d27ab6"
+  ],
+  "following": [
+    "6679d63794c2dcb530d27abd"
+  ],
+  "videosIds": [
+    "6679d74594c2dcb530d27acf"
+  ],
+  "likedVideoIds": [
+    "6679d72d94c2dcb530d27acb"
+  ]
+},
+{
+  "_id": {
+    "$oid": "66a0078e5d4476858b221d61"
+  },
+  "userName": "Israel Israeli",
+  "email": "israel.israeli@example.com",
+  "password": "password1",
+  "fullName": "Israel Israeli",
+  "phoneNumber": "555-555-5551",
+  "birthday": {
+    "$date": "1990-03-31T21:00:00.000Z"
+  },
+  "country": "Israel",
+  "profilePhoto": "/users/1721763726423.png",
+  "followers": [
+    "66a00fe25eb41cdf1ee924b2"
+  ],
+  "following": [
+    "6679d65094c2dcb530d27ac1",
+    "6679d65e94c2dcb530d27ac3",
+    "66a00fe25eb41cdf1ee924b2",
+    "6679d56294c2dcb530d27ab6",
+    "6679d63794c2dcb530d27abd"
+  ],
+  "videosIds": [
+    "66a007d55d4476858b221da3"
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "66a00fe25eb41cdf1ee924b2"
+  },
+  "userName": "כאן תאגיד השידור הישראלי",
+  "email": "kan@gmail.com",
+  "password": "password2",
+  "fullName": "כאן",
+  "phoneNumber": "050-111-1111",
+  "birthday": {
+    "$date": "2017-05-16T21:00:00.000Z"
+  },
+  "country": "Israel",
+  "profilePhoto": "/users/1721765858641.jpg",
+  "followers": [
+    "66a0078e5d4476858b221d61",
+    "66a51cbd1ba427a481be5da7"
+  ],
+  "following": [
+    "66a0078e5d4476858b221d61",
+    "6679d65e94c2dcb530d27ac3"
+  ],
+  "videosIds": [
+    "66a0101a5eb41cdf1ee924f4"
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "66a51cbd1ba427a481be5da7"
+  },
+  "userName": "OfekAD",
+  "email": "ofek@gmail.com",
+  "password": "password17",
+  "fullName": "Ofek Avan Danan",
+  "phoneNumber": 526654002,
+  "birthday": {
+    "$date": "2000-04-16T21:00:00.000Z"
+  },
+  "country": "Israel",
+  "profilePhoto": "/users/1722096829740.jpg",
+  "following": [
+    "66a00fe25eb41cdf1ee924b2"
+  ],
+  "videosIds": [
+    "66a51d4b1ba427a481be5eda",
+    "66a51e561ba427a481be60ee"
+  ],
+  "__v": 2
+}]
