@@ -1,28 +1,39 @@
-# Crispy Crumbs - NodeJS Server with MongoDB
+# Crispy Crumbs: NodeJS server with MongoDB database
 
-Welcome to the **Crispy Crumbs** server setup guide. This server is built using NodeJS and MongoDB to provide a robust backend for the Crispy Crumbs video sharing platform. Follow these steps to get the server up and running.
+Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS and MongoDB to provide a robust backend for the Crispy Crumbs video sharing platform.
 
-### Crispy Crumbs - Founders
+## Crispy Crumbs - Founders
+
 - Ofek Avan Danan (211824727)
 - Zohar Mzhen (314621806)
 - Dolev Menajem (207272220)
 
 ## Running the Crispy Crumbs Server
 
-### Initial Setup
+### Prerequisites
 
-1. **Clone the Repository**
+- The server is build and tested to run from a windows machine.
+- Node.js
+- MongoDB
+  - By default CrispyCrumbs will use "CrispyCrumbs" database in "mongodb://localhost:27017/CrispyCrumbs" connection.
 
-   Clone this project to your local machine:
+### Download
 
-   ```bash
-   git clone https://github.com/Mzhenian/CrispyCrumbsServer.git
-   cd CrispyCrumbsServer
-   ```
+- Second download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) as [zip](https://github.com/Mzhenian/CrispyCrumbsServer/archive/refs/heads/main.zip) and unzip it
+- **or** [clone](https://github.com/Mzhenian/CrispyCrumbsServer.git) the repository and checkout the EX2-complete branch.
 
-2. **Set Up JWT Secret**
+### Initialization option one: Easy & fast script
 
-   Choose a JWT secret key and update it in the `config.js` file:
+**Note:** If you're interested in using the website than you can run only the CrispyCrumbs website initialization script (which will call the server initialization script).
+
+1) open a powershell in `CrispyCrumbsServer` project-folder.
+2) run: `.\init_server.ps1`
+3) Enter the new CrispyCrumbs server JWT secret if prompted.
+
+### Initialization option two: manually
+
+**JWT secret**
+1. Open `CrispyCrumbsServer\config\config.js` file and choose a new JWT secret key:
 
    ```javascript
    // config/config.js
@@ -32,37 +43,30 @@ Welcome to the **Crispy Crumbs** server setup guide. This server is built using 
    };
    ```
 
-3. **Initialize MongoDB**
+**MongoDB**
+2. Open mongoDB compass.
+3.  connect to the URI `mongodb://localhost:27017/CrispyCrumbs`
+4. Open / create database named `CrispyCrumbs`
+5. Open / create two collections: `users` and `videos`
+Now it should look like this:
+![[.\demonstration\mongodb-collections.png]]
+6. Insure `users` and `videos` are empty
+![[.\demonstration\mongodb-empty.png]]
+7. In `users` select `ADD DATA > iMPORT json OR csv FILE`
+![[.\demonstration\mongodb-add.png]]
+8. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`
+9. In `videos` select `ADD DATA > iMPORT json OR csv FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`
 
--place holder-
+**The server**
+10. Open a terminal in `CrispyCrumbsServer` project-folder
+11. Run `npm install`
+12. Run `node server.js`
+Now the server should be running!
+![[.\demonstration\server-running.png]]
 
-4. **Install Dependencies**
+## Public routes structure
 
-   Run the following command to install all necessary dependencies:
-
-   ```bash
-   npm install
-   ```
-
-5. **Start the Server**
-
-   Start the server using:
-
-   ```bash
-   npm start
-   ```
-
-   The server should now be running at `http://localhost:5000`.
-
-## Server Configuration
-
-### Express Setup
-
-The server uses Express for handling routes and middleware. Multer is used for handling file uploads.
-
-### Routes
-
-#### User Routes
+### User Routes
 
 - **Get User Details**
   - `GET /:id`
@@ -131,7 +135,7 @@ The server uses Express for handling routes and middleware. Multer is used for h
   - Function: `isEmailAvailable`
   - Description: Checks if an email is available.
 
-#### Video Routes
+### Video Routes
 
 - **Get All Videos**
   - `GET /`
@@ -185,4 +189,3 @@ The server uses Express for handling routes and middleware. Multer is used for h
 Multer is used to handle file uploads, including profile photos, videos, and thumbnails. The file storage is configured to store files in the DB folder based on their type.
 
 ---
-
