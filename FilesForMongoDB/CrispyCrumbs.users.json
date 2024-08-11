@@ -2,7 +2,7 @@
   "_id": {
     "$oid": "6679d56294c2dcb530d27ab6"
   },
-  "userName": "MeniMamthera",
+  "userName": "Dolev Menajem",
   "email": "meni.mamthera@example.com",
   "password": "password3",
   "fullName": "Meni Mamthera",
@@ -80,8 +80,8 @@
   "_id": {
     "$oid": "6679d65094c2dcb530d27ac1"
   },
-  "userName": "JonSmith",
-  "email": "jon.smith@example.com",
+  "userName": "Zohar Mzhen",
+  "email": "zoharmzhen@example.com",
   "password": "password7",
   "fullName": "Jon Smith",
   "phoneNumber": "555-555-5557",
@@ -90,7 +90,8 @@
   "profilePhoto": "/users/7.jpg",
   "followers": [
     "6679d64194c2dcb530d27abf",
-    "66a0078e5d4476858b221d61"
+    "66a0078e5d4476858b221d61",
+    "66a51cbd1ba427a481be5da7"
   ],
   "following": [
     "6679d65e94c2dcb530d27ac3"
@@ -116,7 +117,8 @@
   "followers": [
     "6679d65094c2dcb530d27ac1",
     "66a00fe25eb41cdf1ee924b2",
-    "66a0078e5d4476858b221d61"
+    "66a0078e5d4476858b221d61",
+    "66a51cbd1ba427a481be5da7"
   ],
   "following": [
     "6679d66f94c2dcb530d27ac5"
@@ -147,7 +149,8 @@
     "6679d78c94c2dcb530d27adb",
     "6679d77794c2dcb530d27ad7",
     "6679d76094c2dcb530d27ad3"
-  ]
+  ],
+  "followers": []
 },
 {
   "_id": {
@@ -199,9 +202,12 @@
     "6679d63794c2dcb530d27abd"
   ],
   "videosIds": [
-    "66a007d55d4476858b221da3"
+    "66a007d55d4476858b221da3",
+    "66a646725d6dcd6570fa30c6"
   ],
-  "__v": 1
+  "likedVideoIds": [],
+  "dislikedVideoIds": [],
+  "__v": 2
 },
 {
   "_id": {
@@ -228,28 +234,35 @@
   "videosIds": [
     "66a0101a5eb41cdf1ee924f4"
   ],
+  "likedVideoIds": [],
+  "dislikedVideoIds": [],
   "__v": 1
 },
 {
   "_id": {
     "$oid": "66a51cbd1ba427a481be5da7"
   },
-  "userName": "OfekAD",
-  "email": "ofek@gmail.com",
+  "userName": "Ofek Avan Danan",
+  "email": "ofekavandanan@example.com",
   "password": "password17",
   "fullName": "Ofek Avan Danan",
-  "phoneNumber": 526654002,
+  "phoneNumber": "0526654002",
   "birthday": {
     "$date": "2000-04-16T21:00:00.000Z"
   },
   "country": "Israel",
-  "profilePhoto": "/users/1722096829740.jpg",
+  "profilePhoto": "/users/1723399187560.jpeg",
+  "followers": [],
   "following": [
-    "66a00fe25eb41cdf1ee924b2"
+    "66a00fe25eb41cdf1ee924b2",
+    "6679d65e94c2dcb530d27ac3",
+    "6679d65094c2dcb530d27ac1"
   ],
   "videosIds": [
     "66a51d4b1ba427a481be5eda",
     "66a51e561ba427a481be60ee"
   ],
+  "likedVideoIds": [],
+  "dislikedVideoIds": [],
   "__v": 2
 }]
