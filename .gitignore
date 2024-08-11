@@ -5,3 +5,4 @@ todo_remove
 config/config.js
 /.idea
 /.vscode
+FilesForMongoDB/mongosh.exe

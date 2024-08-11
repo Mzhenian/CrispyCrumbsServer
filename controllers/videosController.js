@@ -19,8 +19,54 @@ exports.getVideoById = async (req, res) => {
 // Get all videos
 exports.getAllVideos = async (req, res) => {
   try {
-    const videos = await Video.find();
-    res.status(200).json(videos);
+    const allVideos = await Video.find();
+
+    // Sort videos by views and get top 10
+    const mostViewedVideos = allVideos.sort((a, b) => b.views - a.views).slice(0, 10);
+
+    // Sort videos by upload date and get top 10
+    const mostRecentVideos = allVideos.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)).slice(0, 10);
+
+    // Check if user is authenticated and get their following videos
+    let followingVideos = [];
+    if (req.decodedUserId) {
+      const user = await User.findById(req.decodedUserId);
+      if (user && user.following.length > 0) {
+        followingVideos = await Video.find({ userId: { $in: user.following } });
+      }
+    }
+
+    // Randomly select 10 videos from the list of all videos
+    const randomVideos = allVideos.sort(() => 0.5 - Math.random()).slice(0, 10);
+
+    // Combine the lists into an object
+    const combinedVideos = {
+      mostViewedVideos,
+      mostRecentVideos,
+      followingVideos,
+      randomVideos,
+    };
+
+    // Send response
+    res.status(200).json(combinedVideos);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Get following videos
+exports.getFollowingVideos = async (req, res) => {
+  try {
+    // Check if user is authenticated and get their following videos
+    let followingVideos = [];
+    if (req.decodedUserId) {
+      const user = await User.findById(req.decodedUserId);
+      if (user && user.following.length > 0) {
+        followingVideos = await Video.find({ userId: { $in: user.following } });
+      }
+    }
+    // Send response
+    res.status(200).json(followingVideos);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -94,30 +140,219 @@ exports.createUserVideo = async (req, res) => {
   }
 };
 
-// Delete a specific video for a user
-exports.deleteUserVideo = async (req, res) => {
-  const { uid, videoId } = req.params;
+exports.editVideo = async (req, res) => {
+  const { videoId } = req.params;
+  const { title, description, category, tags } = req.body;
+  const thumbnail = req.files && req.files.thumbnail ? req.files.thumbnail[0].path : null;
+  const videoFile = req.files && req.files.videoFile ? req.files.videoFile[0].path : null;
+
   try {
-    const user = await User.findById(uid);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    const video = await Video.findOneAndDelete({ _id: videoId, userId: uid });
+    const video = await Video.findById(videoId);
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
-    res.status(200).json({ message: "Video deleted successfully" });
+
+    video.title = title || video.title;
+    video.description = description || video.description;
+    video.category = category || video.category;
+    video.tags = tags ? tags.split(",").map((tag) => tag.trim()) : video.tags;
+    if (thumbnail) video.thumbnail = `/${thumbnail.split("\\").slice(1).join("/")}`;
+    if (videoFile) video.videoFile = `/${videoFile.split("\\").slice(1).join("/")}`;
+
+    await video.save();
+
+    res.status(200).json(video);
   } catch (error) {
+    console.error("Error editing video:", error);
     res.status(500).json({ error: error.message });
   }
 };
 
-// Like a video
-exports.likeVideo = async (req, res) => {
-  // Implementation goes here
+// Delete a specific video
+exports.deleteVideo = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const video = await Video.findByIdAndDelete(id);
+
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    res.status(200).json({ message: "Video deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting video:", error);
+    res.status(500).json({ error: error.message });
+  }
 };
 
-// Dislike a video
+// Like video
+exports.likeVideo = async (req, res) => {
+  const { videoId, userId } = req.body;
+  try {
+    const video = await Video.findById(videoId);
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    const likedBy = video.likedBy.map((id) => id.toString());
+    const dislikedBy = video.dislikedBy.map((id) => id.toString());
+
+    if (likedBy.includes(userId)) {
+      video.likes -= 1;
+      video.likedBy = video.likedBy.filter((id) => id.toString() !== userId);
+    } else {
+      video.likes += 1;
+      video.likedBy.push(userId);
+      if (dislikedBy.includes(userId)) {
+        video.dislikes -= 1;
+        video.dislikedBy = video.dislikedBy.filter((id) => id.toString() !== userId);
+      }
+    }
+
+    await video.save({ validateBeforeSave: false }); // Skip validation to avoid the comments validation issue
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error in likeVideo:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Dislike video
 exports.dislikeVideo = async (req, res) => {
-  // Implementation goes here
+  const { videoId, userId } = req.body;
+  try {
+    const video = await Video.findById(videoId);
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    const likedBy = video.likedBy.map((id) => id.toString());
+    const dislikedBy = video.dislikedBy.map((id) => id.toString());
+
+    if (dislikedBy.includes(userId)) {
+      video.dislikes -= 1;
+      video.dislikedBy = video.dislikedBy.filter((id) => id.toString() !== userId);
+    } else {
+      video.dislikes += 1;
+      video.dislikedBy.push(userId);
+      if (likedBy.includes(userId)) {
+        video.likes -= 1;
+        video.likedBy = video.likedBy.filter((id) => id.toString() !== userId);
+      }
+    }
+
+    await video.save({ validateBeforeSave: false });
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error in dislikeVideo:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.addComment = async (req, res) => {
+  const { videoId, commentText, date } = req.body;
+  const userId = req.decodedUserId;
+
+  try {
+    const video = await Video.findById(videoId);
+
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    const newComment = {
+      commentId: new mongoose.Types.ObjectId().toString(),
+      userId: userId,
+      comment: commentText,
+      date: new Date(date),
+    };
+
+    video.comments.push(newComment);
+    await video.save();
+
+    res.status(200).json(newComment);
+  } catch (error) {
+    console.error("Error in addComment:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.editComment = async (req, res) => {
+  const { videoId, commentId, userId, commentText } = req.body;
+
+  // Log the received request body for debugging
+  console.log("Received request body:", req.body);
+
+  try {
+    const video = await Video.findById(videoId);
+
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    const comment = video.comments.find((comment) => comment.commentId === commentId && comment.userId === userId);
+
+    // Log the comment to be edited
+    console.log("Comment found:", comment);
+
+    if (!comment) {
+      return res.status(404).json({ error: "Comment not found or user not authorized" });
+    }
+
+    comment.comment = req.body.comment;
+    comment.date = new Date(); // Update the date to the current date
+
+    // Log the updated comment
+    console.log("Updated comment object:", comment);
+
+    await video.save();
+
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error in editComment:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteComment = async (req, res) => {
+  const { videoId, commentId, userId } = req.body;
+  try {
+    const video = await Video.findById(videoId);
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    const commentIndex = video.comments.findIndex(
+      (comment) => comment.commentId === commentId && comment.userId === userId
+    );
+    if (commentIndex === -1) {
+      return res.status(404).json({ error: "Comment not found or user not authorized" });
+    }
+
+    video.comments.splice(commentIndex, 1);
+    await video.save();
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error in deleteComment:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Increment video views
+exports.incrementViews = async (req, res) => {
+  const { videoId } = req.body;
+  try {
+    const video = await Video.findById(videoId);
+    if (!video) {
+      return res.status(404).json({ error: "Video not found" });
+    }
+
+    video.views += 1;
+    await video.save({ validateModifiedOnly: true }); // Skip validation for unmodified fields
+    res.status(200).json(video);
+  } catch (error) {
+    console.error("Error in incrementViews:", error);
+    res.status(500).json({ error: error.message });
+  }
 };
