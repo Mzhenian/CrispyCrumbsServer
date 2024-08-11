@@ -1,0 +1,545 @@
+[{
+  "_id": {
+    "$oid": "6679d73b94c2dcb530d27acd"
+  },
+  "videoFile": "/videos/1721763796417.mp4",
+  "thumbnail": "/thumbnails/1721763796417.jpg",
+  "title": "טירוף השניצל בחלה _ איפה הכי טעים, מה המחירים ומי המנצח במדד הקריספיות",
+  "description": "טירוף השניצל בחלה. איפה הכי טעים? מה המחירים? ומי המנצח במדד הקריספיות? כל התשובות בסרטון הזה.",
+  "userId": "6679d56294c2dcb530d27ab6",
+  "views": 30016,
+  "likes": 3,
+  "dislikes": 1,
+  "tags": [
+    "Review",
+    "Food Tasting",
+    "Price Comparison"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2023-03-23T12:00:00.000Z"
+  },
+  "comments": [
+    {
+      "_id": "66a0a840c7136a1d94195f8e",
+      "commentId": 1,
+      "userId": "6679d64194c2dcb530d27abf",
+      "comment": "Loved the comparison!",
+      "date": {
+        "$date": "2023-04-23T13:30:00.000Z"
+      }
+    },
+    {
+      "_id": "66a0a6d0e40c5feda7dda1a8",
+      "commentId": "66a0a6d0e40c5feda7dda1a7",
+      "userId": "66a00fe25eb41cdf1ee924b2",
+      "comment": "תעשו אחת ועוד אחת כאן 11",
+      "date": {
+        "$date": "2024-07-24T07:02:06.565Z"
+      }
+    }
+  ],
+  "likedBy": [
+    "6679d4ed94c2dcb530d27ab1",
+    "6679d55394c2dcb530d27ab4",
+    "6679d64194c2dcb530d27abf"
+  ],
+  "dislikedBy": [
+    "6679d56294c2dcb530d27ab6"
+  ],
+  "__v": 3
+},
+{
+  "_id": {
+    "$oid": "6679d74594c2dcb530d27acf"
+  },
+  "videoFile": "/videos/1721717914551.mp4",
+  "thumbnail": "/thumbnails/1721717914551.jpg",
+  "title": "שניצל ביסלי כשר לפסח הכי טעים אבר #לאיודעת חלק 5",
+  "description": "שניצל ביסלי כשר לפסח הכי טעים אי פעם! בסרטון זה אנו בוחנים את הטעמים המיוחדים של השניצל.",
+  "userId": "6679d68e94c2dcb530d27ac8",
+  "views": 40005,
+  "likes": 2,
+  "dislikes": 1,
+  "tags": [
+    "Recipe",
+    "Kosher",
+    "Holiday"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2023-04-23T14:00:00.000Z"
+  },
+  "comments": [
+    {
+      "commentId": 1,
+      "userId": "6679d65094c2dcb530d27ac1",
+      "comment": "Perfect for Passover!",
+      "date": {
+        "$date": "2023-04-24T15:00:00.000Z"
+      }
+    }
+  ],
+  "likedBy": [
+    "6679d4ed94c2dcb530d27ab1",
+    "6679d55394c2dcb530d27ab4"
+  ],
+  "dislikedBy": [
+    "6679d56294c2dcb530d27ab6"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6679d74f94c2dcb530d27ad1"
+  },
+  "videoFile": "/videos/1721761796475.mp4",
+  "thumbnail": "/thumbnails/1721761796475.jpg",
+  "title": "Schnitzel",
+  "description": "Schnitzel - A delightful dish that everyone loves. Watch as we dive into the making of this crispy treat.",
+  "userId": "6679d63794c2dcb530d27abd",
+  "views": 50014,
+  "likes": 3,
+  "dislikes": 1,
+  "tags": [
+    "Animation",
+    "Food",
+    "Cooking"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2023-05-23T16:00:00.000Z"
+  },
+  "comments": [
+    {
+      "commentId": 1,
+      "userId": "6679d65e94c2dcb530d27ac3",
+      "comment": "Great animation!",
+      "date": {
+        "$date": "2023-05-24T17:00:00.000Z"
+      }
+    }
+  ],
+  "likedBy": [
+    "6679d4ed94c2dcb530d27ab1",
+    "6679d55394c2dcb530d27ab4",
+    "6679d65e94c2dcb530d27ac3"
+  ],
+  "dislikedBy": [
+    "6679d56294c2dcb530d27ab6"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6679d76094c2dcb530d27ad3"
+  },
+  "videoFile": "/videos/1721717796475.mp4",
+  "thumbnail": "/thumbnails/1721717796475.jpg",
+  "title": "שניצל זה טעים. (אנימציה)",
+  "description": "שניצל זה טעים. (אנימציה) - סרטון קצר שמסביר בצורה משעשעת למה שניצל הוא המאכל האהוב על כולם.",
+  "userId": "6679d64194c2dcb530d27abf",
+  "views": 60007,
+  "likes": 3,
+  "dislikes": 1,
+  "tags": [
+    "Music",
+    "Animation",
+    "Food"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2023-06-23T18:00:00.000Z"
+  },
+  "comments": [
+    {
+      "commentId": 1,
+      "userId": "6679d66f94c2dcb530d27ac5",
+      "comment": "Catchy tune!",
+      "date": {
+        "$date": "2023-06-24T19:00:00.000Z"
+      }
+    },
+    {
+      "_id": "669a969d4ae3c14eab4c6f09",
+      "commentId": {
+        "$numberLong": "1721407133385"
+      },
+      "userId": "6679d4ed94c2dcb530d27ab1",
+      "comment": "ferferf",
+      "date": {
+        "$date": "2024-07-19T16:38:53.379Z"
+      }
+    }
+  ],
+  "likedBy": [
+    "6679d4ed94c2dcb530d27ab1",
+    "6679d55394c2dcb530d27ab4",
+    "6679d66f94c2dcb530d27ac5"
+  ],
+  "dislikedBy": [
+    "6679d56294c2dcb530d27ab6"
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "6679d76c94c2dcb530d27ad5"
+  },
+  "videoFile": "/videos/1722176971899.mp4",
+  "thumbnail": "/thumbnails/1722176971899.jpg",
+  "title": "פרק 1- שניצל מושלם",
+  "description": "פרק 1- שניצל מושלם. בסדרה זו נלמד כיצד להכין את השניצל המושלם שלב אחר שלב.",
+  "userId": "6679d65094c2dcb530d27ac1",
+  "views": 70013,
+  "likes": 4,
+  "dislikes": 1,
+  "tags": [
+    "Recipe",
+    "Cooking",
+    "Tutorial"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2023-07-23T20:00:00.000Z"
+  },
+  "comments": [
+    {
+      "_id": "66a0b91f9877ddd80a77c752",
+      "commentId": 1,
+      "userId": "6679d65094c2dcb530d27ac1",
+      "comment": "Can't wait to try this recipe!",
+      "date": {
+        "$date": "2023-07-24T21:00:00.000Z"
+      }
+    },
+    {
+      "_id": "669f62f7c15a35b54caa6d70",
+      "commentId": "669f62f7c15a35b54caa6d6f",
+      "userId": "6679d4ed94c2dcb530d27ab1",
+      "comment": "יי",
+      "date": {
+        "$date": "2024-07-23T07:59:51.152Z"
+      }
+    },
+    {
+      "_id": "66a5240c1ba427a481bea1e0",
+      "commentId": "66a5240c1ba427a481bea1df",
+      "userId": "66a51cbd1ba427a481be5da7",
+      "comment": "אחלה מתכון!",
+      "date": {
+        "$date": "2024-07-27T16:45:00.223Z"
+      }
+    }
+  ],
+  "likedBy": [
+    "6679d55394c2dcb530d27ab4",
+    "6679d65094c2dcb530d27ac1",
+    "6679d4ed94c2dcb530d27ab1",
+    "66a0078e5d4476858b221d61"
+  ],
+  "dislikedBy": [
+    "6679d56294c2dcb530d27ab6"
+  ],
+  "__v": 12
+},
+{
+  "_id": {
+    "$oid": "6679d77794c2dcb530d27ad7"
+  },
+  "videoFile": "/videos/1721717174551.mp4",
+  "thumbnail": "/thumbnails/1721717174551.jpg",
+  "title": "טיפ השבוע - איך לטגן שניצל מושלם",
+  "description": "טיפ השבוע - איך לטגן שניצל מושלם. כל מה שצריך לדעת על טיגון שניצל מושלם.",
+  "userId": "6679d65e94c2dcb530d27ac3",
+  "views": 80010,
+  "likes": 2,
+  "dislikes": 2,
+  "tags": [
+    "Recipe",
+    "Cooking",
+    "Tips"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2023-08-23T22:00:00.000Z"
+  },
+  "comments": [
+    {
+      "commentId": 1,
+      "userId": "6679d4ed94c2dcb530d27ab1",
+      "comment": "Thanks for the tips!",
+      "date": {
+        "$date": "2023-08-24T23:00:00.000Z"
+      }
+    },
+    {
+      "_id": "66a0a827c7136a1d94195f6e",
+      "commentId": "66a0a827c7136a1d94195f6d",
+      "userId": "66a0078e5d4476858b221d61",
+      "comment": "היי",
+      "date": {
+        "$date": "2024-07-24T07:07:14.204Z"
+      }
+    },
+    {
+      "_id": "66a0a827c7136a1d94195f72",
+      "commentId": "66a0a827c7136a1d94195f71",
+      "userId": "66a0078e5d4476858b221d61",
+      "comment": "היי",
+      "date": {
+        "$date": "2024-07-24T07:07:14.215Z"
+      }
+    },
+    {
+      "_id": "66a0a827c7136a1d94195f76",
+      "commentId": "66a0a827c7136a1d94195f75",
+      "userId": "66a0078e5d4476858b221d61",
+      "comment": "היי",
+      "date": {
+        "$date": "2024-07-24T07:07:14.278Z"
+      }
+    },
+    {
+      "_id": "66a0a832c7136a1d94195f7e",
+      "commentId": "66a0a832c7136a1d94195f7d",
+      "userId": "66a0078e5d4476858b221d61",
+      "comment": "בד",
+      "date": {
+        "$date": "2024-07-24T07:07:28.370Z"
+      }
+    },
+    {
+      "_id": "66a0b7b69877ddd80a77c47e",
+      "commentId": "66a0b7b29877ddd80a77c47d",
+      "userId": "66a0078e5d4476858b221d61",
+      "comment": "fff",
+      "date": {
+        "$date": "2024-07-24T08:13:30.533Z"
+      }
+    }
+  ],
+  "likedBy": [
+    "6679d55394c2dcb530d27ab4"
+  ],
+  "dislikedBy": [
+    "6679d56294c2dcb530d27ab6",
+    "6679d4ed94c2dcb530d27ab1"
+  ],
+  "__v": 9
+},
+{
+  "_id": {
+    "$oid": "6679d78194c2dcb530d27ad9"
+  },
+  "videoFile": "/videos/1721765917551.mp4",
+  "thumbnail": "/thumbnails/1721765917551.jpg",
+  "title": "שניצל",
+  "description": "שניצל - סרטון אנימציה משעשע שמציג את סיפור השניצל בצורה יצירתית.",
+  "userId": "6679d66f94c2dcb530d27ac5",
+  "views": 90025,
+  "likes": 3,
+  "dislikes": 1,
+  "tags": [
+    "Animation",
+    "Food",
+    "Fun"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2023-09-23T10:00:00.000Z"
+  },
+  "comments": [
+    {
+      "_id": "669a9b5fe8f856ac3b6de294",
+      "commentId": {
+        "$numberLong": "1721408351783"
+      },
+      "userId": "6679d4ed94c2dcb530d27ab1",
+      "comment": "htrhrth",
+      "date": {
+        "$date": "2024-07-19T16:59:11.776Z"
+      }
+    },
+    {
+      "_id": "669f61f9b10ea625ad11b63a",
+      "commentId": "669f61f9b10ea625ad11b639",
+      "userId": "6679d4ed94c2dcb530d27ab1",
+      "comment": "fff",
+      "date": {
+        "$date": "2024-07-23T07:55:37.035Z"
+      }
+    }
+  ],
+  "likedBy": [
+    "6679d55394c2dcb530d27ab4",
+    "6679d55394c2dcb530d27ab4",
+    "6679d4ed94c2dcb530d27ab1"
+  ],
+  "dislikedBy": [
+    "6679d56294c2dcb530d27ab6"
+  ],
+  "__v": 6
+},
+{
+  "_id": {
+    "$oid": "6679d78c94c2dcb530d27adb"
+  },
+  "videoFile": "/videos/1721717796417.mp4",
+  "thumbnail": "/thumbnails/1721717796417.jpg",
+  "title": "0_Tuna-Shnitzels",
+  "description": "Shnitzels by Tuna. An interesting take on the classic schnitzel with a musical twist.",
+  "userId": "6679d64194c2dcb530d27abf",
+  "views": 70003,
+  "likes": 3,
+  "dislikes": 1,
+  "tags": [
+    "Music",
+    "Food",
+    "Creative"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2015-08-22T08:30:00.000Z"
+  },
+  "comments": [
+    {
+      "_id": "669a227ec758197e2ed368f4",
+      "commentId": 1,
+      "userId": "6679d56294c2dcb530d27ab6",
+      "comment": "What a unique idea!",
+      "date": {
+        "$date": "2015-08-24T09:30:00.000Z"
+      }
+    }
+  ],
+  "likedBy": [
+    "6679d4ed94c2dcb530d27ab1",
+    "6679d55394c2dcb530d27ab4",
+    "6679d56294c2dcb530d27ab6"
+  ],
+  "dislikedBy": [
+    "6679d56294c2dcb530d27ab6"
+  ],
+  "__v": 2
+},
+{
+  "_id": {
+    "$oid": "66a007d55d4476858b221da3"
+  },
+  "videoFile": "/videos/1721763796475.mp4",
+  "thumbnail": "/thumbnails/1721763797185.jpg",
+  "title": "משחקי  השף, למי יש את מנת השניצל הטובה ביותר?",
+  "description": "משימת השניצל הגיעה לסיומה למי יש את השניצל הכי טוב?",
+  "userId": "66a0078e5d4476858b221d61",
+  "views": 1029,
+  "likes": 0,
+  "dislikes": 1,
+  "tags": [
+    "ריאליטי",
+    "משחקי השף",
+    "תחרות",
+    "אסף גרניט"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2021-07-13T19:43:17.209Z"
+  },
+  "comments": [
+    {
+      "_id": "66a0180c5eb41cdf1ee92a2f",
+      "commentId": "66a0180c5eb41cdf1ee92a2e",
+      "userId": "66a00fe25eb41cdf1ee924b2",
+      "comment": "איכס ערוץ 13 רק אחת ועוד אחת תאגיד השידור כאן 11\\nבאהבה ♥ תאגיד השידור",
+      "date": {
+        "$date": "2024-07-23T20:59:53.780Z"
+      }
+    }
+  ],
+  "dislikedBy": [
+    "66a00fe25eb41cdf1ee924b2"
+  ],
+  "__v": 3
+},
+{
+  "_id": {
+    "$oid": "66a0101a5eb41cdf1ee924f4"
+  },
+  "videoFile": "/videos/1721765914551.mp4",
+  "thumbnail": "/thumbnails/1721767632591.jpg",
+  "title": "כאן סקרנים איך נולד השניצל הישראלי",
+  "description": "סרטון מעניין על עלייתו של השניצל הישראלי לחך של כולנו",
+  "userId": "66a00fe25eb41cdf1ee924b2",
+  "views": 18,
+  "likes": 0,
+  "dislikes": 0,
+  "tags": [
+    "כאן",
+    "סקרנים",
+    "תולדות השניצל",
+    "שניצלים",
+    "היסטוריה",
+    "שניצל",
+    "שניצלים בעבר"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2024-07-23T20:18:34.649Z"
+  },
+  "comments": [
+    {
+      "_id": "66a0c2397bc5ecf74a71c434",
+      "commentId": "66a0c2397bc5ecf74a71c433",
+      "userId": "66a0078e5d4476858b221d61",
+      "comment": "vv",
+      "date": {
+        "$date": "2024-07-24T08:58:33.407Z"
+      }
+    }
+  ],
+  "__v": 3
+},
+{
+  "_id": {
+    "$oid": "66a51d4b1ba427a481be5eda"
+  },
+  "videoFile": "/videos/1722096971899.mp4",
+  "thumbnail": "/thumbnails/1722096971912.webp",
+  "title": "שניצלים וצ'יפס ב- 80 שקל",
+  "description": "מישהו מתלונן על דייט בו האישה הזמינה שניצלים וצ'יפס ב- 80 שקל כשהוא הציע לה לשתות קפה כי ככה נהוג.",
+  "userId": "66a51cbd1ba427a481be5da7",
+  "views": 1,
+  "likes": 0,
+  "dislikes": 0,
+  "tags": [
+    "שניצל",
+    "צ'יפס",
+    "80 שקל"
+  ],
+  "category": "Schnitzel",
+  "uploadDate": {
+    "$date": "2024-07-27T16:16:11.992Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66a51e561ba427a481be60ee"
+  },
+  "videoFile": "/videos/1722097238309.mp4",
+  "thumbnail": "/thumbnails/1722097238841.jpg",
+  "title": "כנפיי גלידת שניצל",
+  "description": "מתכון מגניב על כנפי עוף מטוגנות רק במקום עוף זה גלידה!!",
+  "userId": "66a51cbd1ba427a481be5da7",
+  "views": 0,
+  "likes": 0,
+  "dislikes": 0,
+  "tags": [
+    "כנפיים",
+    "Ice cream",
+    "קריספי"
+  ],
+  "category": "Crispy Desserts",
+  "uploadDate": {
+    "$date": "2024-07-27T16:20:38.866Z"
+  },
+  "__v": 0
+}]
