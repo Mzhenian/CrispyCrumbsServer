@@ -34,6 +34,7 @@ router.patch("/:id", verifyToken, verifyUserId, upload.single("profilePhoto"), u
 router.delete("/:id", verifyToken, verifyUserId, userController.deleteUser);
 
 // Video routes
+router.get("/:id/videos/:pid", videoController.getVideoByUserAndId);
 router.get("/:id/videos/", userController.getUserVideos);
 router.post(
   "/:id/videos",
