@@ -172,8 +172,11 @@ exports.editVideo = async (req, res) => {
 exports.deleteVideo = async (req, res) => {
   const { id } = req.params;
 
+  // Remove the video ID from the user's videosIds array
+
   try {
     const video = await Video.findByIdAndDelete(id);
+    await User.findByIdAndUpdate(video.userId, { $pull: { videosIds: id } }, { new: true });
 
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
