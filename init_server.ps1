@@ -25,7 +25,7 @@ if ($silent -ne "y") {
                 };" > .\config\config.js
     }
 }
-     
+   
 # update MongoDB
 if (-NOT (Test-Path .\FilesForMongoDB\mongosh.exe)) {
     unzip .\FilesForMongoDB\mongosh.zip -d .\FilesForMongoDB
