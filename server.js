@@ -19,7 +19,7 @@ server.use(cors());
 server.use(bodyParser.json());
 server.use("/api/users", userRoutes);
 server.use("/api/videos", videoRoutes);
-router.post("/api/tokens", usersController.login); //todo implement and move to appropriate file
+router.post("/api/tokens", usersController.login);
 
 mongoose.set("strictQuery", true);
 
