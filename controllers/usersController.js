@@ -179,10 +179,7 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-
-
 // Delete user
-
 exports.deleteUser = async (req, res) => {
   const id = req.params.id;
 
@@ -193,13 +190,24 @@ exports.deleteUser = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Delete all videos associated with the user
     await Video.deleteMany({ userId: id });
 
+    // Remove the user's comments from all videos
     await Video.updateMany({ "comments.userId": id }, { $pull: { comments: { userId: id } } });
 
+    // Remove the user from other users' followers and following lists
+    await User.updateMany({ followers: id }, { $pull: { followers: id } });
+    await User.updateMany({ following: id }, { $pull: { following: id } });
+
+    // Remove the user's ID from likedBy and dislikedBy lists in videos
+    await Video.updateMany({ likedBy: id }, { $pull: { likedBy: id }, $inc: { likes: -1 } });
+    await Video.updateMany({ dislikedBy: id }, { $pull: { dislikedBy: id }, $inc: { dislikes: -1 } });
+
+    // Delete the user
     await User.findByIdAndDelete(id);
 
-    res.status(200).json({ message: "User, videos, and comments deleted successfully" });
+    res.status(200).json({ message: "User, videos, comments, and associated data deleted successfully" });
   } catch (error) {
     console.error("Error deleting user:", error);
     res.status(500).json({ error: error.message });

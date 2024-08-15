@@ -188,4 +188,3 @@ Now the server should be running!
 
 Multer is used to handle file uploads, including profile photos, videos, and thumbnails. The file storage is configured to store files in the DB folder based on their type.
 
----
