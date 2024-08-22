@@ -28,7 +28,7 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS and 
 
 1) open a powershell in `CrispyCrumbsServer` project-folder.
 2) run: `.\init_server.ps1`
-3) Enter the new CrispyCrumbs server JWT secret if prompted.
+3) Enter the new CrispyCrumbs server JWT secret if prompted. (It's a password. There is no need to remember it, only to replace it when there is a fear hackers got you.)
 
 ### Initialization option two: manually
 
