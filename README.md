@@ -28,7 +28,7 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS and 
 
 1) open a powershell in `CrispyCrumbsServer` project-folder.
 2) run: `.\init_server.ps1`
-3) Enter the new CrispyCrumbs server JWT secret if prompted.
+3) Enter the new CrispyCrumbs server JWT secret if prompted. (It's a password. There is no need to remember it, only to replace it when there is a fear hackers got you.)
 
 ### Initialization option two: manually
 
@@ -56,6 +56,8 @@ Now it should look like this:
 ![[.\demonstration\mongodb-add.png]]
 8. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`
 9. In `videos` select `ADD DATA > iMPORT json OR csv FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`
+10. Go to `indexes` tab and create index on field `title` of type `text`, as such:
+![[.\demonstration\mongodb-create_index.png]]
 
 **The server**
 10. Open a terminal in `CrispyCrumbsServer` project-folder
