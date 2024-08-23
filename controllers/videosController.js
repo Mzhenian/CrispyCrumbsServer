@@ -76,15 +76,13 @@ exports.searchAllVideos = async (req, res) => {
       return;
     }
 
-    const foundVideos = await Video.find(
-      {
-        $or: [
-          { $text: { $search: query } },
-          { title: { $regex: query, $options: "i" } },
-          //   { tags: { $in: [query] } }
-        ],
-      }
-    );
+    const foundVideos = await Video.find({
+      $or: [
+        { $text: { $search: query } }, //the MongoDB text index is on the title and description fields.
+        { title: { $regex: query, $options: "i" } },
+        { tags: { $in: [query] } },
+      ],
+    });
 
     if (foundVideos.length === 0) {
       res.status(404).json({ result: "No videos found" });
