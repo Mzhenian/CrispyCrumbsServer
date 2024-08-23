@@ -38,7 +38,9 @@ if (-NOT (Test-Path .\FilesForMongoDB\mongosh.exe)) {
 .\FilesForMongoDB\mongoimport.exe --db CrispyCrumbs --collection users --file .\FilesForMongoDB\CrispyCrumbs.users.json --jsonArray
 .\FilesForMongoDB\mongoimport.exe --db CrispyCrumbs --collection videos --file .\FilesForMongoDB\CrispyCrumbs.videos.json --jsonArray
 
-.\FilesForMongoDB\mongosh.exe CrispyCrumbs --eval 'db.videos.createIndex({ title: "text" })'
+.\FilesForMongoDB\mongosh.exe CrispyCrumbs --eval 'db.videos.createIndex({ title: "text", description: "text" })'
+.\FilesForMongoDB\mongosh.exe CrispyCrumbs --eval 'db.videos.createIndex({ title: 1 })'
+.\FilesForMongoDB\mongosh.exe CrispyCrumbs --eval 'db.videos.createIndex({ tags: 1 })'
 
 # Start the server
 npm install
