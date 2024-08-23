@@ -56,6 +56,8 @@ Now it should look like this:
 ![[.\demonstration\mongodb-add.png]]
 8. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`
 9. In `videos` select `ADD DATA > iMPORT json OR csv FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`
+10. Go to `indexes` tab and create index on field `title` of type `text`, as such:
+![[.\demonstration\mongodb-create_index.png]]
 
 **The server**
 10. Open a terminal in `CrispyCrumbsServer` project-folder
