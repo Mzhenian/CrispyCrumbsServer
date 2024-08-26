@@ -28,11 +28,12 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS and 
 
 1) open a powershell in `CrispyCrumbsServer` project-folder.
 2) run: `.\init_server.ps1`
-3) Enter the new CrispyCrumbs server JWT secret if prompted.
+3) Enter the new CrispyCrumbs server JWT secret if prompted. (It's a password. There is no need to remember it, only to replace it when there is a fear hackers got you.)
 
 ### Initialization option two: manually
 
-**JWT secret**
+#### JWT secret
+
 1. Open `CrispyCrumbsServer\config\config.js` file and choose a new JWT secret key:
 
    ```javascript
@@ -43,24 +44,37 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS and 
    };
    ```
 
-**MongoDB**
-2. Open mongoDB compass.
-3.  connect to the URI `mongodb://localhost:27017/CrispyCrumbs`
-4. Open / create database named `CrispyCrumbs`
-5. Open / create two collections: `users` and `videos`
+#### MongoDB
+
+1. Open mongoDB compass.
+2. Connect to the URI `mongodb://localhost:27017/CrispyCrumbs`
+3. Open / create database named `CrispyCrumbs`
+4. Open / create two collections: `users` and `videos`
 Now it should look like this:
 ![[.\demonstration\mongodb-collections.png]]
-6. Insure `users` and `videos` are empty
+5. Insure `users` and `videos` are empty
 ![[.\demonstration\mongodb-empty.png]]
-7. In `users` select `ADD DATA > iMPORT json OR csv FILE`
+6. In `users` select `ADD DATA > iMPORT json OR csv FILE`
 ![[.\demonstration\mongodb-add.png]]
-8. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`
-9. In `videos` select `ADD DATA > iMPORT json OR csv FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`
+7. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`
+8. In `videos` select `ADD DATA > iMPORT json OR csv FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`
+9. Go to `indexes` tab and create the following indexes:
+   a. On fields `title` and `description` of type `text`;
+   b. On field `title` of type `1 (asc)`;
+   c. On field `tags` of type `1 (asc)`;
+  as such:
+a
+![[.\demonstration\mongodb-create_index.png]]
+b
+![[.\demonstration\mongodb-create_index2.png]]
+c
+![[.\demonstration\mongodb-create_index3.png]]
 
-**The server**
-10. Open a terminal in `CrispyCrumbsServer` project-folder
-11. Run `npm install`
-12. Run `node server.js`
+#### The server
+
+1. Open a terminal in `CrispyCrumbsServer` project-folder
+2. Run `npm install`
+3. Run `node server.js`
 Now the server should be running!
 ![[.\demonstration\server-running.png]]
 

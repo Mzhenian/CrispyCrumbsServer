@@ -67,6 +67,33 @@ exports.getAllVideos = async (req, res) => {
   }
 };
 
+//Get searched videos
+exports.searchAllVideos = async (req, res) => {
+  const { query } = req.params;
+  try {
+    if (!query || query === "") {
+      getAllVideos(req, res);
+      return;
+    }
+
+    const foundVideos = await Video.find({
+      $or: [
+        { $text: { $search: query } }, //the MongoDB text index is on the title and description fields.
+        { title: { $regex: query, $options: "i" } },
+        { tags: { $in: [query] } },
+      ],
+    });
+
+    if (foundVideos.length === 0) {
+      res.status(404).json({ result: "No videos found" });
+    } else {
+      res.status(200).json(foundVideos);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Get following videos
 exports.getFollowingVideos = async (req, res) => {
   try {

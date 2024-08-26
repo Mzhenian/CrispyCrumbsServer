@@ -7,7 +7,7 @@ const { verifyToken, verifyUserId } = userController;
 // General video routes
 router.get("/", videoController.getAllVideos);
 router.get("/followers", verifyToken, videoController.getFollowingVideos);
-
+router.get("/search/:query", videoController.searchAllVideos);
 router.get("/:id", videoController.getVideoById);
 
 // Video features routes
