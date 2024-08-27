@@ -27,8 +27,10 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS and 
 **Note:** If you're interested in using the website quickly then you can run only the CrispyCrumbs website initialization script (which will call the server initialization script and without updating the JWT secret).
 
 1) open a powershell in `CrispyCrumbsServer` project-folder.
-2) run: `.\init_server.ps1`
-3) Enter the new CrispyCrumbs server JWT secret if prompted. (It's a password. There is no need to remember it, only to replace it when there is a fear hackers got you.)
+2) run: `.\init_server.cmd`
+3) you can update the CrispyCrumbs server JWT secret if prompted. (It's a password. That there is no need to remember, only to replace it when there is a fear hackers got you.)
+
+- after the initialization use `npm start` to start the server
 
 ### Initialization option two: manually
 
