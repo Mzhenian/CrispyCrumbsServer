@@ -218,7 +218,7 @@
   "password": "password4",
   "fullName": "Beri Tzakala",
   "phoneNumber": "555-555-5554",
-  "birthday": "10/03/1992",
+  "birthday": "1982-03-10T21:00:00.000+00:00",",
   "country": "Israel",
   "profilePhoto": "/users/4.png",
   "followers": [
@@ -243,9 +243,7 @@
   "password": "password1",
   "fullName": "Israel Israeli",
   "phoneNumber": "555-555-5551",
-  "birthday": {
-    "$date": "1990-03-31T21:00:00.000Z"
-  },
+  "birthday":  "1990-03-31T21:00:00.000Z"
   "country": "Israel",
   "profilePhoto": "/users/1721763726423.png",
   "followers": [
