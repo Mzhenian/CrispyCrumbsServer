@@ -1,6 +1,6 @@
 # Crispy Crumbs: NodeJS server with MongoDB database
 
-Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS and MongoDB to provide a robust backend for the Crispy Crumbs video sharing platform.
+Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS in integration with MongoDB to provide a robust backend for the Crispy Crumbs video sharing platform.
 
 ## Crispy Crumbs - Founders
 
@@ -15,20 +15,22 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS and 
 - The server is build and tested to run from a windows machine.
 - Node.js
 - MongoDB
-  - By default CrispyCrumbs will use "CrispyCrumbs" database in "mongodb://localhost:27017/CrispyCrumbs" connection.
+  - By default CrispyCrumbs will use "CrispyCrumbs" database in "mongodb://localhost:27017/CrispyCrumbs" connection **and will overwrite anything in it**.
 
 ### Download
 
-- Second download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) as [zip](https://github.com/Mzhenian/CrispyCrumbsServer/archive/refs/heads/main.zip) and unzip it
+- Second download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) as [zip](https://github.com/Mzhenian/CrispyCrumbsServer/archive/refs/heads/EX2-complete.zip) and unzip it
 - **or** [clone](https://github.com/Mzhenian/CrispyCrumbsServer.git) the repository and checkout the EX2-complete branch.
 
 ### Initialization option one: Easy & fast script
 
-**Note:** If you're interested in using the website quickly then you can run only the CrispyCrumbs website initialization script (which will call the server initialization script and without updating the JWT secret).
+**Note:** If you're interested in using the website quickly then you can run only the CrispyCrumbs website initialization script (which will call the server initialization script only without updating the JWT secret).
 
-1) open a powershell in `CrispyCrumbsServer` project-folder.
-2) run: `.\init_server.ps1`
-3) Enter the new CrispyCrumbs server JWT secret if prompted. (It's a password. There is no need to remember it, only to replace it when there is a fear hackers got you.)
+1) open a CMD in `CrispyCrumbsServer` project-folder.
+2) run: `.\init_server.cmd`
+3) you can update the CrispyCrumbs server JWT secret if prompted. (It's a password. That there is no need to remember, only to replace it when there is a fear hackers got you.)
+
+- after the initialization use `npm start` to start the server
 
 ### Initialization option two: manually
 
@@ -175,11 +177,6 @@ Now the server should be running!
   - Function: `dislikeVideo`
   - Description: Dislikes a video. Requires authentication and user verification.
 
-- **Increment Views**
-  - `POST /incrementViews`
-  - Function: `incrementViews`
-  - Description: Increments the view count of a video.
-
 - **Add/Edit/Delete Comment**
   - `POST /comment`
   - Function: `addComment`
@@ -200,5 +197,4 @@ Now the server should be running!
 
 ### File Uploads
 
-Multer is used to handle file uploads, including profile photos, videos, and thumbnails. The file storage is configured to store files in the DB folder based on their type.
-
+Multer is used to handle file uploads, including profile photos, videos, and thumbnails. The file storage is configured to store files in the DB based on their type.
