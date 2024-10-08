@@ -15,6 +15,9 @@ const cors = require("cors");
 const server = express();
 const port = 1324;
 
+const TCP_PORT = 5555
+const TCP_IP = "127.0.0.1";
+
 server.use(cors());
 server.use(bodyParser.json());
 server.use("/api/users", userRoutes);
@@ -28,8 +31,26 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
+
 server.use("/api/db", express.static(path.join(__dirname, "DB")));
+
+// ex 4
+const net = require("node:net");
+const client = new net.Socket();
+client.setMaxListeners(20);
+
+client.on("error", (err) => {
+  console.log("couldn't connect to the tcp server:", err.message);
+});
+
+client.on("close", () => {
+  console.log("Disconnected from the TCP server");
+});
 
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
+
+  client.connect(TCP_PORT, TCP_IP, () => {
+    console.log("Connected to the TCP server");
+  });
 });
