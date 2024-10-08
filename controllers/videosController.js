@@ -2,6 +2,9 @@ const Video = require("../models/videosModel");
 const User = require("../models/usersModel");
 const mongoose = require("mongoose");
 
+const net = require("node:net");
+const client = new net.Socket();
+
 // Get video by ID
 exports.getVideoById = async (req, res) => {
   const { id } = req.params;
@@ -27,7 +30,6 @@ exports.getVideoByUserAndId = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 // Get all videos
 exports.getAllVideos = async (req, res) => {
@@ -228,8 +230,7 @@ exports.deleteVideo = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-// Like video
+// Like Video
 exports.likeVideo = async (req, res) => {
   const { videoId, userId } = req.body;
   try {
@@ -251,15 +252,40 @@ exports.likeVideo = async (req, res) => {
         video.dislikes -= 1;
         video.dislikedBy = video.dislikedBy.filter((id) => id.toString() !== userId);
       }
+
+      // Send a message to the C++ server (which runs like the working C++ client code)
+      const client = new net.Socket();
+      const message = `Video liked by user ${userId}\n`;
+
+      client.connect(5555, "127.0.0.1", () => {
+        console.log(`Connected to the C++ server`);
+        client.write(message); // Send the like message
+        console.log(`Sent message: ${message}`);
+      });
+
+      client.on("data", (data) => {
+        console.log(`Received from C++ server: ${data.toString()}`);
+        client.end(); // Close connection after receiving the response
+      });
+
+      client.on("error", (err) => {
+        console.error("Error connecting to the C++ server: ", err.message);
+      });
+
+      client.on("close", () => {
+        console.log("Connection to C++ server closed");
+      });
     }
 
-    await video.save({ validateBeforeSave: false }); // Skip validation to avoid the comments validation issue
-    res.status(200).json(video);
+    await video.save();
+    return res.status(200).json({ success: true, video });
   } catch (error) {
-    console.error("Error in likeVideo:", error);
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+ 
 
 // Dislike video
 exports.dislikeVideo = async (req, res) => {

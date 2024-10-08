@@ -1,7 +1,8 @@
+require("dotenv").config();
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const multer = require("multer");
 const path = require("path");
 const router = express.Router();
 
@@ -15,7 +16,7 @@ const cors = require("cors");
 const server = express();
 const port = 1324;
 
-const TCP_PORT = 5555
+const TCP_PORT = 5555;
 const TCP_IP = "127.0.0.1";
 
 server.use(cors());
@@ -30,7 +31,6 @@ mongoose
   .connect(config.mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
-
 
 server.use("/api/db", express.static(path.join(__dirname, "DB")));
 
@@ -50,7 +50,7 @@ client.on("close", () => {
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);
 
-  client.connect(TCP_PORT, TCP_IP, () => {
-    console.log("Connected to the TCP server");
+  client.connect(process.env.TCP_PORT, process.env.TCP_IP, () => {
+    console.log(`Connected to the TCP server at ${process.env.TCP_IP}:${process.env.TCP_PORT}`);
   });
 });
