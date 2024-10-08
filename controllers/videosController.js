@@ -230,7 +230,8 @@ exports.deleteVideo = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-// Like Video
+
+// Like video
 exports.likeVideo = async (req, res) => {
   const { videoId, userId } = req.body;
   try {
@@ -252,40 +253,16 @@ exports.likeVideo = async (req, res) => {
         video.dislikes -= 1;
         video.dislikedBy = video.dislikedBy.filter((id) => id.toString() !== userId);
       }
-
-      // Send a message to the C++ server (which runs like the working C++ client code)
-      const client = new net.Socket();
-      const message = `Video liked by user ${userId}\n`;
-
-      client.connect(5555, "127.0.0.1", () => {
-        console.log(`Connected to the C++ server`);
-        client.write(message); // Send the like message
-        console.log(`Sent message: ${message}`);
-      });
-
-      client.on("data", (data) => {
-        console.log(`Received from C++ server: ${data.toString()}`);
-        client.end(); // Close connection after receiving the response
-      });
-
-      client.on("error", (err) => {
-        console.error("Error connecting to the C++ server: ", err.message);
-      });
-
-      client.on("close", () => {
-        console.log("Connection to C++ server closed");
-      });
     }
 
-    await video.save();
-    return res.status(200).json({ success: true, video });
+    await video.save({ validateBeforeSave: false }); // Skip validation to avoid the comments validation issue
+    res.status(200).json(video);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal server error" });
+    console.error("Error in likeVideo:", error);
+    res.status(500).json({ error: error.message });
   }
 };
 
- 
 
 // Dislike video
 exports.dislikeVideo = async (req, res) => {
@@ -411,14 +388,49 @@ exports.deleteComment = async (req, res) => {
 // Increment video views
 exports.incrementViews = async (req, res) => {
   const { videoId } = req.body;
+  const userId = req.decodedUserId; // May be undefined if user is not logged in
+
   try {
     const video = await Video.findById(videoId);
     if (!video) {
       return res.status(404).json({ error: "Video not found" });
     }
 
+    // Increment views in MongoDB
     video.views += 1;
-    await video.save({ validateModifiedOnly: true }); // Skip validation for unmodified fields
+    await video.save({ validateModifiedOnly: true });
+
+    // Prepare the message to send to the C++ server
+    let message;
+    if (userId) {
+      message = `User ${userId} watched video ${videoId}\n`;
+    } else {
+      message = `Video ${videoId} viewed\n`;
+    }
+
+    // Send message to the C++ server
+    const client = new net.Socket();
+
+    client.connect(process.env.TCP_PORT, process.env.TCP_IP, () => {
+      console.log(`Connected to the C++ server`);
+      client.write(message);
+      console.log(`Sent message: ${message}`);
+    });
+
+    client.on("data", (data) => {
+      console.log(`Received from C++ server: ${data.toString()}`);
+      client.end(); // Close connection after receiving the response
+    });
+
+    client.on("error", (err) => {
+      console.error("Error connecting to the C++ server: ", err.message);
+    });
+
+    client.on("close", () => {
+      console.log("Connection to C++ server closed");
+    });
+
+    // Return the video details after updating views
     res.status(200).json(video);
   } catch (error) {
     console.error("Error in incrementViews:", error);
