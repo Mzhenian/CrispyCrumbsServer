@@ -403,9 +403,9 @@ exports.incrementViews = async (req, res) => {
     // Prepare the message to send to the C++ server
     let message;
     if (userId) {
-      message = `User ${userId} watched video ${videoId}\n`;
-    } else {
-      message = `Video ${videoId} viewed\n`;
+      message = JSON.stringify({ userId, videoId, action: "watched" }) + "\n";
+        } else {
+      message = JSON.stringify({ videoId, action: "viewed" }) + "\n";
     }
 
     // Send message to the C++ server
