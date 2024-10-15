@@ -13,6 +13,7 @@ router.get("/:id", videoController.getVideoById);
 // Video features routes
 router.post("/like", verifyToken, verifyUserId, videoController.likeVideo);
 router.post("/dislike", verifyToken, verifyUserId, videoController.dislikeVideo);
+//todo why do we have an API to incrementViews instead of just incrementing views in the get Video API? (with validation to prevent incrementing views when refreshing or the watcher is the uploader)
 router.post("/incrementViews", verifyToken, verifyUserId, videoController.incrementViews);
 
 // Comment related routes

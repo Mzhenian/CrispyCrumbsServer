@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const path = require("path");
+const path = require("node:path");
 const router = express.Router();
 
 const userRoutes = require("./routes/userRoutes");
@@ -16,6 +16,7 @@ const cors = require("cors");
 const server = express();
 const port = 1324;
 
+//video recommendation server
 const TCP_PORT = 5555;
 const TCP_IP = "127.0.0.1";
 
