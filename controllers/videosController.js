@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const net = require("node:net");
 const client = new net.Socket();
+const shuffleArray = require("../utils");
 
 // Get video by ID
 exports.getVideoById = async (req, res) => {
@@ -263,7 +264,6 @@ exports.likeVideo = async (req, res) => {
   }
 };
 
-
 // Dislike video
 exports.dislikeVideo = async (req, res) => {
   const { videoId, userId } = req.body;
@@ -385,10 +385,9 @@ exports.deleteComment = async (req, res) => {
   }
 };
 
-// Increment video views
 exports.incrementViews = async (req, res) => {
   const { videoId } = req.body;
-  const userId = req.decodedUserId; // May be undefined if user is not logged in
+  const userId = req.decodedUserId; // May be undefined if the user is anonymous
 
   try {
     const video = await Video.findById(videoId);
@@ -403,22 +402,20 @@ exports.incrementViews = async (req, res) => {
     // Prepare the message to send to the C++ server
     let message;
     if (userId) {
-      message = `User ${userId} watched video ${videoId}\n`;
+      message = `WATCH ${userId} ${videoId}\n`;
     } else {
-      message = `Video ${videoId} viewed\n`;
+      // For anonymous users, we can use a placeholder or skip sending the user ID
+      message = `WATCH ANONYMOUS ${videoId}\n`;
     }
 
     // Send message to the C++ server
     const client = new net.Socket();
 
     client.connect(process.env.TCP_PORT, process.env.TCP_IP, () => {
-      console.log(`Connected to the C++ server`);
       client.write(message);
-      console.log(`Sent message: ${message}`);
     });
 
     client.on("data", (data) => {
-      console.log(`Received from C++ server: ${data.toString()}`);
       client.end(); // Close connection after receiving the response
     });
 
@@ -427,13 +424,73 @@ exports.incrementViews = async (req, res) => {
     });
 
     client.on("close", () => {
-      console.log("Connection to C++ server closed");
+      // Connection closed
     });
 
     // Return the video details after updating views
     res.status(200).json(video);
   } catch (error) {
     console.error("Error in incrementViews:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getRecommendations = async (req, res) => {
+  const { videoId } = req.params;
+
+  try {
+    // Send request to the C++ server
+    const client = new net.Socket();
+
+    client.connect(process.env.TCP_PORT, process.env.TCP_IP, () => {
+      const message = `GET_RECOMMENDATIONS ${videoId}\n`;
+      client.write(message);
+    });
+
+    client.on("data", async (data) => {
+      const response = data.toString();
+      client.end(); // Close connection after receiving the response
+
+      if (response.startsWith("RECOMMENDATIONS")) {
+        // Extract video IDs
+        const parts = response.trim().split(" ");
+        const recommendedVideoIds = parts.slice(1); // Skip the first element
+
+        // Fetch video details from MongoDB
+        const videos = await Video.find({ _id: { $in: recommendedVideoIds } });
+
+        // Sort videos by views (popularity) descending
+        videos.sort((a, b) => b.views - a.views);
+
+        // If less than 10 videos, fill with random videos
+        if (videos.length < 10) {
+          const excludeIds = [
+            ...videos.map((v) => v._id.toString()),
+            videoId, // Exclude the current video
+          ];
+          const additionalVideos = await Video.aggregate([
+            { $match: { _id: { $nin: excludeIds.map((id) => mongoose.Types.ObjectId(id)) } } },
+            { $sample: { size: 10 - videos.length } },
+          ]);
+          videos.push(...additionalVideos);
+        }
+
+        // Limit to 10 videos and shuffle the array
+        const recommendedVideos = videos.slice(0, 10);
+        arr = shuffleArray(recommendedVideos);
+        res.status(200).json(arr);
+      } else {
+        // Handle error
+        res.status(500).json({ error: "Failed to get recommendations" });
+      }
+    });
+
+    client.on("error", (err) => {
+      console.error("Error connecting to the C++ server: ", err.message);
+      res.status(500).json({ error: "Error connecting to the recommendations server" });
+    });
+  } catch (error) {
+    console.error("Error in getRecommendations:", error);
     res.status(500).json({ error: error.message });
   }
 };
