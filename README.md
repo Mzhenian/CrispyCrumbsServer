@@ -161,23 +161,7 @@ graph TD;
   - `POST /isEmailAvailable`
     - Function: `isEmailAvailable`
     - Description: Checks if an email is available.
-   
-```mermaid
-graph TD;
-  subgraph User_Routes
-    UserDetails["GET /:id\ngetUserDetails"]
-    BasicUserDetails["GET /basic/:id\ngetUserBasicDetails"]
-    UpdateUser["PUT /:id\nupdateUser"]
-    DeleteUser["DELETE /:id\ndeleteUser"]
-    UserVideos["GET /:id/videos\ngetUserVideos"]
-    UploadVideo["POST /:id/videos\ncreateUserVideo"]
-    EditVideo["PUT /:id/videos/:videoId\neditVideo"]
-    DeleteVideo["DELETE /:id/videos/:videoId\ndeleteVideo"]
-    FollowUnfollow["POST /follow\nfollowUnfollowUser"]
-    UsernameAvailable["POST /isUsernameAvailable\nisUsernameAvailable"]
-    EmailAvailable["POST /isEmailAvailable\nisEmailAvailable"]
-  end
-```
+
 
 ### Video Routes
 
@@ -228,21 +212,6 @@ graph TD;
   - Function: `getRecommendations`
   - Description: Retrieves recommended videos based on watch history and video popularity. Requires the TCP server to be running for full functionality.
 
-```mermaid
-graph TD;
-  subgraph Video_Routes
-    AllVideos["GET /\ngetAllVideos"]
-    FollowingVideos["GET /followers\ngetFollowingVideos"]
-    VideoById["GET /:id\ngetVideoById"]
-    LikeVideo["POST /like\nlikeVideo"]
-    DislikeVideo["POST /dislike\ndislikeVideo"]
-    AddComment["POST /comment\naddComment"]
-    EditComment["PUT /comment\neditComment"]
-    DeleteComment["DELETE /comment\ndeleteComment"]
-    IncrementViews["POST /views\nincrementViews"]
-    GetRecommendations["GET /:videoId/recommendations\ngetRecommendations"]
-  end
-```
 
 ### Miscellaneous
 
