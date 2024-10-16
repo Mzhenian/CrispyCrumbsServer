@@ -86,6 +86,16 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 - Clone or download the [CrispyCrumbsAndroid](https://github.com/Mzhenian/CrispyCrumbsAndroid) repository.
 - Follow the instructions in the repository to set up and run the Android version of Crispy Crumbs.
 
+## Crispy Crumbs Project setup
+
+```mermaid
+graph TD;
+    NodeJS server - Backend -->React - Frontend;
+    NodeJS server - Backend-->Android App - Frontend;
+    NodeJS server - Backend-->TCP Server - Backend;
+    NodeJS server - Backend-->MongoDB;
+```
+
 ## Public Routes Overview
 
 ### User Routes
@@ -225,5 +235,4 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 
 Our project was a collaborative effort. We initially met to plan and divided tasks using Jira. The journey was both educational and enjoyable.
 
-- **Jira Board**:  
   [Jira Missions](https://crispycrumbs.atlassian.net/jira/software/projects/SCRUM/list?sortBy=customfield_10020&direction=ASC)
