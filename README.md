@@ -52,19 +52,15 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 1. Open MongoDB Compass.
 2. Connect to the URI `mongodb://localhost:27017/CrispyCrumbs`.
 3. Open or create a database named `CrispyCrumbs`.
-4. Open or create two collections: `users` and `videos`. Now it should look like this:
-   ![MongoDB Collections](.\demonstration\mongodb-collections.png)
+4. Open or create two collections: `users` and `videos`.
 5. Ensure `users` and `videos` are empty.
-   ![MongoDB Empty](.\demonstration\mongodb-empty.png)
 6. In `users`, select `ADD DATA > IMPORT JSON OR CSV FILE`.
-   ![Add Data](.\demonstration\mongodb-add.png)
 7. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`.
 8. In `videos`, select `ADD DATA > IMPORT JSON OR CSV FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`.
 9. Go to the `indexes` tab and create the following indexes:
    a. On fields `title` and `description` of type `text`;
    b. On field `title` of type `1 (asc)`;
    c. On field `tags` of type `1 (asc)`.
-   ![Create Index](.\demonstration\mongodb-create_index.png)
 
 #### The Server
 
@@ -72,7 +68,6 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 2. Run `npm install`.
 3. **Activate the C++ TCP server according to the instructions on the repository.** This is necessary for video recommendations.
 4. Run `node server.js`. Now the server should be running!
-   ![Server Running](.\demonstration\server-running.png)
 
 ## Running the Crispy Crumbs Frontend
 
@@ -263,8 +258,6 @@ graph TD;
 - **Verify User ID Middleware**
   - `verifyUserId`
   - Description: Middleware to verify if the user ID in the request matches the user ID from the token.
-
-
 
 ## Work Process
 
