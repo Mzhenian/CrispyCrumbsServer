@@ -1,6 +1,6 @@
 function shuffleArray(array) {
-  let currentIndex = array.length,
-    randomIndex;
+  let currentIndex = array.length;
+  let randomIndex;
 
   // While there remain elements to shuffle...
   while (currentIndex !== 0) {
@@ -9,7 +9,10 @@ function shuffleArray(array) {
     currentIndex--;
 
     // Swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
   }
 
   return array;

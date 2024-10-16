@@ -11,9 +11,10 @@ const userSchema = new mongoose.Schema({
   profilePhoto: { type: String, default: null },
   followers: [{ type: String, required: true, default: [] }],
   following: [{ type: String, required: true, default: [] }],
-  videosIds: [{ type: String, required: true, default: [] }],
+  videosIds: [{ type: String, required: true, default: [] }], //uploaded by this user
   likedVideoIds: [{ type: String, required: true, default: [] }],
   dislikedVideoIds: [{ type: String, required: true, default: [] }],
+  watchHistory: [{ type: String, required: true, default: [] }],
 });
 
 const User = mongoose.model("User", userSchema);
