@@ -25,8 +25,7 @@ router.delete("/comment", verifyToken, verifyUserId, videoController.deleteComme
 router.delete("/:id", userController.verifyToken, videoController.deleteVideo);
 
 
-//todo remove
 // Get video Recommendations
-// router.get("/:videoId/recommendations", videoController.getRecommendations);
+router.get("/:videoId/recommendations", videoController.getRecommendations);
 
 module.exports = router;

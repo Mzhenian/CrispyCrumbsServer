@@ -462,19 +462,16 @@ exports.incrementViews = async (req, res) => {
           action: "watching",
           userId,
           watchHistory: user.watchHistory,
-          videoId,
         })}\n`;
         client.write(message);
         console.log(`Sent message: ${message}`);
       }
     });
 
-    client.on("data", (data) => {
-      console.log(`Received from C++ server: ${data.toString()}`);
-      //todo if it's the recommended videos list, fill it to 10 with random videos and send it to the user
-      // example to recommendation server response is in the format: {"recommendedVideosList":["6679d78c94c2dcb530d27adb","6679d76c94c2dcb530d27ad5"]}
-      client.end(); // Close connection after receiving the response
-    });
+    // client.on("data", (data) => {
+    //   console.log(`Received from C++ server: ${data.toString()}`);
+    //   client.end(); // Close connection after receiving the response
+    // });
 
     client.on("error", (err) => {
       console.error("Error connecting to the C++ server: ", err.message);
@@ -488,6 +485,87 @@ exports.incrementViews = async (req, res) => {
     res.status(200).json(video);
   } catch (error) {
     console.error("Error in incrementViews:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getRecommendations = async (req, res) => {
+  const { videoId } = req.params;
+  const userId = req.decodedUserId;
+
+  try {
+    // Send request to the C++ server
+    const client = new net.Socket();
+    const user = userId ? await User.findById(userId) : null;
+
+    client.connect(process.env.TCP_PORT, process.env.TCP_IP, () => {
+      if (user) {
+        const message = `${JSON.stringify({
+          action: "get recommendations",
+          watchHistory: user.watchHistory ? user.watchHistory : [],
+          videoId,
+        })}\n`;
+        client.write(message);
+      } else {
+        const message = `${JSON.stringify({
+          action: "get recommendations",
+          videoId,
+        })}\n`;
+        client.write(message);
+      }
+    });
+
+    client.on("data", async (data) => {
+      const response = data.toString();
+      client.end(); // Close connection after receiving the response
+
+      const parsedResponse = JSON.parse(response);
+
+      if (!"recommendedVideosList" in parsedResponse) {
+        res.status(500).json({ error: "Failed to get recommendations" });
+      }
+
+      const recommendedVideoIds = parsedResponse.recommendedVideosList;
+
+      // Fetch video details from MongoDB
+      const videos = await Video.find({ _id: { $in: recommendedVideoIds } });
+
+      // Sort videos by views (popularity) descending
+      videos.sort((a, b) => b.views - a.views);
+
+      // If less than 10 videos, fill with random videos
+      if (videos.length < 10) {
+        const excludeIds = [
+          ...videos.map((v) => v._id.toString()),
+          videoId, // Exclude the current video
+        ];
+        const additionalVideos = await Video.aggregate([
+          {
+            $match: {
+              _id: {
+                $nin: excludeIds.map((id) => mongoose.Types.ObjectId(id)),
+              },
+            },
+          },
+          { $sample: { size: 10 - videos.length } },
+        ]);
+        videos.push(...additionalVideos);
+      }
+
+      // Limit to 10 videos and shuffle the array
+      const recommendedVideos = videos.slice(0, 10);
+      arr = shuffleArray(recommendedVideos);
+      res.status(200).json(arr);
+    });
+
+    client.on("error", (err) => {
+      console.error("Error connecting to the C++ server: ", err.message);
+      res
+        .status(500)
+        .json({ error: "Error connecting to the recommendations server" });
+    });
+  } catch (error) {
+    console.error("Error in getRecommendations:", error);
     res.status(500).json({ error: error.message });
   }
 };
