@@ -90,10 +90,10 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 
 ```mermaid
 graph TD;
-    NodeJS server - Backend -->React - Frontend;
-    NodeJS server - Backend-->Android App - Frontend;
-    NodeJS server - Backend-->TCP Server - Backend;
-    NodeJS server - Backend-->MongoDB;
+    'NodeJS server' - 'Backend -->React - Frontend';
+    'NodeJS server' - 'Backend-->Android App - Frontend';
+    'NodeJS server' - 'Backend-->TCP Server - Backend';
+    'NodeJS server' - 'Backend-->MongoDB';
 ```
 
 ## Public Routes Overview
