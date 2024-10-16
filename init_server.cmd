@@ -6,8 +6,25 @@ set port="1324"
 set pid=
 for /f "tokens=5" %%a in ('netstat -ano ^| findstr :%port%') do set "pid=%%a"
 if not "[%pid%]"=="[]" (
-    echo CrispyCrumbs server already running
-    exit /b
+    
+@REM search for argument, no matter the order 
+    @REM set force=false
+    @REM for %%i in (%*) do (
+    @REM     if "%%i"=="-force" set force=true
+    @REM )
+
+    @REM if "%force%"=="true" (
+    @REM     echo Force killing CrispyCrumbs server with PID %pid%
+    @REM     taskkill /PID %pid% /F
+    @REM )
+
+    if [%1]==[-force] (
+        echo Force killing CrispyCrumbs server with PID %pid%
+        taskkill /PID %pid% /F
+    ) else (
+        echo CrispyCrumbs server already running
+        exit /b
+    )
 )
 
 echo initializing CrispyCrumbs server...
