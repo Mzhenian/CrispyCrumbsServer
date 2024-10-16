@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/usersController");
 const videoController = require("../controllers/videosController");
-const path = require("path");
+const path = require("node:path");
 const multer = require("multer");
 const { verifyToken, verifyUserId } = userController;
 
@@ -12,7 +12,8 @@ const storage = multer.diskStorage({
     if (file.mimetype.startsWith("video/")) {
       cb(null, "DB/videos/");
     } else if (file.mimetype.startsWith("image/")) {
-      const dest = file.fieldname === "profilePhoto" ? "DB/users/" : "DB/thumbnails/";
+      const dest =
+        file.fieldname === "profilePhoto" ? "DB/users/" : "DB/thumbnails/";
       cb(null, dest);
     } else {
       cb(new Error("Invalid file type"), false);
@@ -29,8 +30,20 @@ const upload = multer({ storage });
 router.get("/:id", userController.getUserDetails);
 router.get("/basic/:id", userController.getUserBasicDetails);
 
-router.put("/:id", verifyToken, verifyUserId, upload.single("profilePhoto"), userController.updateUser);
-router.patch("/:id", verifyToken, verifyUserId, upload.single("profilePhoto"), userController.updateUser);
+router.put(
+  "/:id",
+  verifyToken,
+  verifyUserId,
+  upload.single("profilePhoto"),
+  userController.updateUser
+);
+router.patch(
+  "/:id",
+  verifyToken,
+  verifyUserId,
+  upload.single("profilePhoto"),
+  userController.updateUser
+);
 router.delete("/:id", verifyToken, verifyUserId, userController.deleteUser);
 
 // Video routes
@@ -51,7 +64,12 @@ router.post(
   },
   videoController.createUserVideo
 );
-router.delete("/:id/videos/:videoId", verifyToken, verifyUserId, videoController.deleteVideo);
+router.delete(
+  "/:id/videos/:videoId",
+  verifyToken,
+  verifyUserId,
+  videoController.deleteVideo
+);
 router.put(
   "/:id/videos/:videoId",
   upload.fields([
@@ -78,9 +96,24 @@ router.post("/validateToken", userController.validateToken);
 router.post("/tokens", userController.login);
 router.post("/", upload.single("profilePhoto"), userController.signup);
 
-router.post("/follow", verifyToken, verifyUserId, userController.followUnfollowUser);
-router.post("/unfollow", verifyToken, verifyUserId, userController.followUnfollowUser);
-router.post("/isFollowing", verifyToken, verifyUserId, userController.isFollowing);
+router.post(
+  "/follow",
+  verifyToken,
+  verifyUserId,
+  userController.followUnfollowUser
+);
+router.post(
+  "/unfollow",
+  verifyToken,
+  verifyUserId,
+  userController.followUnfollowUser
+);
+router.post(
+  "/isFollowing",
+  verifyToken,
+  verifyUserId,
+  userController.isFollowing
+);
 
 router.post("/isUsernameAvailable", userController.isUsernameAvailable);
 router.post("/isEmailAvailable", userController.isEmailAvailable);

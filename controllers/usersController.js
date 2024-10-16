@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
 
 // ValidateToken
 exports.validateToken = (req, res) => {
-  const authHeader = req.headers["authorization"];
+  const authHeader = req.headers.authorization;
 
   if (!authHeader) {
     return res.status(403).json({ valid: false, message: "No token provided" });
@@ -168,6 +168,7 @@ exports.updateUser = async (req, res) => {
 
   try {
     if (!updateData.password) {
+      // biome-ignore lint/performance/noDelete: <explanation>
       delete updateData.password;
     }
 
@@ -257,7 +258,7 @@ exports.isFollowing = async (req, res) => {
 
 // Verify token for routes
 exports.verifyToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
+  const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(403).json({ error: "No token provided" });
   }

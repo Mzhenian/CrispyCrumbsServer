@@ -5,5 +5,6 @@
         "unfollowed",
         "Zohar"
     ],
-    "workbench.colorTheme": "Abyss"
+    "workbench.colorTheme": "Abyss",
+    "typescript.format.enable": false
 }
