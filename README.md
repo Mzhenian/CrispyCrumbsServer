@@ -231,6 +231,7 @@ graph TD;
   - `verifyUserId`
   - Description: Middleware to verify if the user ID in the request matches the user ID from the token.
 
+```mermaid
 graph TD;
   subgraph User_Routes
     UserDetails["GET /:id\ngetUserDetails"]
@@ -270,7 +271,7 @@ graph TD;
     VerifyToken["Middleware: verifyToken"]
     VerifyUserId["Middleware: verifyUserId"]
   end
-
+```
 ## Work Process
 
 Our project was a collaborative effort. We initially met to plan and divided tasks using Jira. The journey was both educational and enjoyable.
