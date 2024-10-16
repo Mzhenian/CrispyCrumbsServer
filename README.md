@@ -198,3 +198,12 @@ Now the server should be running!
 ### File Uploads
 
 Multer is used to handle file uploads, including profile photos, videos, and thumbnails. The file storage is configured to store files in the DB based on their type.
+
+## Work Process
+
+Our project was a collaborative effort. We initially met to plan and divided tasks using Jira. 
+The journey was both educational and enjoyable.
+
+- **Jira Board**:  
+  [Jira Missions](https://crispycrumbs.atlassian.net/jira/software/projects/SCRUM/list?sortBy=customfield_10020&direction=ASC)
+
