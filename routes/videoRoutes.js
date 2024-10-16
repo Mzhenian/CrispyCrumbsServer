@@ -24,4 +24,7 @@ router.delete("/comment", verifyToken, verifyUserId, videoController.deleteComme
 // Edit and delete video routes
 router.delete("/:id", userController.verifyToken, videoController.deleteVideo);
 
+// Get video Recommendations
+router.get("/:videoId/recommendations", videoController.getRecommendations);
+
 module.exports = router;

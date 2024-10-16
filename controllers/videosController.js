@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const net = require("node:net");
 const client = new net.Socket();
+const shuffleArray = require("../utils");
 
 // Get video by ID
 exports.getVideoById = async (req, res) => {
@@ -470,6 +471,7 @@ exports.incrementViews = async (req, res) => {
     client.on("data", (data) => {
       console.log(`Received from C++ server: ${data.toString()}`);
       //todo if it's the recommended videos list, fill it to 10 with random videos and send it to the user
+      // example to recommendation server response is in the format: {"recommendedVideosList":["6679d78c94c2dcb530d27adb","6679d76c94c2dcb530d27ad5"]}
       client.end(); // Close connection after receiving the response
     });
 
