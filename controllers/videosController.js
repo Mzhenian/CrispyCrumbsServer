@@ -462,6 +462,7 @@ exports.incrementViews = async (req, res) => {
           action: "watching",
           userId,
           watchHistory: user.watchHistory,
+          videoId,
         })}\n`;
         client.write(message);
         console.log(`Sent message: ${message}`);
