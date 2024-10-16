@@ -90,6 +90,7 @@ exports.isUsernameAvailable = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+
 };
 
 // Check if email is available
@@ -101,6 +102,7 @@ exports.isEmailAvailable = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+
 };
 
 // Get user details
