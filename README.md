@@ -166,6 +166,23 @@ graph TD;
   - `POST /isEmailAvailable`
     - Function: `isEmailAvailable`
     - Description: Checks if an email is available.
+   
+```mermaid
+graph TD;
+  subgraph User_Routes
+    UserDetails["GET /:id\ngetUserDetails"]
+    BasicUserDetails["GET /basic/:id\ngetUserBasicDetails"]
+    UpdateUser["PUT /:id\nupdateUser"]
+    DeleteUser["DELETE /:id\ndeleteUser"]
+    UserVideos["GET /:id/videos\ngetUserVideos"]
+    UploadVideo["POST /:id/videos\ncreateUserVideo"]
+    EditVideo["PUT /:id/videos/:videoId\neditVideo"]
+    DeleteVideo["DELETE /:id/videos/:videoId\ndeleteVideo"]
+    FollowUnfollow["POST /follow\nfollowUnfollowUser"]
+    UsernameAvailable["POST /isUsernameAvailable\nisUsernameAvailable"]
+    EmailAvailable["POST /isEmailAvailable\nisEmailAvailable"]
+  end
+```
 
 ### Video Routes
 
@@ -216,6 +233,22 @@ graph TD;
   - Function: `getRecommendations`
   - Description: Retrieves recommended videos based on watch history and video popularity. Requires the TCP server to be running for full functionality.
 
+```mermaid
+graph TD;
+  subgraph Video_Routes
+    AllVideos["GET /\ngetAllVideos"]
+    FollowingVideos["GET /followers\ngetFollowingVideos"]
+    VideoById["GET /:id\ngetVideoById"]
+    LikeVideo["POST /like\nlikeVideo"]
+    DislikeVideo["POST /dislike\ndislikeVideo"]
+    AddComment["POST /comment\naddComment"]
+    EditComment["PUT /comment\neditComment"]
+    DeleteComment["DELETE /comment\ndeleteComment"]
+    IncrementViews["POST /views\nincrementViews"]
+    GetRecommendations["GET /:videoId/recommendations\ngetRecommendations"]
+  end
+```
+
 ### Miscellaneous
 
 - **Check Following Status**
@@ -231,47 +264,8 @@ graph TD;
   - `verifyUserId`
   - Description: Middleware to verify if the user ID in the request matches the user ID from the token.
 
-```mermaid
-graph TD;
-  subgraph User_Routes
-    UserDetails["GET /:id\ngetUserDetails"]
-    BasicUserDetails["GET /basic/:id\ngetUserBasicDetails"]
-    UpdateUser["PUT /:id\nupdateUser"]
-    DeleteUser["DELETE /:id\ndeleteUser"]
-    UserVideos["GET /:id/videos\ngetUserVideos"]
-    UploadVideo["POST /:id/videos\ncreateUserVideo"]
-    EditVideo["PUT /:id/videos/:videoId\neditVideo"]
-    DeleteVideo["DELETE /:id/videos/:videoId\ndeleteVideo"]
-    FollowUnfollow["POST /follow\nfollowUnfollowUser"]
-    UsernameAvailable["POST /isUsernameAvailable\nisUsernameAvailable"]
-    EmailAvailable["POST /isEmailAvailable\nisEmailAvailable"]
-  end
 
-  subgraph Authentication_and_Validation
-    ValidateToken["POST /validateToken\nvalidateToken"]
-    Login["POST /tokens\nlogin"]
-    Signup["POST /\nsignup"]
-  end
 
-  subgraph Video_Routes
-    AllVideos["GET /\ngetAllVideos"]
-    FollowingVideos["GET /followers\ngetFollowingVideos"]
-    VideoById["GET /:id\ngetVideoById"]
-    LikeVideo["POST /like\nlikeVideo"]
-    DislikeVideo["POST /dislike\ndislikeVideo"]
-    AddComment["POST /comment\naddComment"]
-    EditComment["PUT /comment\neditComment"]
-    DeleteComment["DELETE /comment\ndeleteComment"]
-    IncrementViews["POST /views\nincrementViews"]
-    GetRecommendations["GET /:videoId/recommendations\ngetRecommendations"]
-  end
-
-  subgraph Miscellaneous
-    CheckFollowing["POST /isFollowing\nisFollowing"]
-    VerifyToken["Middleware: verifyToken"]
-    VerifyUserId["Middleware: verifyUserId"]
-  end
-```
 ## Work Process
 
 Our project was a collaborative effort. We initially met to plan and divided tasks using Jira. The journey was both educational and enjoyable.
