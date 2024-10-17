@@ -16,16 +16,16 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 - Node.js
 - MongoDB
   - By default, CrispyCrumbs will use the "CrispyCrumbs" database in "mongodb://localhost:27017/CrispyCrumbs" connection **and will overwrite anything in it**.
-- **TCP Recommendation Server**: The TCP server is necessary for video recommendations. Activate the [C++ TCP Server](https://github.com/Mzhenian/CrispyCrumbsTCP) according to the instructions provided in the repository before starting the Node.js server. Without it, the server will display random videos in the suggested videos section.
+- **C++ Recommendations Server**: provide video recommendations tailored for each user. Activate the [C++ TCP Recommendations Server](https://github.com/Mzhenian/CrispyCrumbsTCP) according to the instructions provided in the repository before starting the Node.js server. Without it, the server will display random videos in the suggested videos section.
 
 ### Download
 
-- Download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) and unzip it.
+- Download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) zip and extract it.
 - **Or** [clone](https://github.com/Mzhenian/CrispyCrumbsServer.git) the repository.
 
 ### Initialization Option One: Easy & Fast Script
 
-**Note:** If you're interested in using the website quickly, you can run the CrispyCrumbs website initialization script, which will also initialize the server without updating the JWT secret.
+**Note:** If you're interested in using the website quickly, you can run only the CrispyCrumbs website initialization script, which will also initialize the server without updating the JWT secret.
 
 1. Open a command prompt in the `CrispyCrumbsServer` project folder.
 2. Run: `.\init_server.cmd`
@@ -61,6 +61,7 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
    a. On fields `title` and `description` of type `text`;
    b. On field `title` of type `1 (asc)`;
    c. On field `tags` of type `1 (asc)`.
+   as such: a ![a](./demonstration/mongodb-create_index.png) b ![a](./demonstration/mongodb-create_index2.png) c ![a](./demonstration/mongodb-create_index3.png)
 
 #### The Server
 
@@ -87,7 +88,7 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 graph TD;
     NodeJS_Server["NodeJS Server - Backend"] <--> React_Web["React Frontend"];
     NodeJS_Server <--> Android_App["Android App - Frontend"];
-    NodeJS_Server <--> TCP_Server["TCP Recommendation Server - Backend"];
+    NodeJS_Server <--> TCP_Server["C++ Recommendation Server - Backend"];
     NodeJS_Server <--> MongoDB["MongoDB Database"];
 ```
 
@@ -202,11 +203,6 @@ graph TD;
     - Function: `deleteComment`
     - Description: Deletes a comment. Requires authentication and user verification.
 
-- **Increment Video Views**
-  - `POST /views`
-  - Function: `incrementViews`
-  - Description: Increments video views, updates user watch history, and sends the update to the recommendation server.
-
 - **Get Video Recommendations**
   - `GET /:videoId/recommendations`
   - Function: `getRecommendations`
@@ -232,4 +228,4 @@ graph TD;
 
 Our project was a collaborative effort. We initially met to plan and divided tasks using Jira. The journey was both educational and enjoyable.
 
-  [Jira Missions](https://crispycrumbs.atlassian.net/jira/software/projects/SCRUM/list?sortBy=customfield_10020&direction=ASC)
+  [Jira project](https://crispycrumbs.atlassian.net/jira/software/projects/SCRUM/list?sortBy=customfield_10020&direction=ASC)
