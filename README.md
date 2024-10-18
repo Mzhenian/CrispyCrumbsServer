@@ -1,6 +1,6 @@
 # Crispy Crumbs: NodeJS server with MongoDB database
 
-Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS in integration with MongoDB to provide a robust backend for the Crispy Crumbs video sharing platform.
+Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS integrated with MongoDB to provide a robust backend for the Crispy Crumbs video sharing platform.
 
 ## Crispy Crumbs - Founders
 
@@ -12,29 +12,30 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS in i
 
 ### Prerequisites
 
-- The server is build and tested to run from a windows machine.
+- The server is built and tested to run from a Windows machine.
 - Node.js
 - MongoDB
-  - By default CrispyCrumbs will use "CrispyCrumbs" database in "mongodb://localhost:27017/CrispyCrumbs" connection **and will overwrite anything in it**.
+  - By default, CrispyCrumbs will use the "CrispyCrumbs" database in "mongodb://localhost:27017/CrispyCrumbs" connection **and will overwrite anything in it**.
+- **C++ Recommendations Server**: provide video recommendations tailored for each user. Activate the [C++ TCP Recommendations Server](https://github.com/Mzhenian/CrispyCrumbsTCP) according to the instructions provided in the repository before starting the Node.js server. Without it, the server will display random videos in the suggested videos section.
 
 ### Download
 
-- Second download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) as [zip](https://github.com/Mzhenian/CrispyCrumbsServer/archive/refs/heads/EX2-complete.zip) and unzip it
-- **or** [clone](https://github.com/Mzhenian/CrispyCrumbsServer.git) the repository and checkout the EX2-complete branch.
+- Download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) zip and extract it.
+- **Or** [clone](https://github.com/Mzhenian/CrispyCrumbsServer.git) the repository.
 
-### Initialization option one: Easy & fast script
+### Initialization Option One: Easy & Fast Script
 
-**Note:** If you're interested in using the website quickly then you can run only the CrispyCrumbs website initialization script (which will call the server initialization script only without updating the JWT secret).
+**Note:** If you're interested in using the website quickly, you can run only the CrispyCrumbs website initialization script, which will also initialize the server without updating the JWT secret.
 
-1) open a CMD in `CrispyCrumbsServer` project-folder.
-2) run: `.\init_server.cmd`
-3) you can update the CrispyCrumbs server JWT secret if prompted. (It's a password. That there is no need to remember, only to replace it when there is a fear hackers got you.)
+1. Open a command prompt in the `CrispyCrumbsServer` project folder.
+2. Run: `.\init_server.cmd`
+3. You can update the CrispyCrumbs server JWT secret if prompted (it's a password that doesn't need to be remembered, only replaced when necessary).
 
-- after the initialization use `npm start` to start the server
+- After initialization, use `npm start` to start the server.
 
-### Initialization option two: manually
+### Initialization Option Two: Manually
 
-#### JWT secret
+#### JWT Secret
 
 1. Open `CrispyCrumbsServer\config\config.js` file and choose a new JWT secret key:
 
@@ -48,39 +49,50 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS in i
 
 #### MongoDB
 
-1. Open mongoDB compass.
-2. Connect to the URI `mongodb://localhost:27017/CrispyCrumbs`
-3. Open / create database named `CrispyCrumbs`
-4. Open / create two collections: `users` and `videos`
-Now it should look like this:
-![[.\demonstration\mongodb-collections.png]]
-5. Insure `users` and `videos` are empty
-![[.\demonstration\mongodb-empty.png]]
-6. In `users` select `ADD DATA > iMPORT json OR csv FILE`
-![[.\demonstration\mongodb-add.png]]
-7. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`
-8. In `videos` select `ADD DATA > iMPORT json OR csv FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`
-9. Go to `indexes` tab and create the following indexes:
+1. Open MongoDB Compass.
+2. Connect to the URI `mongodb://localhost:27017/CrispyCrumbs`.
+3. Open or create a database named `CrispyCrumbs`.
+4. Open or create two collections: `users` and `videos`.
+5. Ensure `users` and `videos` are empty.
+6. In `users`, select `ADD DATA > IMPORT JSON OR CSV FILE`.
+7. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`.
+8. In `videos`, select `ADD DATA > IMPORT JSON OR CSV FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`.
+9. Go to the `indexes` tab and create the following indexes:
    a. On fields `title` and `description` of type `text`;
    b. On field `title` of type `1 (asc)`;
-   c. On field `tags` of type `1 (asc)`;
-  as such:
-a
-![[.\demonstration\mongodb-create_index.png]]
-b
-![[.\demonstration\mongodb-create_index2.png]]
-c
-![[.\demonstration\mongodb-create_index3.png]]
+   c. On field `tags` of type `1 (asc)`.
+   as such: a ![a](./demonstration/mongodb-create_index.png) b ![a](./demonstration/mongodb-create_index2.png) c ![a](./demonstration/mongodb-create_index3.png)
 
-#### The server
+#### The Server
 
-1. Open a terminal in `CrispyCrumbsServer` project-folder
-2. Run `npm install`
-3. Run `node server.js`
-Now the server should be running!
-![[.\demonstration\server-running.png]]
+1. Open a terminal in the `CrispyCrumbsServer` project folder.
+2. Run `npm install`.
+3. **Activate the C++ TCP server according to the instructions on the repository.** This is necessary for video recommendations.
+4. Run `node server.js`. Now the server should be running!
 
-## Public routes structure
+## Running the Crispy Crumbs Frontend
+
+### Web Version
+
+- Clone or download the [CrispyCrumbsWeb](https://github.com/Mzhenian/CrispyCrumbsWeb) repository.
+- Follow the instructions in the repository to set up and run the web version of Crispy Crumbs.
+
+### Android Version
+
+- Clone or download the [CrispyCrumbsAndroid](https://github.com/Mzhenian/CrispyCrumbsAndroid) repository.
+- Follow the instructions in the repository to set up and run the Android version of Crispy Crumbs.
+
+## Crispy Crumbs Project setup
+
+```mermaid
+graph TD;
+    NodeJS_Server["NodeJS Server - Backend"] <--> React_Web["React Frontend"];
+    NodeJS_Server <--> Android_App["Android App - Frontend"];
+    NodeJS_Server <--> TCP_Server["C++ Recommendation Server - Backend"];
+    NodeJS_Server <--> MongoDB["MongoDB Database"];
+```
+
+## Public Routes Overview
 
 ### User Routes
 
@@ -102,10 +114,10 @@ Now the server should be running!
 - **Delete User**
   - `DELETE /:id`
   - Function: `deleteUser`
-  - Description: Deletes a user. Requires authentication and user verification.
+  - Description: Deletes a user along with all their data. Requires authentication and user verification.
 
 - **Get User Videos**
-  - `GET /:id/videos/`
+  - `GET /:id/videos`
   - Function: `getUserVideos`
   - Description: Retrieves videos uploaded by a user.
 
@@ -126,16 +138,16 @@ Now the server should be running!
 
 - **Authentication and Validation**
   - `POST /validateToken`
-  - Function: `validateToken`
-  - Description: Validates the JWT token.
-
+    - Function: `validateToken`
+    - Description: Validates the JWT token.
+  
   - `POST /tokens`
-  - Function: `login`
-  - Description: Logs in a user and provides a JWT token.
+    - Function: `login`
+    - Description: Logs in a user and provides a JWT token.
 
   - `POST /`
-  - Function: `signup`
-  - Description: Signs up a new user.
+    - Function: `signup`
+    - Description: Signs up a new user.
 
 - **Follow/Unfollow User**
   - `POST /follow`
@@ -144,19 +156,20 @@ Now the server should be running!
 
 - **Check Username/Email Availability**
   - `POST /isUsernameAvailable`
-  - Function: `isUsernameAvailable`
-  - Description: Checks if a username is available.
+    - Function: `isUsernameAvailable`
+    - Description: Checks if a username is available.
 
   - `POST /isEmailAvailable`
-  - Function: `isEmailAvailable`
-  - Description: Checks if an email is available.
+    - Function: `isEmailAvailable`
+    - Description: Checks if an email is available.
+
 
 ### Video Routes
 
 - **Get All Videos**
   - `GET /`
   - Function: `getAllVideos`
-  - Description: Retrieves all videos.
+  - Description: Retrieves all videos including most viewed, recent, following, and random videos.
 
 - **Get Following Videos**
   - `GET /followers`
@@ -170,31 +183,49 @@ Now the server should be running!
 
 - **Like/Dislike Video**
   - `POST /like`
-  - Function: `likeVideo`
-  - Description: Likes a video. Requires authentication and user verification.
+    - Function: `likeVideo`
+    - Description: Likes a video. Requires authentication and user verification.
 
   - `POST /dislike`
-  - Function: `dislikeVideo`
-  - Description: Dislikes a video. Requires authentication and user verification.
+    - Function: `dislikeVideo`
+    - Description: Dislikes a video. Requires authentication and user verification.
 
 - **Add/Edit/Delete Comment**
   - `POST /comment`
-  - Function: `addComment`
-  - Description: Adds a comment to a video. Requires authentication and user verification.
+    - Function: `addComment`
+    - Description: Adds a comment to a video. Requires authentication and user verification.
 
   - `PUT /comment`
-  - Function: `editComment`
-  - Description: Edits a comment. Requires authentication and user verification.
+    - Function: `editComment`
+    - Description: Edits a comment. Requires authentication and user verification.
 
   - `DELETE /comment`
-  - Function: `deleteComment`
-  - Description: Deletes a comment. Requires authentication and user verification.
+    - Function: `deleteComment`
+    - Description: Deletes a comment. Requires authentication and user verification.
 
-- **Delete Video**
-  - `DELETE /:id`
-  - Function: `deleteVideo`
-  - Description: Deletes a video. Requires authentication.
+- **Get Video Recommendations**
+  - `GET /:videoId/recommendations`
+  - Function: `getRecommendations`
+  - Description: Retrieves recommended videos based on watch history and video popularity. Requires the TCP server to be running for full functionality.
 
-### File Uploads
 
-Multer is used to handle file uploads, including profile photos, videos, and thumbnails. The file storage is configured to store files in the DB based on their type.
+### Miscellaneous
+
+- **Check Following Status**
+  - `POST /isFollowing`
+  - Function: `isFollowing`
+  - Description: Checks if the user is following another user. Requires authentication.
+
+- **Verify Token Middleware**
+  - `verifyToken`
+  - Description: Middleware to verify JWT token.
+
+- **Verify User ID Middleware**
+  - `verifyUserId`
+  - Description: Middleware to verify if the user ID in the request matches the user ID from the token.
+
+## Work Process
+
+Our project was a collaborative effort. We initially met to plan and divided tasks using Jira. The journey was both educational and enjoyable.
+
+  [Jira project](https://crispycrumbs.atlassian.net/jira/software/projects/SCRUM/list?sortBy=customfield_10020&direction=ASC)
