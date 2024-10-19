@@ -204,3 +204,5 @@ You can run the app in two ways:
 
 ![image](https://github.com/user-attachments/assets/57e649f0-fc16-4f59-978b-3e4fa48840f6)
 
+Have Fun!
+
