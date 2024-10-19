@@ -5,7 +5,7 @@ Welcome to the **Crispy Crumbs** website, an exclusive video-sharing platform th
 
 ### Setup Guide Reference
 
-The setup guide for building the website environment can be found in the previous section of the wiki or directly in the [Crispy Crumbs Website repository's README](https://github.com/Mzhenian/CrispyCrumbsWeb).
+The setup guide for building the website environment can be found in the previous section of the wiki or directly in the [Crispy Crumbs Website repository README](https://github.com/Mzhenian/CrispyCrumbsWeb).
 
 
 ## 1. Homepage and Top Bar
