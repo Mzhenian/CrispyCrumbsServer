@@ -123,7 +123,6 @@ graph TD;
   ```
 
   The TCP server running logs
-איק tt
 ![image](https://github.com/user-attachments/assets/efc5542e-245b-4718-ad0f-bb4c453da45b)
 
 - Ensure that the TCP server is running before starting the Node.js server.
@@ -167,25 +166,24 @@ The NodeJS running
 ## Step 4: Running the Crispy Crumbs Android App
 
 ### 4.1 Prerequisites
+- The app is designed to run on Android devices with **Android 10 up to the latest Android 15** 
+- **Node.js Server** and **TCP Server** must be set up and running for the app to function properly.
 
-- **Android Studio**: Version 2023.3.1 or later.
-- **Node.js Server** and **TCP Server** must be set up and running.
-
-### 4.2 Download and Run the App
-
-- Clone or download the [CrispyCrumbsAndroid](https://github.com/Mzhenian/CrispyCrumbsAndroid) repository.
+### 4.2 Download and run the app
+#### option 1)
+- download the latest [released APK](https://github.com/Mzhenian/CrispyCrumbsAndroid/releases)
+- install it on an android smartphone and run.
+#### option 2)
+*Requires Android Studio Version 2023.3.1 or later to Sync Gradle and build the app.
+- Clone or download the latest [CrispyCrumbs Android](https://github.com/Mzhenian/CrispyCrumbsAndroid) repository [complete branch](https://github.com/Mzhenian/CrispyCrumbsAndroid/branches/all?query=complete) .
 - Open the project in Android Studio.
+- In it from one of the menus marked below, choose on which device to run the app. Either connect your physical device via USB or Wi-Fi. (Make sure debugging is enabled in developer options.) Or use an emulator.
+- ![choose device](assets/choosedevice.png)
+- then click "Run".
 
-### 4.3 Connecting Your Android Device
-
-You can run the app in two ways:
-
-1. **Install the APK**: Download the APK from the release section.
-2. **Use Android Studio**: Connect your device via USB or Wi-Fi. Make sure debugging is enabled in developer options, then click "Run" in Android Studio.
-
-### 4.4 Setting the Server IP in the App
-
-1. Ensure both your Android device and the computer running the server are on the same local network.
+### 4.3 Setting the Server IP in the App
+To allow the app to connect to the (NodeJS) server on dynamic IP the user can configure the server IP address on run time:  
+1. Ensure both your Android device and the computer running the NodeJS server are connected to the same local network.
 2. Open the Crispy Crumbs app.
 3. Open the navigation menu and select **Set Server IP**.
 
@@ -198,9 +196,36 @@ You can run the app in two ways:
 
 #### Finding Your Computer's IP Address
 
-- **Windows**: Run `ipconfig` in the Command Prompt.
-- **Linux**: Run `hostname -I` in a terminal.
-- **macOS**: Run `ifconfig` in Terminal.
+##### On Windows:
+
+1. Open the **Command Prompt** by pressing `Windows Key + R`, typing `cmd`, and pressing Enter.
+2. In the Command Prompt, type the following command and press Enter:
+    
+    ```
+    ipconfig
+    ```
+    
+3. Look for the section called **Wireless LAN adapter Wi-Fi** or **Ethernet adapter**. The **IPv4 Address** listed there is your computer's IP address (e.g., `192.168.1.100`).
+
+##### On Linux:
+
+1. Open a terminal.
+2. Type the following command and press Enter:
+    
+    ```
+    hostname -I
+    ```
+    
+
+##### On macOS:
+
+1. Open the **Terminal**. You can find it by searching for "Terminal" in Spotlight (`Command + Space`).
+    
+2. In the terminal, type the following command and press Enter:
+    
+    ```
+    ifconfig
+    ```
 
 ![image](https://github.com/user-attachments/assets/57e649f0-fc16-4f59-978b-3e4fa48840f6)
 
