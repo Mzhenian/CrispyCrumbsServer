@@ -2,16 +2,22 @@
 
 Welcome to the **Crispy Crumbs** website, an exclusive video-sharing platform that presents only the finest Crispy Crumbs content. The website is designed with a clean, organized layout that features a playful twist—all buttons resemble crispy, fried snacks, adding a fun touch to the overall formal and tidy design. Each icon on the site is custom-made, contributing to the unique user experience.
 
+
+### Setup Guide Reference
+
+The setup guide for building the website environment can be found in the previous section of the wiki or directly in the [Crispy Crumbs Website repository's README](https://github.com/Mzhenian/CrispyCrumbsWeb).
+
+
 ## 1. Homepage and Top Bar
 
-Upon entering the website, users are greeted by the homepage, which displays videos sorted by "Most Watched," "Most Recent," "Random" (suggested), and "Suggested for You". The top navigation bar allows users to search for videos, log in, or sign up, and features a toggle for switching between light and dark mode.
+Upon entering the website, users are greeted by the homepage, which displays videos sorted by "Most Watched," "Most Recent," "Random" (suggested), and "Suggested for You." The top navigation bar allows users to search for videos, log in, or sign up, and features a toggle for switching between light and dark mode.
 
 There is also a search option that enables users to find videos based on their title, description, or tags.
 
-1 - Home page light
+1 - home page light
 ![alt text](<photos/web 1.png>)
 
-2 - Home page dark
+2 - home page dark
 ![alt text](<photos/web 2.png>)
 
 ### 1.1 User Registration
@@ -86,7 +92,7 @@ Users can like or dislike a video and leave comments, provided they are logged i
 
 Users can edit or delete their own comments by clicking on the pencil icon that appears next to their comments. Additionally, users can undo a like or dislike by clicking the button again.
 
-11 - Video of the current user - edit video button, a comment written by the current user - the user can edit that comment by click on the icon, save the changes, discard the changes or delete them.
+11 - Video of the current user - edit video button, a comment written by the current user - the user can edit that comment by clicking on the icon, save the changes, discard the changes, or delete the comment.
 ![alt text](<photos/web 11.png>)
 
 12 - Video of a different user with a subscribe button - dark mode
@@ -103,4 +109,3 @@ There is also an option to delete the video, which can be accessed using the **D
 
 14 - Edit video page
 ![alt text](<photos/web 14.png>)
-
