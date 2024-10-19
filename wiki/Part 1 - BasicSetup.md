@@ -74,9 +74,8 @@ graph TD;
 4. Import data for users and videos from `FilesForMongoDB`.
 5. Create indexes for efficient querying.
 
-![image](https://github.com/user-attachments/assets/68ad8d35-eadb-45fd-b11c-c59d41f404ff)
-![image](https://github.com/user-attachments/assets/fe72baaa-4a9b-450d-8d8d-abaebe0d7898)
-
+![alt text](<photos/setup 1.png>)
+![alt text](<photos/setup 2.png>)
 
 #### Starting the Server
 
@@ -123,14 +122,15 @@ graph TD;
   ```
 
   The TCP server running logs
-איק tt
-![image](https://github.com/user-attachments/assets/efc5542e-245b-4718-ad0f-bb4c453da45b)
+
+![alt text](<photos/setup 3.png>)
+
 
 - Ensure that the TCP server is running before starting the Node.js server.
 
 The NodeJS running
 
-![image](https://github.com/user-attachments/assets/95f40c59-6fdf-4e01-b6ae-f1c06d3301d3)
+![alt text](<photos/setup 4.png>)
 
 
 ## Step 3: Running the Crispy Crumbs Web Version
@@ -161,8 +161,7 @@ The NodeJS running
 3. Run `npm install` and then `npm start`.
 4. The website will open at [http://localhost:3000](http://localhost:3000).
 
-![image](https://github.com/user-attachments/assets/a1c79aca-e557-45e1-a114-966ce2c9c52e)
-
+![alt text](<photos/setup 5.png>)
 
 ## Step 4: Running the Crispy Crumbs Android App
 
@@ -189,12 +188,11 @@ You can run the app in two ways:
 2. Open the Crispy Crumbs app.
 3. Open the navigation menu and select **Set Server IP**.
 
-![image](https://github.com/user-attachments/assets/5df1fb31-55d3-4b1a-82b8-5c809d12a291)
+![alt text](<photos/setup 6.png>)
 
 5. Enter the **IP address** of the computer running the server.
 
-![image](https://github.com/user-attachments/assets/2d9f9e90-d4be-4096-bf9f-854a1a5fdfe0)
-
+![alt text](<photos/setup 7.png>)
 
 #### Finding Your Computer's IP Address
 
@@ -202,7 +200,7 @@ You can run the app in two ways:
 - **Linux**: Run `hostname -I` in a terminal.
 - **macOS**: Run `ifconfig` in Terminal.
 
-![image](https://github.com/user-attachments/assets/57e649f0-fc16-4f59-978b-3e4fa48840f6)
+![alt text](<photos/setup 8.png>)
 
 Have Fun!
 
