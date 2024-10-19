@@ -1,13 +1,5 @@
 # Crispy Crumbs: Full Project Setup Guide
 
-Welcome to the **Crispy Crumbs** video-sharing platform! This guide will walk you through setting up all components, including the backend server, the recommendation engine, the web version, and the Android app. Each part of the project has been carefully crafted to deliver the best user experience with a robust backend.
-
-## Crispy Crumbs - Founders
-
-- Ofek Avan Danan (211824727)
-- Zohar Mzhen (314621806)
-- Dolev Menajem (207272220)
-
 ## Setting Up Crispy Crumbs: Overview
 
 The **Crispy Crumbs** platform consists of multiple components:
@@ -44,6 +36,8 @@ graph TD;
 - MongoDB: By default, Crispy Crumbs will use the "CrispyCrumbs" database in `mongodb://localhost:27017/CrispyCrumbs` **and will overwrite anything in it**.
 - TCP Recommendation Server: Necessary for video recommendations. Activate the [C++ TCP Server](https://github.com/Mzhenian/CrispyCrumbsTCP) before starting the Node.js server.
 
+
+
 ### 1.2 Download the Server
 
 - Clone the repository from GitHub: [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer)
@@ -79,6 +73,10 @@ graph TD;
 3. Create a database named `CrispyCrumbs` with collections `users` and `videos`.
 4. Import data for users and videos from `FilesForMongoDB`.
 5. Create indexes for efficient querying.
+
+![image](https://github.com/user-attachments/assets/68ad8d35-eadb-45fd-b11c-c59d41f404ff)
+![image](https://github.com/user-attachments/assets/fe72baaa-4a9b-450d-8d8d-abaebe0d7898)
+
 
 #### Starting the Server
 
@@ -123,7 +121,17 @@ graph TD;
   ```bash
   ./server.out
   ```
+
+  The TCP server running logs
+איק tt
+![image](https://github.com/user-attachments/assets/efc5542e-245b-4718-ad0f-bb4c453da45b)
+
 - Ensure that the TCP server is running before starting the Node.js server.
+
+The NodeJS running
+
+![image](https://github.com/user-attachments/assets/95f40c59-6fdf-4e01-b6ae-f1c06d3301d3)
+
 
 ## Step 3: Running the Crispy Crumbs Web Version
 
@@ -153,6 +161,9 @@ graph TD;
 3. Run `npm install` and then `npm start`.
 4. The website will open at [http://localhost:3000](http://localhost:3000).
 
+![image](https://github.com/user-attachments/assets/a1c79aca-e557-45e1-a114-966ce2c9c52e)
+
+
 ## Step 4: Running the Crispy Crumbs Android App
 
 ### 4.1 Prerequisites
@@ -177,7 +188,13 @@ You can run the app in two ways:
 1. Ensure both your Android device and the computer running the server are on the same local network.
 2. Open the Crispy Crumbs app.
 3. Open the navigation menu and select **Set Server IP**.
-4. Enter the **IP address** of the computer running the server.
+
+![image](https://github.com/user-attachments/assets/5df1fb31-55d3-4b1a-82b8-5c809d12a291)
+
+5. Enter the **IP address** of the computer running the server.
+
+![image](https://github.com/user-attachments/assets/2d9f9e90-d4be-4096-bf9f-854a1a5fdfe0)
+
 
 #### Finding Your Computer's IP Address
 
@@ -185,9 +202,5 @@ You can run the app in two ways:
 - **Linux**: Run `hostname -I` in a terminal.
 - **macOS**: Run `ifconfig` in Terminal.
 
-## Work Process
-
-The Crispy Crumbs project was a collaborative effort among Ofek, Zohar, and Dolev. We initially focused on building the backend server, followed by integrating functionality across the React website and Android app. The TCP server was created to enhance the recommendation features. The journey was both challenging and rewarding, and it allowed us to explore the integration of different technologies and platforms.
-
-- **Jira Board**: [Jira Missions](https://crispycrumbs.atlassian.net/jira/software/projects/SCRUM/list?sortBy=customfield_10020&direction=ASC)
+![image](https://github.com/user-attachments/assets/57e649f0-fc16-4f59-978b-3e4fa48840f6)
 
