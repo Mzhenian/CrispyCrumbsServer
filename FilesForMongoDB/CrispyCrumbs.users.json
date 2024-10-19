@@ -14,11 +14,30 @@
     "6679d63794c2dcb530d27abd"
   ],
   "following": [
-    "6679d65094c2dcb530d27ac1"
+    "6679d65094c2dcb530d27ac1",
+    "6679d56294c2dcb530d27ab6",
+    "66a51cbd1ba427a481be5da7"
   ],
   "videosIds": [
     "6679d76094c2dcb530d27ad3",
     "6679d78c94c2dcb530d27adb"
+  ],
+  "__v": 71,
+  "dislikedVideoIds": [],
+  "likedVideoIds": [],
+  "watchHistory": [
+    "6679d76c94c2dcb530d27ad5",
+    "6679d74594c2dcb530d27acf",
+    "6679d78c94c2dcb530d27adb",
+    "66a51e561ba427a481be60ee",
+    "6679d76094c2dcb530d27ad3",
+    "6679d78194c2dcb530d27ad9",
+    "67142ceb6dc3c1e742e2e2da",
+    "6679d77794c2dcb530d27ad7",
+    "66a0101a5eb41cdf1ee924f4",
+    "6679d74f94c2dcb530d27ad1",
+    "66a51d4b1ba427a481be5eda",
+    "6679d73b94c2dcb530d27acd"
   ]
 },
 {
@@ -36,7 +55,8 @@
   "followers": [
     "6679d55394c2dcb530d27ab4",
     "6679d4ed94c2dcb530d27ab1",
-    "66a0078e5d4476858b221d61"
+    "66a0078e5d4476858b221d61",
+    "6679d64194c2dcb530d27abf"
   ],
   "following": [
     "6679d68e94c2dcb530d27ac8"
@@ -46,6 +66,11 @@
   ],
   "likedVideoIds": [
     "6679d77794c2dcb530d27ad7"
+  ],
+  "__v": 1,
+  "dislikedVideoIds": [],
+  "watchHistory": [
+    "67142ceb6dc3c1e742e2e2da"
   ]
 },
 {
@@ -171,7 +196,9 @@
   },
   "country": "Israel",
   "profilePhoto": "/users/1723399187560.jpeg",
-  "followers": [],
+  "followers": [
+    "6679d64194c2dcb530d27abf"
+  ],
   "following": [
     "66a00fe25eb41cdf1ee924b2",
     "6679d65e94c2dcb530d27ac3",
