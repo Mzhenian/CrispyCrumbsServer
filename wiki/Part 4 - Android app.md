@@ -25,9 +25,9 @@ First see your uploaded videos in `Profile` in the side menu.
 Here you can press the edit icon on any video to edit it.
 ![edit video1](assets/editvideo1.png)
 Now you can change any detail you like and update or to delete the video from the community database.
-![edit video2](assets/editvideo2.png)
+![watch video2](assets/watchvideo2.png)
 ## Watch video
 You can  find a crispy video in many parts of the app, like the home page suggestions, a free search, in every uploading user profile page and even from the video player page.
 ![edit video1](assets/editvideo1.png)
 After clicking a desired video you will get to the video player page where you can watch it, interact with it like by liking and commenting, and find the next video to watch from a personal recommendation.  
-![edit video2](assets/editvideo2.png)
+![watch video2](assets/watchvideo2.png)
