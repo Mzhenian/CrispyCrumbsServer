@@ -42,7 +42,8 @@ graph TD;
 
 - Clone the repository from GitHub: [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer)
   ```bash
-  git clone https://github.com/Mzhenian/CrispyCrumbsServer.git
+  git clone https://
+.com/Mzhenian/CrispyCrumbsServer.git
   ```
 
 ### 1.3 Initialization Option One: Easy & Fast Script
@@ -178,7 +179,7 @@ The NodeJS running
 - Clone or download the latest [CrispyCrumbs Android](https://github.com/Mzhenian/CrispyCrumbsAndroid) repository [complete branch](https://github.com/Mzhenian/CrispyCrumbsAndroid/branches/all?query=complete) .
 - Open the project in Android Studio.
 - In it from one of the menus marked below, choose on which device to run the app. Either connect your physical device via USB or Wi-Fi. (Make sure debugging is enabled in developer options.) Or use an emulator.
-- ![choose device](assets/choosedevice.png)
+- ![choose device](photos/androidchoosedevice.png)
 - then click "Run".
 
 ### 4.3 Setting the Server IP in the App
