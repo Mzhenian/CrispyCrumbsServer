@@ -1,3 +1,5 @@
+The full project wiki is in the wiki folder.
+
 # Crispy Crumbs: NodeJS server with MongoDB database
 
 Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS integrated with MongoDB to provide a robust backend for the Crispy Crumbs video sharing platform.
@@ -23,15 +25,22 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 - Download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) zip and extract it.
 - **Or** [clone](https://github.com/Mzhenian/CrispyCrumbsServer.git) the repository.
 
-### Initialization Option One: Easy & Fast Script
+### 1.3 Initialization Option One: Easy & Fast Script
 
-**Note:** If you're interested in using the website quickly, you can run only the CrispyCrumbs website initialization script, which will also initialize the server without updating the JWT secret.
+**Note:** If you're interested in using the website quickly, you can run only the CrispyCrumbs website initialization script, which will also initialize the server (without updating the JWT secret).
 
 1. Open a command prompt in the `CrispyCrumbsServer` project folder.
-2. Run: `.\init_server.cmd`
-3. You can update the CrispyCrumbs server JWT secret if prompted (it's a password that doesn't need to be remembered, only replaced when necessary).
+2. Run the initialization script:
 
-- After initialization, use `npm start` to start the server.
+   ```
+   .\init_server.cmd
+   ```
+
+3. You may update the JWT secret if prompted.
+
+- In the future, to start the server without modifying the config files and database, run `npm start` to start the server.
+
+- The script accept the flag `-force` to restart the server.
 
 ### Initialization Option Two: Manually
 
