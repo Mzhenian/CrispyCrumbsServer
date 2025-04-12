@@ -3,6 +3,7 @@ const Video = require("../models/videosModel");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const config = require("../config/config");
+const bcrypt = require("bcrypt");
 
 // Signup
 exports.signup = async (req, res) => {
@@ -10,10 +11,12 @@ exports.signup = async (req, res) => {
   const profilePhoto = req.file ? req.file.path : null;
 
   try {
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 = salt rounds
+
     const newUser = new User({
       userName,
       email,
-      password,
+      password: hashedPassword,
       fullName,
       phoneNumber,
       birthday,
@@ -34,9 +37,15 @@ exports.signup = async (req, res) => {
 //Login
 exports.login = async (req, res) => {
   const { userName, password, rememberMe } = req.body;
+
   try {
     const user = await User.findOne({ userName });
-    if (!user || user.password !== password) {
+    if (!user) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
@@ -90,7 +99,6 @@ exports.isUsernameAvailable = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-
 };
 
 // Check if email is available
@@ -102,7 +110,6 @@ exports.isEmailAvailable = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-
 };
 
 // Get user details
@@ -162,13 +169,18 @@ exports.updateUser = async (req, res) => {
   const { id } = req.params;
   const updateData = { ...req.body };
 
-  if (req.file) {
-    updateData.profilePhoto = `/${req.file.path.split("\\").slice(1).join("/")}`;
-  }
-
   try {
-    if (!updateData.password) {
-      // biome-ignore lint/performance/noDelete: <explanation>
+    // Handle profile photo update
+    if (req.file) {
+      updateData.profilePhoto = `/${req.file.path.split("\\").slice(1).join("/")}`;
+    }
+
+    // Encrypt password if provided
+    if (updateData.password) {
+      const hashedPassword = await bcrypt.hash(updateData.password, 10); // Salt rounds = 10
+      updateData.password = hashedPassword;
+    } else {
+      // If no password provided, ensure we don't accidentally overwrite it
       delete updateData.password;
     }
 
@@ -176,6 +188,7 @@ exports.updateUser = async (req, res) => {
     if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
     }
+
     res.status(200).json(updatedUser);
   } catch (error) {
     res.status(500).json({ error: error.message });

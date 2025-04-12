@@ -4,7 +4,7 @@
   },
   "userName": "Tuna",
   "email": "tuna@example.com",
-  "password": "password6",
+  "password": "$2b$10$eTemtbV.nAjU59sGTqwbmutDTBheQw4koC2ovsfg1YX73xKuxkMU2",
   "fullName": "Tuna",
   "phoneNumber": "555-555-5556",
   "birthday": "1995-11-14T21:00:00.000+00:00",
@@ -19,7 +19,11 @@
   "videosIds": [
     "6679d76094c2dcb530d27ad3",
     "6679d78c94c2dcb530d27adb"
-  ]
+  ],
+  "__v": 1,
+  "dislikedVideoIds": [],
+  "likedVideoIds": [],
+  "watchHistory": []
 },
 {
   "_id": {
@@ -27,7 +31,7 @@
   },
   "userName": "Dolev Menajem",
   "email": "meni.mamthera@example.com",
-  "password": "password3",
+  "password": "$2b$10$01XLz0XA7Fxs3Z3gD.QlvuqhN8D0s9U1NBUBlz9A9z7poY/VlHASu",
   "fullName": "Dolev Menajem",
   "phoneNumber": "555-555-5553",
   "birthday": "1998-09-20T21:00:00.000+00:00",
@@ -46,7 +50,10 @@
   ],
   "likedVideoIds": [
     "6679d77794c2dcb530d27ad7"
-  ]
+  ],
+  "__v": 1,
+  "dislikedVideoIds": [],
+  "watchHistory": []
 },
 {
   "_id": {
@@ -54,7 +61,7 @@
   },
   "userName": "DemitriMartin",
   "email": "demitri.martin@example.com",
-  "password": "password9",
+  "password": "$2b$10$kuob7Og.zuDgaJY.ywQkyuNh9R6qmDprsML3zV4QHsTL5kThfAYJS",
   "fullName": "Demitri Martin",
   "phoneNumber": "555-555-5559",
   "birthday": "1973-07-05T21:00:00.000+00:00",
@@ -71,7 +78,10 @@
     "6679d77794c2dcb530d27ad7",
     "6679d76094c2dcb530d27ad3"
   ],
-  "followers": []
+  "followers": [],
+  "__v": 1,
+  "dislikedVideoIds": [],
+  "watchHistory": []
 },
 {
   "_id": {
@@ -79,7 +89,7 @@
   },
   "userName": "ArnoldSchwarzenegger",
   "email": "arnold.schwarzenegger@example.com",
-  "password": "password8",
+  "password": "$2b$10$MtdPN6RVWQtEmIGp4j7FcOS3VbxaC6l/WpjgoFsrzhxcXwgcvFgzq",
   "fullName": "Arnold Schwarzenegger",
   "phoneNumber": "555-555-5558",
   "birthday": {
@@ -98,7 +108,11 @@
   ],
   "videosIds": [
     "6679d77794c2dcb530d27ad7"
-  ]
+  ],
+  "__v": 1,
+  "dislikedVideoIds": [],
+  "likedVideoIds": [],
+  "watchHistory": []
 },
 {
   "_id": {
@@ -106,7 +120,7 @@
   },
   "userName": "OriLevi",
   "email": "ori.levi@example.com",
-  "password": "password5",
+  "password": "$2b$10$KvbLtl8x5dr6QoKiGVKlq.LRaZhXfcW5m6p5S7uZVKmkEckYLTHHu",
   "fullName": "Ori Levi",
   "phoneNumber": "2001-12-17T21:00:00.000+00:00",
   "birthday": "1988-12-01T22:00:00.000+00:00",
@@ -126,7 +140,10 @@
     "6679d72d94c2dcb530d27acb",
     "66950f2c35110487cdaf6229",
     "6679d78c94c2dcb530d27adb"
-  ]
+  ],
+  "__v": 1,
+  "dislikedVideoIds": [],
+  "watchHistory": []
 },
 {
   "_id": {
@@ -134,7 +151,7 @@
   },
   "userName": "כאן תאגיד השידור הישראלי",
   "email": "kan@gmail.com",
-  "password": "password2",
+  "password": "$2b$10$SFs2sT9.BkTlxPKvwowXzeY0ZKEzb80lmx6ylhaWTu6PZMqhFMhJu",
   "fullName": "כאן",
   "phoneNumber": "050-111-1111",
   "birthday": {
@@ -155,7 +172,8 @@
   ],
   "likedVideoIds": [],
   "dislikedVideoIds": [],
-  "__v": 1
+  "__v": 2,
+  "watchHistory": []
 },
 {
   "_id": {
@@ -163,7 +181,7 @@
   },
   "userName": "Ofek Avan Danan",
   "email": "ofekavandanan@example.com",
-  "password": "password17",
+  "password": "$2b$10$bLMKcKXAGnjLxtUjvF0qy.sjb3juBzOFjdJ13n5wAoup39owt/f96",
   "fullName": "Ofek Avan Danan",
   "phoneNumber": "0526654002",
   "birthday": {
@@ -183,7 +201,8 @@
   ],
   "likedVideoIds": [],
   "dislikedVideoIds": [],
-  "__v": 2
+  "__v": 3,
+  "watchHistory": []
 },
 {
   "_id": {
@@ -191,7 +210,7 @@
   },
   "userName": "Zohar Mzhen",
   "email": "zoharmzhen@example.com",
-  "password": "password7",
+  "password": "$2b$10$fcsxkRBWZvmhNdiZNMRbuePw.R1eEi1w2m1cRRWDIyIxiC2G5.Re6",
   "fullName": "Jon Smith",
   "phoneNumber": "555-555-5557",
   "birthday": "1983-04-20T21:00:00.000+00:00",
@@ -207,7 +226,11 @@
   ],
   "videosIds": [
     "6679d76c94c2dcb530d27ad5"
-  ]
+  ],
+  "__v": 1,
+  "dislikedVideoIds": [],
+  "likedVideoIds": [],
+  "watchHistory": []
 },
 {
   "_id": {
@@ -215,7 +238,7 @@
   },
   "userName": "BeriTzakala",
   "email": "beri.tzakala@example.com",
-  "password": "password4",
+  "password": "$2b$10$MDN.xiQTNgvPYiy6603EG.xWFiTGJw5dNIaUY4utdJy1y8TQC.Wnm",
   "fullName": "Beri Tzakala",
   "phoneNumber": "555-555-5554",
   "birthday": "1992-03-10T21:00:00.000+00:00",
@@ -232,7 +255,10 @@
   ],
   "likedVideoIds": [
     "6679d72d94c2dcb530d27acb"
-  ]
+  ],
+  "__v": 1,
+  "dislikedVideoIds": [],
+  "watchHistory": []
 },
 {
   "_id": {
@@ -240,7 +266,7 @@
   },
   "userName": "Israel Israeli",
   "email": "israel.israeli@example.com",
-  "password": "password1",
+  "password": "$2b$10$VG5v0N3CTxQbFkU4rSfAleh/QIztfTKxCTBGTZnMe31ir.5ksfd12",
   "fullName": "Israel Israeli",
   "phoneNumber": "555-555-5551",
   "birthday": {
@@ -263,5 +289,6 @@
   ],
   "likedVideoIds": [],
   "dislikedVideoIds": [],
-  "__v": 7
+  "__v": 8,
+  "watchHistory": []
 }]
