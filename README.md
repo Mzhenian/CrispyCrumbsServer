@@ -18,22 +18,29 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 - Node.js
 - MongoDB
   - By default, CrispyCrumbs will use the "CrispyCrumbs" database in "mongodb://localhost:27017/CrispyCrumbs" connection **and will overwrite anything in it**.
-- **TCP Recommendation Server**: The TCP server is necessary for video recommendations. Activate the [C++ TCP Server](https://github.com/Mzhenian/CrispyCrumbsTCP) according to the instructions provided in the repository before starting the Node.js server. Without it, the server will display random videos in the suggested videos section.
+- **C++ Recommendations Server**: provide video recommendations tailored for each user. Activate the [C++ TCP Recommendations Server](https://github.com/Mzhenian/CrispyCrumbsTCP) according to the instructions provided in the repository before starting the Node.js server. Without it, the server will display random videos in the suggested videos section.
 
 ### Download
 
-- Download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) and unzip it.
+- Download [CrispyCrumbsServer](https://github.com/Mzhenian/CrispyCrumbsServer) zip and extract it.
 - **Or** [clone](https://github.com/Mzhenian/CrispyCrumbsServer.git) the repository.
 
-### Initialization Option One: Easy & Fast Script
+### 1.3 Initialization Option One: Easy & Fast Script
 
-**Note:** If you're interested in using the website quickly, you can run the CrispyCrumbs website initialization script, which will also initialize the server without updating the JWT secret.
+**Note:** If you're interested in using the website quickly, you can run only the CrispyCrumbs website initialization script, which will also initialize the server (without updating the JWT secret).
 
 1. Open a command prompt in the `CrispyCrumbsServer` project folder.
-2. Run: `.\init_server.cmd`
-3. You can update the CrispyCrumbs server JWT secret if prompted (it's a password that doesn't need to be remembered, only replaced when necessary).
+2. Run the initialization script:
 
-- After initialization, use `npm start` to start the server.
+   ```
+   .\init_server.cmd
+   ```
+
+3. You may update the JWT secret if prompted.
+
+- In the future, to start the server without modifying the config files and database, run `npm start` to start the server.
+
+- The script accept the flag `-force` to restart the server.
 
 ### Initialization Option Two: Manually
 
@@ -54,19 +61,16 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 1. Open MongoDB Compass.
 2. Connect to the URI `mongodb://localhost:27017/CrispyCrumbs`.
 3. Open or create a database named `CrispyCrumbs`.
-4. Open or create two collections: `users` and `videos`. Now it should look like this:
-   ![MongoDB Collections](.\demonstration\mongodb-collections.png)
+4. Open or create two collections: `users` and `videos`.
 5. Ensure `users` and `videos` are empty.
-   ![MongoDB Empty](.\demonstration\mongodb-empty.png)
 6. In `users`, select `ADD DATA > IMPORT JSON OR CSV FILE`.
-   ![Add Data](.\demonstration\mongodb-add.png)
 7. Choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.users.json`.
 8. In `videos`, select `ADD DATA > IMPORT JSON OR CSV FILE` and choose `CrispyCrumbsServer\FilesForMongoDB\CrispyCrumbs.videos.json`.
 9. Go to the `indexes` tab and create the following indexes:
    a. On fields `title` and `description` of type `text`;
    b. On field `title` of type `1 (asc)`;
    c. On field `tags` of type `1 (asc)`.
-   ![Create Index](.\demonstration\mongodb-create_index.png)
+   as such: a ![a](./demonstration/mongodb-create_index.png) b ![a](./demonstration/mongodb-create_index2.png) c ![a](./demonstration/mongodb-create_index3.png)
 
 #### The Server
 
@@ -74,7 +78,6 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 2. Run `npm install`.
 3. **Activate the C++ TCP server according to the instructions on the repository.** This is necessary for video recommendations.
 4. Run `node server.js`. Now the server should be running!
-   ![Server Running](.\demonstration\server-running.png)
 
 ## Running the Crispy Crumbs Frontend
 
@@ -92,10 +95,10 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 
 ```mermaid
 graph TD;
-    NodeJS server - Backend -->React - Frontend;
-    NodeJS server - Backend-->Android App - Frontend;
-    NodeJS server - Backend-->TCP Server - Backend;
-    NodeJS server - Backend-->MongoDB;
+    NodeJS_Server["NodeJS Server - Backend"] <--> React_Web["React Frontend"];
+    NodeJS_Server <--> Android_App["Android App - Frontend"];
+    NodeJS_Server <--> TCP_Server["C++ Recommendation Server - Backend"];
+    NodeJS_Server <--> MongoDB["MongoDB Database"];
 ```
 
 ## Public Routes Overview
@@ -169,6 +172,7 @@ graph TD;
     - Function: `isEmailAvailable`
     - Description: Checks if an email is available.
 
+
 ### Video Routes
 
 - **Get All Videos**
@@ -208,15 +212,11 @@ graph TD;
     - Function: `deleteComment`
     - Description: Deletes a comment. Requires authentication and user verification.
 
-- **Increment Video Views**
-  - `POST /views`
-  - Function: `incrementViews`
-  - Description: Increments video views, updates user watch history, and sends the update to the recommendation server.
-
 - **Get Video Recommendations**
   - `GET /:videoId/recommendations`
   - Function: `getRecommendations`
   - Description: Retrieves recommended videos based on watch history and video popularity. Requires the TCP server to be running for full functionality.
+
 
 ### Miscellaneous
 
@@ -237,4 +237,4 @@ graph TD;
 
 Our project was a collaborative effort. We initially met to plan and divided tasks using Jira. The journey was both educational and enjoyable.
 
-  [Jira Missions](https://crispycrumbs.atlassian.net/jira/software/projects/SCRUM/list?sortBy=customfield_10020&direction=ASC)
+  [Jira project](https://crispycrumbs.atlassian.net/jira/software/projects/SCRUM/list?sortBy=customfield_10020&direction=ASC)
