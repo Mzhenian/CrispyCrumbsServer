@@ -1,3 +1,5 @@
+The full project wiki is in the wiki folder.
+
 # Crispy Crumbs: NodeJS server with MongoDB database
 
 Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS integrated with MongoDB to provide a robust backend for the Crispy Crumbs video sharing platform.

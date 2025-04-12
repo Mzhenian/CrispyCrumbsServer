@@ -7,7 +7,7 @@
   "title": "שניצלים וצ'יפס ב- 80 שקל",
   "description": "מישהו מתלונן על דייט בו האישה הזמינה שניצלים וצ'יפס ב- 80 שקל כשהוא הציע לה לשתות קפה כי ככה נהוג.",
   "userId": "66a51cbd1ba427a481be5da7",
-  "views": 2,
+  "views": 12,
   "likes": 0,
   "dislikes": 0,
   "tags": [
@@ -36,7 +36,7 @@
   ],
   "likedBy": [],
   "dislikedBy": [],
-  "__v": 1
+  "__v": 3
 },
 {
   "_id": {
@@ -47,7 +47,7 @@
   "title": "כאן סקרנים איך נולד השניצל הישראלי",
   "description": "סרטון מעניין על עלייתו של השניצל הישראלי לחך של כולנו",
   "userId": "66a00fe25eb41cdf1ee924b2",
-  "views": 19,
+  "views": 24,
   "likes": 0,
   "dislikes": 0,
   "tags": [
@@ -79,7 +79,7 @@
   ],
   "likedBy": [],
   "dislikedBy": [],
-  "__v": 3
+  "__v": 7
 },
 {
   "_id": {
@@ -90,7 +90,7 @@
   "title": "שניצל זה טעים. (אנימציה)",
   "description": "שניצל זה טעים. (אנימציה) - סרטון קצר שמסביר בצורה משעשעת למה שניצל הוא המאכל האהוב על כולם.",
   "userId": "6679d64194c2dcb530d27abf",
-  "views": 60007,
+  "views": 60012,
   "likes": 3,
   "dislikes": 1,
   "tags": [
@@ -111,17 +111,6 @@
       "comment": "Catchy tune!",
       "date": {
         "$date": "2023-06-24T19:00:00.000Z"
-      }
-    },
-    {
-      "commentId": "1721407133385",
-      "userId": "6679d4ed94c2dcb530d27ab1",
-      "comment": "ferferf",
-      "date": {
-        "$date": "2024-07-19T16:38:53.379Z"
-      },
-      "_id": {
-        "$oid": "669a969d4ae3c14eab4c6f09"
       }
     }
   ],
@@ -144,7 +133,7 @@
   "title": "שניצל ביסלי כשר לפסח הכי טעים אבר #לאיודעת חלק 5",
   "description": "שניצל ביסלי כשר לפסח הכי טעים אי פעם! בסרטון זה אנו בוחנים את הטעמים המיוחדים של השניצל.",
   "userId": "6679d68e94c2dcb530d27ac8",
-  "views": 40006,
+  "views": 40007,
   "likes": 2,
   "dislikes": 1,
   "tags": [
@@ -187,7 +176,7 @@
   "title": "טירוף השניצל בחלה _ איפה הכי טעים, מה המחירים ומי המנצח במדד הקריספיות",
   "description": "טירוף השניצל בחלה. איפה הכי טעים? מה המחירים? ומי המנצח במדד הקריספיות? כל התשובות בסרטון הזה.",
   "userId": "6679d56294c2dcb530d27ab6",
-  "views": 30016,
+  "views": 30019,
   "likes": 3,
   "dislikes": 1,
   "tags": [
@@ -247,7 +236,7 @@
   "title": "Schnitzel",
   "description": "Schnitzel - A delightful dish that everyone loves. Watch as we dive into the making of this crispy treat.",
   "userId": "6679d63794c2dcb530d27abd",
-  "views": 50016,
+  "views": 50018,
   "likes": 3,
   "dislikes": 1,
   "tags": [
@@ -290,7 +279,7 @@
   "title": "0_Tuna-Shnitzels",
   "description": "Shnitzels by Tuna. An interesting take on the classic schnitzel with a musical twist.",
   "userId": "6679d64194c2dcb530d27abf",
-  "views": 70003,
+  "views": 70007,
   "likes": 3,
   "dislikes": 1,
   "tags": [
@@ -336,7 +325,7 @@
   "title": "כנפיי גלידת שניצל",
   "description": "מתכון מגניב על כנפי עוף מטוגנות רק במקום עוף זה גלידה!!\r\nמזכיר את הבאקטים של KFC",
   "userId": "66a51cbd1ba427a481be5da7",
-  "views": 13,
+  "views": 23,
   "likes": 0,
   "dislikes": 0,
   "tags": [
@@ -406,7 +395,7 @@
   "title": "טיפ השבוע - איך לטגן שניצל מושלם",
   "description": "טיפ השבוע - איך לטגן שניצל מושלם. כל מה שצריך לדעת על טיגון שניצל מושלם.",
   "userId": "6679d65e94c2dcb530d27ac3",
-  "views": 80022,
+  "views": 80029,
   "likes": 3,
   "dislikes": 2,
   "tags": [
@@ -423,17 +412,6 @@
     "$date": "2023-08-23T22:00:00.000Z"
   },
   "comments": [
-    {
-      "_id": {
-        "$oid": "66a64b806594abee44e3b083"
-      },
-      "commentId": "1",
-      "userId": "6679d4ed94c2dcb530d27ab1",
-      "comment": "Thanks for the tips!",
-      "date": {
-        "$date": "2023-08-24T23:00:00.000Z"
-      }
-    },
     {
       "commentId": "66a64c5124de81055e2c5547",
       "userId": "66a0078e5d4476858b221d61",
@@ -465,7 +443,7 @@
     "6679d56294c2dcb530d27ab6",
     "6679d4ed94c2dcb530d27ab1"
   ],
-  "__v": 21
+  "__v": 23
 },
 {
   "_id": {
@@ -476,8 +454,8 @@
   "title": "שניצל",
   "description": "שניצל - סרטון אנימציה משעשע שמציג את סיפור השניצל בצורה יצירתית.",
   "userId": "6679d66f94c2dcb530d27ac5",
-  "views": 90025,
-  "likes": 3,
+  "views": 90046,
+  "likes": 4,
   "dislikes": 1,
   "tags": [
     "Animation",
@@ -494,37 +472,27 @@
   },
   "comments": [
     {
-      "commentId": "1721408351783",
-      "userId": "6679d4ed94c2dcb530d27ab1",
-      "comment": "htrhrth",
+      "commentId": "67138c6535dc417b99504f02",
+      "userId": "6679d64194c2dcb530d27abf",
+      "comment": "cool video!",
       "date": {
-        "$date": "2024-07-19T16:59:11.776Z"
+        "$date": "2024-10-19T10:39:34.375Z"
       },
       "_id": {
-        "$oid": "669a9b5fe8f856ac3b6de294"
-      }
-    },
-    {
-      "commentId": "669f61f9b10ea625ad11b639",
-      "userId": "6679d4ed94c2dcb530d27ab1",
-      "comment": "fff",
-      "date": {
-        "$date": "2024-07-23T07:55:37.035Z"
-      },
-      "_id": {
-        "$oid": "669f61f9b10ea625ad11b63a"
+        "$oid": "67138c6535dc417b99504f03"
       }
     }
   ],
   "likedBy": [
     "6679d55394c2dcb530d27ab4",
     "6679d55394c2dcb530d27ab4",
-    "6679d4ed94c2dcb530d27ab1"
+    "6679d4ed94c2dcb530d27ab1",
+    "6679d64194c2dcb530d27abf"
   ],
   "dislikedBy": [
     "6679d56294c2dcb530d27ab6"
   ],
-  "__v": 6
+  "__v": 44
 },
 {
   "_id": {
@@ -535,7 +503,7 @@
   "title": "פרק 1- שניצל מושלם",
   "description": "פרק 1- שניצל מושלם. בסדרה זו נלמד כיצד להכין את השניצל המושלם שלב אחר שלב.",
   "userId": "6679d65094c2dcb530d27ac1",
-  "views": 70014,
+  "views": 70015,
   "likes": 4,
   "dislikes": 1,
   "tags": [
@@ -560,17 +528,6 @@
       "comment": "Can't wait to try this recipe!",
       "date": {
         "$date": "2023-07-24T21:00:00.000Z"
-      }
-    },
-    {
-      "commentId": "669f62f7c15a35b54caa6d6f",
-      "userId": "6679d4ed94c2dcb530d27ab1",
-      "comment": "יי",
-      "date": {
-        "$date": "2024-07-23T07:59:51.152Z"
-      },
-      "_id": {
-        "$oid": "669f62f7c15a35b54caa6d70"
       }
     },
     {
