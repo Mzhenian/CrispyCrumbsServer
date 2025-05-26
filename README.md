@@ -6,9 +6,9 @@ Welcome to the **Crispy Crumbs** backend. This server is built using NodeJS inte
 
 ## Crispy Crumbs - Founders
 
-- Ofek Avan Danan (211824727)
-- Zohar Mzhen (314621806)
-- Dolev Menajem (207272220)
+- Ofek Avan Danan
+- Zohar Mzhen
+- Dolev Menajem
 
 ## Running the Crispy Crumbs Server
 
